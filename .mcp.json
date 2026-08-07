@@ -1,0 +1,7 @@
+{
+  "mcpServers": {
+    "diagrams-mcp": {
+      "url": "https://diagrams-mcp-production.up.railway.app/mcp"
+    }
+  }
+}

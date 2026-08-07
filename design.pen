@@ -1,0 +1,2753 @@
+{
+  "version": "2.15",
+  "children": [
+    {
+      "type": "frame",
+      "id": "uWJG4",
+      "x": 0,
+      "y": 0,
+      "name": "Hanz Logistics — Landing Page",
+      "clip": true,
+      "width": 1440,
+      "height": 4864,
+      "fill": "$paper",
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "e6hlSz",
+          "name": "Hero",
+          "clip": true,
+          "width": "fill_container",
+          "height": 900,
+          "fill": "$navy-deep",
+          "layout": "none",
+          "children": [
+            {
+              "type": "rectangle",
+              "id": "WuY3W",
+              "x": 0,
+              "y": 0,
+              "name": "Aerial Cargo Image",
+              "metadata": {
+                "type": "unsplash",
+                "username": "solutionrong",
+                "link": "https://unsplash.com/@solutionrong",
+                "author": "Ye R"
+              },
+              "fill": {
+                "type": "image",
+                "enabled": true,
+                "url": "https://images.unsplash.com/photo-1572017235244-8f2c23b76559?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3ODU2MjkwMjZ8&ixlib=rb-4.1.0&q=80&w=1080",
+                "mode": "fill"
+              },
+              "width": 1440,
+              "height": 900
+            },
+            {
+              "type": "rectangle",
+              "id": "jEvsg",
+              "x": 0,
+              "y": 0,
+              "name": "Hero Tonal Overlay",
+              "fill": {
+                "type": "gradient",
+                "gradientType": "linear",
+                "enabled": true,
+                "rotation": 90,
+                "size": {
+                  "height": 1
+                },
+                "colors": [
+                  {
+                    "color": "#10243BF5",
+                    "position": 0
+                  },
+                  {
+                    "color": "#10243BC4",
+                    "position": 0.52
+                  },
+                  {
+                    "color": "#10243B33",
+                    "position": 1
+                  }
+                ]
+              },
+              "width": 1440,
+              "height": 900
+            },
+            {
+              "type": "rectangle",
+              "id": "a221D",
+              "x": 0,
+              "y": 0,
+              "name": "Animated Plane Landing",
+              "fill": {
+                "type": "shader",
+                "opacity": 0.92,
+                "enabled": true,
+                "url": "airplane-landing.glsl"
+              },
+              "width": 1440,
+              "height": 900
+            },
+            {
+              "type": "rectangle",
+              "id": "xmaVg",
+              "x": 96,
+              "y": 0,
+              "name": "Vertical Grid Line 1",
+              "fill": "#FFFFFF20",
+              "width": 1,
+              "height": 900
+            },
+            {
+              "type": "rectangle",
+              "id": "tlGb0",
+              "x": 720,
+              "y": 0,
+              "name": "Vertical Grid Line 2",
+              "fill": "#FFFFFF16",
+              "width": 1,
+              "height": 900
+            },
+            {
+              "type": "frame",
+              "id": "G1pn5",
+              "x": 96,
+              "y": 34,
+              "name": "Navigation",
+              "width": 1248,
+              "height": 70,
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "rectangle",
+                  "id": "s1koUK",
+                  "name": "Header Logo — Exact Artwork",
+                  "fill": {
+                    "type": "image",
+                    "enabled": true,
+                    "url": "assets/hanz-logistics-logo.png",
+                    "mode": "fit"
+                  },
+                  "width": 285,
+                  "height": 40
+                },
+                {
+                  "type": "frame",
+                  "id": "Z7y8J",
+                  "name": "Navigation Links",
+                  "gap": 34,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "rKJGo",
+                      "name": "Capabilities",
+                      "fill": "#FFFFFFCC",
+                      "content": "Capabilities",
+                      "fontFamily": "$font-body",
+                      "fontSize": 14,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "text",
+                      "id": "oddS4",
+                      "name": "Industries",
+                      "fill": "#FFFFFFCC",
+                      "content": "Industries",
+                      "fontFamily": "$font-body",
+                      "fontSize": 14,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "text",
+                      "id": "QDA3Y",
+                      "name": "Why Hanz",
+                      "fill": "#FFFFFFCC",
+                      "content": "Why Hanz",
+                      "fontFamily": "$font-body",
+                      "fontSize": 14,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "text",
+                      "id": "QfJRH",
+                      "name": "About",
+                      "fill": "#FFFFFFCC",
+                      "content": "About",
+                      "fontFamily": "$font-body",
+                      "fontSize": 14,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "M2DEH",
+                      "name": "Request a Quote Button",
+                      "fill": "$orange",
+                      "cornerRadius": 4,
+                      "padding": [
+                        14,
+                        20
+                      ],
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "ZPThv",
+                          "name": "Request a Quote",
+                          "fill": "$white",
+                          "content": "REQUEST A QUOTE",
+                          "fontFamily": "$font-mono",
+                          "fontSize": 12,
+                          "fontWeight": "700",
+                          "letterSpacing": 1.2
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "otRnv",
+              "x": 96,
+              "y": 210,
+              "name": "Hero Content",
+              "width": 760,
+              "layout": "vertical",
+              "gap": 28,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "xo8xJ",
+                  "name": "Hero Eyebrow",
+                  "gap": 12,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "ellipse",
+                      "id": "kXBFS",
+                      "name": "Orange Status Dot",
+                      "fill": "$orange",
+                      "width": 8,
+                      "height": 8
+                    },
+                    {
+                      "type": "text",
+                      "id": "k9CE6",
+                      "name": "Hero Eyebrow Text",
+                      "fill": "#FFFFFFCC",
+                      "content": "PITTSBURGH-BASED • WORLDWIDE REACH",
+                      "fontFamily": "$font-mono",
+                      "fontSize": 12,
+                      "fontWeight": "600",
+                      "letterSpacing": 1.5
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "AY4AJ",
+                  "name": "Hero Headline",
+                  "fill": "$white",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Air freight for cargo that cannot afford to be delayed.",
+                  "lineHeight": 1.02,
+                  "fontFamily": "$font-heading",
+                  "fontSize": 68,
+                  "fontWeight": "700",
+                  "letterSpacing": -1.5
+                },
+                {
+                  "type": "text",
+                  "id": "e6KQOH",
+                  "name": "Hero Description",
+                  "fill": "#FFFFFFD9",
+                  "textGrowth": "fixed-width",
+                  "width": 650,
+                  "content": "Documented before it moves. Tracked while it does. Accounted for when it lands.",
+                  "lineHeight": 1.5,
+                  "fontFamily": "$font-body",
+                  "fontSize": 20,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "UbB9U",
+                  "name": "Hero Actions",
+                  "gap": 16,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "yY1PA",
+                      "name": "Start a Shipment",
+                      "fill": "$orange",
+                      "cornerRadius": 4,
+                      "gap": 12,
+                      "padding": [
+                        17,
+                        24
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "YLQqt",
+                          "name": "Start a Shipment Text",
+                          "fill": "$white",
+                          "content": "START A SHIPMENT",
+                          "fontFamily": "$font-mono",
+                          "fontSize": 13,
+                          "fontWeight": "700",
+                          "letterSpacing": 1
+                        },
+                        {
+                          "type": "icon",
+                          "id": "Tt6XC",
+                          "name": "Arrow Right",
+                          "width": 18,
+                          "height": 18,
+                          "icon": "arrow-up-right",
+                          "library": "lucide",
+                          "fill": "$white"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "gNGpK",
+                      "name": "Talk to Operations",
+                      "cornerRadius": 4,
+                      "stroke": "#FFFFFF66",
+                      "strokeWidth": 1,
+                      "padding": [
+                        16,
+                        24
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "vbOGq",
+                          "name": "Talk to Operations Text",
+                          "fill": "$white",
+                          "content": "TALK TO OPERATIONS",
+                          "fontFamily": "$font-mono",
+                          "fontSize": 13,
+                          "fontWeight": "600",
+                          "letterSpacing": 1
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "zP5Zk",
+              "x": 96,
+              "y": 787,
+              "name": "Hero Proof Bar",
+              "width": 1248,
+              "height": 72,
+              "stroke": "#FFFFFF33",
+              "strokeWidth": {
+                "top": 1
+              },
+              "strokeLinejoin": "round",
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "G50xd",
+                  "name": "AVAILABLE",
+                  "layout": "vertical",
+                  "gap": 7,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "Ox1y4",
+                      "name": "AVAILABLE Label",
+                      "fill": "#FFFFFF80",
+                      "content": "AVAILABLE",
+                      "fontFamily": "$font-mono",
+                      "fontSize": 10,
+                      "fontWeight": "600",
+                      "letterSpacing": 1.4
+                    },
+                    {
+                      "type": "text",
+                      "id": "IPSrQ",
+                      "name": "AVAILABLE Value",
+                      "fill": "$white",
+                      "content": "24 / 7 / 365",
+                      "fontFamily": "$font-heading",
+                      "fontSize": 16,
+                      "fontWeight": "600"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "K5CKBP",
+                  "name": "SERVICE",
+                  "layout": "vertical",
+                  "gap": 7,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "PtZFr",
+                      "name": "SERVICE Label",
+                      "fill": "#FFFFFF80",
+                      "content": "SERVICE",
+                      "fontFamily": "$font-mono",
+                      "fontSize": 10,
+                      "fontWeight": "600",
+                      "letterSpacing": 1.4
+                    },
+                    {
+                      "type": "text",
+                      "id": "MigGu",
+                      "name": "SERVICE Value",
+                      "fill": "$white",
+                      "content": "DOMESTIC + GLOBAL",
+                      "fontFamily": "$font-heading",
+                      "fontSize": 16,
+                      "fontWeight": "600"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "IhkfL",
+                  "name": "STANDARD",
+                  "layout": "vertical",
+                  "gap": 7,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "Adn50",
+                      "name": "STANDARD Label",
+                      "fill": "#FFFFFF80",
+                      "content": "STANDARD",
+                      "fontFamily": "$font-mono",
+                      "fontSize": 10,
+                      "fontWeight": "600",
+                      "letterSpacing": 1.4
+                    },
+                    {
+                      "type": "text",
+                      "id": "S8CviQ",
+                      "name": "STANDARD Value",
+                      "fill": "$white",
+                      "content": "CHAIN-OF-CUSTODY",
+                      "fontFamily": "$font-heading",
+                      "fontSize": 16,
+                      "fontWeight": "600"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "R1iF2",
+                  "name": "BASE",
+                  "layout": "vertical",
+                  "gap": 7,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "Kz8PM",
+                      "name": "BASE Label",
+                      "fill": "#FFFFFF80",
+                      "content": "BASE",
+                      "fontFamily": "$font-mono",
+                      "fontSize": 10,
+                      "fontWeight": "600",
+                      "letterSpacing": 1.4
+                    },
+                    {
+                      "type": "text",
+                      "id": "e9ifOF",
+                      "name": "BASE Value",
+                      "fill": "$white",
+                      "content": "PIT AIRPORT CORRIDOR",
+                      "fontFamily": "$font-heading",
+                      "fontSize": 16,
+                      "fontWeight": "600"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "f9efDU",
+          "name": "Company Introduction",
+          "width": "fill_container",
+          "height": 700,
+          "fill": "$white",
+          "children": [
+            {
+              "type": "frame",
+              "id": "pcq5n",
+              "name": "Introduction Copy",
+              "width": 780,
+              "height": "fill_container",
+              "layout": "vertical",
+              "gap": 30,
+              "padding": [
+                80,
+                96
+              ],
+              "justifyContent": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "IcRBt",
+                  "name": "Introduction Label",
+                  "gap": 10,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "ellipse",
+                      "id": "L6Wyg",
+                      "name": "Introduction Dot",
+                      "fill": "$orange",
+                      "width": 7,
+                      "height": 7
+                    },
+                    {
+                      "type": "text",
+                      "id": "L0S88",
+                      "name": "Introduction Label Text",
+                      "fill": "$navy-mid",
+                      "content": "MISSION-CRITICAL FORWARDING",
+                      "fontFamily": "$font-mono",
+                      "fontSize": 11,
+                      "fontWeight": "700",
+                      "letterSpacing": 1.5
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "YoYtV",
+                  "name": "Introduction Headline",
+                  "fill": "$ink",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Every shipment moves to one standard: certainty.",
+                  "lineHeight": 1.08,
+                  "fontFamily": "$font-heading",
+                  "fontSize": 48,
+                  "fontWeight": "700",
+                  "letterSpacing": -0.6
+                },
+                {
+                  "type": "text",
+                  "id": "dO4g7",
+                  "name": "Introduction Body",
+                  "fill": "$muted",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Hanz Logistics is an air freight forwarder based in the Pittsburgh International Airport corridor, moving cargo domestically and worldwide. From healthcare and aerospace to robotics and energy, we coordinate shipments of any size with precise documentation and continuous oversight.",
+                  "lineHeight": 1.65,
+                  "fontFamily": "$font-body",
+                  "fontSize": 17,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "lZn3h",
+                  "name": "Our Approach Link",
+                  "gap": 10,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "VdXu5",
+                      "name": "Our Approach Text",
+                      "fill": "$navy",
+                      "content": "HOW WE PROTECT YOUR CARGO",
+                      "fontFamily": "$font-mono",
+                      "fontSize": 12,
+                      "fontWeight": "700",
+                      "letterSpacing": 1.1
+                    },
+                    {
+                      "type": "icon",
+                      "id": "r90yNs",
+                      "name": "Our Approach Arrow",
+                      "width": 17,
+                      "height": 17,
+                      "icon": "arrow-right",
+                      "library": "lucide",
+                      "fill": "$orange"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "JDlpX",
+              "name": "Introduction Visual",
+              "clip": true,
+              "width": "fill_container",
+              "height": "fill_container",
+              "fill": "$navy",
+              "layout": "none",
+              "children": [
+                {
+                  "type": "rectangle",
+                  "id": "lmtcx",
+                  "x": 0,
+                  "y": 0,
+                  "name": "Cargo Operations Image",
+                  "metadata": {
+                    "type": "unsplash",
+                    "username": "kjr_official",
+                    "link": "https://unsplash.com/@kjr_official",
+                    "author": "Kevin Ramos"
+                  },
+                  "fill": {
+                    "type": "image",
+                    "enabled": true,
+                    "url": "https://images.unsplash.com/photo-1663689764765-c665bee4f75d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3ODU2MjkwNzN8&ixlib=rb-4.1.0&q=80&w=1080",
+                    "mode": "fill"
+                  },
+                  "width": 660,
+                  "height": 700
+                },
+                {
+                  "type": "rectangle",
+                  "id": "b1HL2p",
+                  "x": 0,
+                  "y": 0,
+                  "name": "Cargo Image Overlay",
+                  "fill": {
+                    "type": "gradient",
+                    "gradientType": "linear",
+                    "enabled": true,
+                    "rotation": 180,
+                    "size": {
+                      "height": 1
+                    },
+                    "colors": [
+                      {
+                        "color": "#203B5D0D",
+                        "position": 0
+                      },
+                      {
+                        "color": "#10243B99",
+                        "position": 1
+                      }
+                    ]
+                  },
+                  "width": 660,
+                  "height": 700
+                },
+                {
+                  "type": "frame",
+                  "id": "I15VXq",
+                  "x": 40,
+                  "y": 525,
+                  "name": "Visual Note",
+                  "width": 390,
+                  "fill": "#10243BE8",
+                  "stroke": "#FFFFFF26",
+                  "strokeWidth": 1,
+                  "layout": "vertical",
+                  "gap": 8,
+                  "padding": [
+                    18,
+                    20
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "fA5tI",
+                      "name": "Visual Note Label",
+                      "fill": "$orange",
+                      "content": "OPERATIONS STANDARD 01",
+                      "fontFamily": "$font-mono",
+                      "fontSize": 10,
+                      "fontWeight": "700",
+                      "letterSpacing": 1.3
+                    },
+                    {
+                      "type": "text",
+                      "id": "O6Q4tQ",
+                      "name": "Visual Note Text",
+                      "fill": "$white",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "A documented chain of custody from pickup to proof of delivery.",
+                      "lineHeight": 1.45,
+                      "fontFamily": "$font-body",
+                      "fontSize": 15,
+                      "fontWeight": "500"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "HTEPb",
+          "name": "Capabilities",
+          "width": "fill_container",
+          "height": 900,
+          "fill": "$navy-deep",
+          "layout": "vertical",
+          "gap": 58,
+          "padding": [
+            88,
+            96
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "Cjn9x",
+              "name": "Capabilities Header",
+              "width": "fill_container",
+              "justifyContent": "space_between",
+              "alignItems": "end",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "Xdw6k",
+                  "name": "Capabilities Heading Group",
+                  "width": 720,
+                  "layout": "vertical",
+                  "gap": 18,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "wcD7B",
+                      "name": "Capabilities Eyebrow",
+                      "fill": "$orange",
+                      "content": "WHAT WE MOVE",
+                      "fontFamily": "$font-mono",
+                      "fontSize": 11,
+                      "fontWeight": "700",
+                      "letterSpacing": 1.7
+                    },
+                    {
+                      "type": "text",
+                      "id": "TMMmI",
+                      "name": "Capabilities Title",
+                      "fill": "$white",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "A faster path through complex freight.",
+                      "lineHeight": 1.06,
+                      "fontFamily": "$font-heading",
+                      "fontSize": 50,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "eHJhp",
+                  "name": "Capabilities Description",
+                  "fill": "#FFFFFFA6",
+                  "textGrowth": "fixed-width",
+                  "width": 390,
+                  "content": "One operations team coordinates the route, documentation, handling and handoffs—so there are fewer places for critical cargo to stall.",
+                  "lineHeight": 1.55,
+                  "fontFamily": "$font-body",
+                  "fontSize": 16,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "JHzDP",
+              "name": "Capabilities Ledger",
+              "width": "fill_container",
+              "layout": "vertical",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "nbaSa",
+                  "name": "EXPEDITED AIR",
+                  "width": "fill_container",
+                  "height": 122,
+                  "stroke": "#FFFFFF24",
+                  "strokeWidth": {
+                    "top": 1
+                  },
+                  "strokeLinejoin": "round",
+                  "gap": 24,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "ovBiJ",
+                      "name": "EXPEDITED AIR Index",
+                      "fill": "$orange",
+                      "textGrowth": "fixed-width",
+                      "width": 90,
+                      "content": "01",
+                      "fontFamily": "$font-mono",
+                      "fontSize": 14,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "vbJ6T",
+                      "name": "EXPEDITED AIR Icon Box",
+                      "width": 72,
+                      "height": 72,
+                      "cornerRadius": 4,
+                      "stroke": "#FFFFFF35",
+                      "strokeWidth": 1,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "egEwK",
+                          "name": "EXPEDITED AIR Icon",
+                          "width": 28,
+                          "height": 28,
+                          "icon": "plane",
+                          "library": "lucide",
+                          "fill": "$white"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "mJDHE",
+                      "name": "EXPEDITED AIR Title",
+                      "fill": "$white",
+                      "textGrowth": "fixed-width",
+                      "width": 360,
+                      "content": "EXPEDITED AIR",
+                      "fontFamily": "$font-heading",
+                      "fontSize": 25,
+                      "fontWeight": "600",
+                      "letterSpacing": 0.2
+                    },
+                    {
+                      "type": "text",
+                      "id": "x5Zmc",
+                      "name": "EXPEDITED AIR Description",
+                      "fill": "#FFFFFF99",
+                      "textGrowth": "fixed-width",
+                      "width": 520,
+                      "content": "Next-flight-out and time-definite routing for cargo that must keep moving.",
+                      "lineHeight": 1.5,
+                      "fontFamily": "$font-body",
+                      "fontSize": 15,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "icon",
+                      "id": "P6YCE",
+                      "name": "EXPEDITED AIR Arrow",
+                      "width": 22,
+                      "height": 22,
+                      "icon": "arrow-up-right",
+                      "library": "lucide",
+                      "fill": "#FFFFFF99"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "CfNNu",
+                  "name": "CHARTER SOLUTIONS",
+                  "width": "fill_container",
+                  "height": 122,
+                  "stroke": "#FFFFFF24",
+                  "strokeWidth": {
+                    "top": 1
+                  },
+                  "strokeLinejoin": "round",
+                  "gap": 24,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "el4FC",
+                      "name": "CHARTER SOLUTIONS Index",
+                      "fill": "$orange",
+                      "textGrowth": "fixed-width",
+                      "width": 90,
+                      "content": "02",
+                      "fontFamily": "$font-mono",
+                      "fontSize": 14,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "sJM2t",
+                      "name": "CHARTER SOLUTIONS Icon Box",
+                      "width": 72,
+                      "height": 72,
+                      "cornerRadius": 4,
+                      "stroke": "#FFFFFF35",
+                      "strokeWidth": 1,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "NN0IH",
+                          "name": "CHARTER SOLUTIONS Icon",
+                          "width": 28,
+                          "height": 28,
+                          "icon": "navigation",
+                          "library": "lucide",
+                          "fill": "$white"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "uICH9",
+                      "name": "CHARTER SOLUTIONS Title",
+                      "fill": "$white",
+                      "textGrowth": "fixed-width",
+                      "width": 360,
+                      "content": "CHARTER SOLUTIONS",
+                      "fontFamily": "$font-heading",
+                      "fontSize": 25,
+                      "fontWeight": "600",
+                      "letterSpacing": 0.2
+                    },
+                    {
+                      "type": "text",
+                      "id": "zwpAU",
+                      "name": "CHARTER SOLUTIONS Description",
+                      "fill": "#FFFFFF99",
+                      "textGrowth": "fixed-width",
+                      "width": 520,
+                      "content": "Aircraft matched to shipment size, urgency, handling needs and destination.",
+                      "lineHeight": 1.5,
+                      "fontFamily": "$font-body",
+                      "fontSize": 15,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "icon",
+                      "id": "s3J8YZ",
+                      "name": "CHARTER SOLUTIONS Arrow",
+                      "width": 22,
+                      "height": 22,
+                      "icon": "arrow-up-right",
+                      "library": "lucide",
+                      "fill": "#FFFFFF99"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "ZxkvR",
+                  "name": "HAND-CARRY / OBC",
+                  "width": "fill_container",
+                  "height": 122,
+                  "stroke": "#FFFFFF24",
+                  "strokeWidth": {
+                    "top": 1
+                  },
+                  "strokeLinejoin": "round",
+                  "gap": 24,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "VLn0Y",
+                      "name": "HAND-CARRY / OBC Index",
+                      "fill": "$orange",
+                      "textGrowth": "fixed-width",
+                      "width": 90,
+                      "content": "03",
+                      "fontFamily": "$font-mono",
+                      "fontSize": 14,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "lgB2x",
+                      "name": "HAND-CARRY / OBC Icon Box",
+                      "width": 72,
+                      "height": 72,
+                      "cornerRadius": 4,
+                      "stroke": "#FFFFFF35",
+                      "strokeWidth": 1,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "ZKexh",
+                          "name": "HAND-CARRY / OBC Icon",
+                          "width": 28,
+                          "height": 28,
+                          "icon": "briefcase",
+                          "library": "lucide",
+                          "fill": "$white"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "U7gWs",
+                      "name": "HAND-CARRY / OBC Title",
+                      "fill": "$white",
+                      "textGrowth": "fixed-width",
+                      "width": 360,
+                      "content": "HAND-CARRY / OBC",
+                      "fontFamily": "$font-heading",
+                      "fontSize": 25,
+                      "fontWeight": "600",
+                      "letterSpacing": 0.2
+                    },
+                    {
+                      "type": "text",
+                      "id": "oRrtL",
+                      "name": "HAND-CARRY / OBC Description",
+                      "fill": "#FFFFFF99",
+                      "textGrowth": "fixed-width",
+                      "width": 520,
+                      "content": "Dedicated onboard courier service with direct human custody end to end.",
+                      "lineHeight": 1.5,
+                      "fontFamily": "$font-body",
+                      "fontSize": 15,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "icon",
+                      "id": "CBiza",
+                      "name": "HAND-CARRY / OBC Arrow",
+                      "width": 22,
+                      "height": 22,
+                      "icon": "arrow-up-right",
+                      "library": "lucide",
+                      "fill": "#FFFFFF99"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "Acrxe",
+                  "name": "SPECIALIZED HANDLING",
+                  "width": "fill_container",
+                  "height": 122,
+                  "stroke": "#FFFFFF24",
+                  "strokeWidth": {
+                    "top": 1
+                  },
+                  "strokeLinejoin": "round",
+                  "gap": 24,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "gHWf8",
+                      "name": "SPECIALIZED HANDLING Index",
+                      "fill": "$orange",
+                      "textGrowth": "fixed-width",
+                      "width": 90,
+                      "content": "04",
+                      "fontFamily": "$font-mono",
+                      "fontSize": 14,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "oGxAs",
+                      "name": "SPECIALIZED HANDLING Icon Box",
+                      "width": 72,
+                      "height": 72,
+                      "cornerRadius": 4,
+                      "stroke": "#FFFFFF35",
+                      "strokeWidth": 1,
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "icon",
+                          "id": "yU8fY",
+                          "name": "SPECIALIZED HANDLING Icon",
+                          "width": 28,
+                          "height": 28,
+                          "icon": "shield-check",
+                          "library": "lucide",
+                          "fill": "$white"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "UtmRE",
+                      "name": "SPECIALIZED HANDLING Title",
+                      "fill": "$white",
+                      "textGrowth": "fixed-width",
+                      "width": 360,
+                      "content": "SPECIALIZED HANDLING",
+                      "fontFamily": "$font-heading",
+                      "fontSize": 25,
+                      "fontWeight": "600",
+                      "letterSpacing": 0.2
+                    },
+                    {
+                      "type": "text",
+                      "id": "u0nuCf",
+                      "name": "SPECIALIZED HANDLING Description",
+                      "fill": "#FFFFFF99",
+                      "textGrowth": "fixed-width",
+                      "width": 520,
+                      "content": "Cold chain, dangerous goods, oversized and high-value freight coordination.",
+                      "lineHeight": 1.5,
+                      "fontFamily": "$font-body",
+                      "fontSize": 15,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "icon",
+                      "id": "OPS3n",
+                      "name": "SPECIALIZED HANDLING Arrow",
+                      "width": 22,
+                      "height": 22,
+                      "icon": "arrow-up-right",
+                      "library": "lucide",
+                      "fill": "#FFFFFF99"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "u5slJ",
+          "name": "Industries",
+          "width": "fill_container",
+          "height": 770,
+          "fill": "$paper",
+          "stroke": "$line",
+          "strokeWidth": {
+            "top": 1
+          },
+          "strokeLinejoin": "round",
+          "children": [
+            {
+              "type": "frame",
+              "id": "bu7Zj",
+              "name": "Industries Introduction",
+              "clip": true,
+              "width": 480,
+              "height": "fill_container",
+              "fill": "$orange",
+              "layout": "vertical",
+              "padding": [
+                86,
+                72,
+                72,
+                96
+              ],
+              "justifyContent": "space_between",
+              "children": [
+                {
+                  "type": "ellipse",
+                  "id": "WcYuy",
+                  "layoutPosition": "absolute",
+                  "x": 421,
+                  "y": 369,
+                  "name": "Route Point",
+                  "fill": "#FFFFFF99",
+                  "width": 7,
+                  "height": 7
+                },
+                {
+                  "type": "ellipse",
+                  "id": "PIusd",
+                  "layoutPosition": "absolute",
+                  "x": 48,
+                  "y": 506,
+                  "name": "Route Point",
+                  "fill": "#FFFFFF99",
+                  "width": 7,
+                  "height": 7
+                },
+                {
+                  "type": "path",
+                  "id": "k1bMvT",
+                  "layoutPosition": "absolute",
+                  "x": 48,
+                  "y": 356,
+                  "name": "Aircraft Route Line",
+                  "geometry": "M0 154c82-112 184 60 378-136",
+                  "viewBox": [
+                    0,
+                    0,
+                    378,
+                    190
+                  ],
+                  "fill": "#00000000",
+                  "width": 378,
+                  "height": 190,
+                  "stroke": "#FFFFFF45",
+                  "strokeWidth": 1.5,
+                  "strokeLinecap": "round"
+                },
+                {
+                  "type": "rectangle",
+                  "id": "hGDIV",
+                  "layoutPosition": "absolute",
+                  "x": 0,
+                  "y": 616,
+                  "name": "Technical Grid Horizontal",
+                  "fill": "#FFFFFF12",
+                  "width": 480,
+                  "height": 1
+                },
+                {
+                  "type": "rectangle",
+                  "id": "v3X1m",
+                  "layoutPosition": "absolute",
+                  "x": 0,
+                  "y": 462,
+                  "name": "Technical Grid Horizontal",
+                  "fill": "#FFFFFF12",
+                  "width": 480,
+                  "height": 1
+                },
+                {
+                  "type": "rectangle",
+                  "id": "MDVml",
+                  "layoutPosition": "absolute",
+                  "x": 0,
+                  "y": 308,
+                  "name": "Technical Grid Horizontal",
+                  "fill": "#FFFFFF12",
+                  "width": 480,
+                  "height": 1
+                },
+                {
+                  "type": "rectangle",
+                  "id": "XseET",
+                  "layoutPosition": "absolute",
+                  "x": 0,
+                  "y": 154,
+                  "name": "Technical Grid Horizontal",
+                  "fill": "#FFFFFF12",
+                  "width": 480,
+                  "height": 1
+                },
+                {
+                  "type": "rectangle",
+                  "id": "xzg9k",
+                  "layoutPosition": "absolute",
+                  "x": 360,
+                  "y": 0,
+                  "name": "Technical Grid Vertical",
+                  "fill": "#FFFFFF12",
+                  "width": 1,
+                  "height": 770
+                },
+                {
+                  "type": "rectangle",
+                  "id": "Ysk0I",
+                  "layoutPosition": "absolute",
+                  "x": 240,
+                  "y": 0,
+                  "name": "Technical Grid Vertical",
+                  "fill": "#FFFFFF12",
+                  "width": 1,
+                  "height": 770
+                },
+                {
+                  "type": "rectangle",
+                  "id": "Iqiuy",
+                  "layoutPosition": "absolute",
+                  "x": 120,
+                  "y": 0,
+                  "name": "Technical Grid Vertical",
+                  "fill": "#FFFFFF12",
+                  "width": 1,
+                  "height": 770
+                },
+                {
+                  "type": "frame",
+                  "id": "QMU2z",
+                  "name": "Industries Intro Top",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 20,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "m85BYN",
+                      "name": "Industries Label",
+                      "fill": "#FFFFFFCC",
+                      "content": "BUILT AROUND THE CARGO",
+                      "fontFamily": "$font-mono",
+                      "fontSize": 11,
+                      "fontWeight": "700",
+                      "letterSpacing": 1.5
+                    },
+                    {
+                      "type": "text",
+                      "id": "v4JShc",
+                      "name": "Industries Title",
+                      "fill": "$white",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Specialized teams for high-stakes industries.",
+                      "lineHeight": 1.07,
+                      "fontFamily": "$font-heading",
+                      "fontSize": 46,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "rIsEF",
+                      "name": "Industries Body",
+                      "fill": "#FFFFFFDE",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "The handling plan changes with the shipment. Our standard of accountability does not.",
+                      "lineHeight": 1.55,
+                      "fontFamily": "$font-body",
+                      "fontSize": 17,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "piJbJ",
+                  "name": "Industry Footnote",
+                  "gap": 12,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "xrWcR",
+                      "name": "Industry Footnote Icon",
+                      "width": 20,
+                      "height": 20,
+                      "icon": "map-pin",
+                      "library": "lucide",
+                      "fill": "$white"
+                    },
+                    {
+                      "type": "text",
+                      "id": "VfKDT",
+                      "name": "Industry Footnote Text",
+                      "fill": "$white",
+                      "content": "PITTSBURGH • ANYWHERE",
+                      "fontFamily": "$font-mono",
+                      "fontSize": 11,
+                      "fontWeight": "700",
+                      "letterSpacing": 1.3
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "w2Dq2",
+                  "layoutPosition": "absolute",
+                  "x": 96,
+                  "y": 492,
+                  "name": "Industry Proof Statistic",
+                  "layout": "vertical",
+                  "gap": 3,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "Wx2NR",
+                      "name": "Statistic Value",
+                      "fill": "$white",
+                      "content": "06",
+                      "lineHeight": 0.95,
+                      "fontFamily": "$font-mono",
+                      "fontSize": 58,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "eF21H",
+                      "name": "Statistic Label",
+                      "fill": "#FFFFFFCC",
+                      "content": "SPECIALIZED SECTORS",
+                      "fontFamily": "$font-mono",
+                      "fontSize": 10,
+                      "fontWeight": "700",
+                      "letterSpacing": 1.5
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "QkMZg",
+              "name": "Industry List",
+              "width": "fill_container",
+              "height": "fill_container",
+              "layout": "vertical",
+              "padding": [
+                70,
+                96,
+                70,
+                72
+              ],
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "yET4k",
+                  "name": "Healthcare",
+                  "width": "fill_container",
+                  "height": 102,
+                  "stroke": "$line",
+                  "strokeWidth": {
+                    "bottom": 1
+                  },
+                  "strokeLinejoin": "round",
+                  "gap": 24,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "GjwJL",
+                      "name": "Healthcare Icon",
+                      "width": 26,
+                      "height": 26,
+                      "icon": "heart-pulse",
+                      "library": "lucide",
+                      "fill": "$navy"
+                    },
+                    {
+                      "type": "text",
+                      "id": "BLR5D",
+                      "name": "Healthcare Name",
+                      "fill": "$ink",
+                      "textGrowth": "fixed-width",
+                      "width": 280,
+                      "content": "Healthcare",
+                      "fontFamily": "$font-heading",
+                      "fontSize": 22,
+                      "fontWeight": "650"
+                    },
+                    {
+                      "type": "text",
+                      "id": "l8KJQ",
+                      "name": "Healthcare Description",
+                      "fill": "#475467",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Temperature-sensitive and life-critical materials.",
+                      "lineHeight": 1.45,
+                      "fontFamily": "$font-body",
+                      "fontSize": 15,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "icon",
+                      "id": "ejdy9",
+                      "name": "Row Arrow",
+                      "width": 18,
+                      "height": 18,
+                      "icon": "arrow-up-right",
+                      "library": "lucide",
+                      "fill": "#98A2B3"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "j8rrtQ",
+                  "name": "Aerospace + Defense",
+                  "width": "fill_container",
+                  "height": 102,
+                  "fill": "#EAF2F5",
+                  "stroke": "$line",
+                  "strokeWidth": {
+                    "bottom": 1
+                  },
+                  "strokeLinejoin": "round",
+                  "gap": 24,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "kaFzR",
+                      "name": "Aerospace + Defense Icon",
+                      "width": 26,
+                      "height": 26,
+                      "icon": "orbit",
+                      "library": "lucide",
+                      "fill": "$orange"
+                    },
+                    {
+                      "type": "text",
+                      "id": "yvHWV",
+                      "name": "Aerospace + Defense Name",
+                      "fill": "$navy",
+                      "textGrowth": "fixed-width",
+                      "width": 280,
+                      "content": "Aerospace + Defense",
+                      "fontFamily": "$font-heading",
+                      "fontSize": 22,
+                      "fontWeight": "650"
+                    },
+                    {
+                      "type": "text",
+                      "id": "Z6Vt7",
+                      "name": "Aerospace + Defense Description",
+                      "fill": "#344054",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Controlled handling for high-value, regulated freight.",
+                      "lineHeight": 1.45,
+                      "fontFamily": "$font-body",
+                      "fontSize": 15,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "icon",
+                      "id": "KklhT",
+                      "name": "Row Arrow",
+                      "width": 18,
+                      "height": 18,
+                      "icon": "arrow-up-right",
+                      "library": "lucide",
+                      "fill": "$orange"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "AwnPe",
+                  "name": "Advanced Manufacturing",
+                  "width": "fill_container",
+                  "height": 102,
+                  "stroke": "$line",
+                  "strokeWidth": {
+                    "bottom": 1
+                  },
+                  "strokeLinejoin": "round",
+                  "gap": 24,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "M6qAg",
+                      "name": "Advanced Manufacturing Icon",
+                      "width": 26,
+                      "height": 26,
+                      "icon": "factory",
+                      "library": "lucide",
+                      "fill": "$navy"
+                    },
+                    {
+                      "type": "text",
+                      "id": "A6IDGW",
+                      "name": "Advanced Manufacturing Name",
+                      "fill": "$ink",
+                      "textGrowth": "fixed-width",
+                      "width": 280,
+                      "content": "Advanced Manufacturing",
+                      "fontFamily": "$font-heading",
+                      "fontSize": 22,
+                      "fontWeight": "650"
+                    },
+                    {
+                      "type": "text",
+                      "id": "tcU9l",
+                      "name": "Advanced Manufacturing Description",
+                      "fill": "#475467",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Parts and equipment timed to keep production online.",
+                      "lineHeight": 1.45,
+                      "fontFamily": "$font-body",
+                      "fontSize": 15,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "icon",
+                      "id": "KIjzi",
+                      "name": "Row Arrow",
+                      "width": 18,
+                      "height": 18,
+                      "icon": "arrow-up-right",
+                      "library": "lucide",
+                      "fill": "#98A2B3"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "LbGe9",
+                  "name": "Business Technology",
+                  "width": "fill_container",
+                  "height": 102,
+                  "stroke": "$line",
+                  "strokeWidth": {
+                    "bottom": 1
+                  },
+                  "strokeLinejoin": "round",
+                  "gap": 24,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "Au37a",
+                      "name": "Business Technology Icon",
+                      "width": 26,
+                      "height": 26,
+                      "icon": "server",
+                      "library": "lucide",
+                      "fill": "$navy"
+                    },
+                    {
+                      "type": "text",
+                      "id": "kBm8T",
+                      "name": "Business Technology Name",
+                      "fill": "$ink",
+                      "textGrowth": "fixed-width",
+                      "width": 280,
+                      "content": "Business Technology",
+                      "fontFamily": "$font-heading",
+                      "fontSize": 22,
+                      "fontWeight": "650"
+                    },
+                    {
+                      "type": "text",
+                      "id": "pJJhJ",
+                      "name": "Business Technology Description",
+                      "fill": "#475467",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Secure movement for systems, servers and infrastructure.",
+                      "lineHeight": 1.45,
+                      "fontFamily": "$font-body",
+                      "fontSize": 15,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "icon",
+                      "id": "s2j72M",
+                      "name": "Row Arrow",
+                      "width": 18,
+                      "height": 18,
+                      "icon": "arrow-up-right",
+                      "library": "lucide",
+                      "fill": "#98A2B3"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "ZrVlp",
+                  "name": "Robotics + Energy",
+                  "width": "fill_container",
+                  "height": 102,
+                  "stroke": "$line",
+                  "strokeWidth": {
+                    "bottom": 1
+                  },
+                  "strokeLinejoin": "round",
+                  "gap": 24,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "WTvhW",
+                      "name": "Robotics + Energy Icon",
+                      "width": 26,
+                      "height": 26,
+                      "icon": "bot",
+                      "library": "lucide",
+                      "fill": "$navy"
+                    },
+                    {
+                      "type": "text",
+                      "id": "AfDLK",
+                      "name": "Robotics + Energy Name",
+                      "fill": "$ink",
+                      "textGrowth": "fixed-width",
+                      "width": 280,
+                      "content": "Robotics + Energy",
+                      "fontFamily": "$font-heading",
+                      "fontSize": 22,
+                      "fontWeight": "650"
+                    },
+                    {
+                      "type": "text",
+                      "id": "s2Zwl",
+                      "name": "Robotics + Energy Description",
+                      "fill": "#475467",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Prototype, battery and field-critical shipment support.",
+                      "lineHeight": 1.45,
+                      "fontFamily": "$font-body",
+                      "fontSize": 15,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "icon",
+                      "id": "XcOr9",
+                      "name": "Row Arrow",
+                      "width": 18,
+                      "height": 18,
+                      "icon": "arrow-up-right",
+                      "library": "lucide",
+                      "fill": "#98A2B3"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "zmVqY",
+                  "name": "Research",
+                  "width": "fill_container",
+                  "height": 102,
+                  "stroke": "$line",
+                  "strokeWidth": {
+                    "bottom": 1
+                  },
+                  "strokeLinejoin": "round",
+                  "gap": 24,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "Dj9QD",
+                      "name": "Research Icon",
+                      "width": 26,
+                      "height": 26,
+                      "icon": "microscope",
+                      "library": "lucide",
+                      "fill": "$navy"
+                    },
+                    {
+                      "type": "text",
+                      "id": "u2GbGS",
+                      "name": "Research Name",
+                      "fill": "$ink",
+                      "textGrowth": "fixed-width",
+                      "width": 280,
+                      "content": "Research",
+                      "fontFamily": "$font-heading",
+                      "fontSize": 22,
+                      "fontWeight": "650"
+                    },
+                    {
+                      "type": "text",
+                      "id": "v53ZD",
+                      "name": "Research Description",
+                      "fill": "#475467",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Careful coordination for unique specimens and instruments.",
+                      "lineHeight": 1.45,
+                      "fontFamily": "$font-body",
+                      "fontSize": 15,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "icon",
+                      "id": "sLWJN",
+                      "name": "Row Arrow",
+                      "width": 18,
+                      "height": 18,
+                      "icon": "arrow-up-right",
+                      "library": "lucide",
+                      "fill": "#98A2B3"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "fKjQg",
+          "name": "How It Works",
+          "width": "fill_container",
+          "height": 670,
+          "fill": "$white",
+          "layout": "vertical",
+          "gap": 62,
+          "padding": [
+            82,
+            96
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "Kz1BP",
+              "name": "Process Header",
+              "width": "fill_container",
+              "justifyContent": "space_between",
+              "alignItems": "end",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "FS1vG",
+                  "name": "Process Heading Group",
+                  "width": 720,
+                  "layout": "vertical",
+                  "gap": 16,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "KDzQa",
+                      "name": "Process Eyebrow",
+                      "fill": "$orange",
+                      "content": "ONE TEAM • FULL VISIBILITY",
+                      "fontFamily": "$font-mono",
+                      "fontSize": 11,
+                      "fontWeight": "700",
+                      "letterSpacing": 1.6
+                    },
+                    {
+                      "type": "text",
+                      "id": "qxwZY",
+                      "name": "Process Title",
+                      "fill": "$ink",
+                      "content": "Control at every handoff.",
+                      "fontFamily": "$font-heading",
+                      "fontSize": 50,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "B4rJx",
+                  "name": "Process Description",
+                  "fill": "$muted",
+                  "textGrowth": "fixed-width",
+                  "width": 390,
+                  "content": "From the first call to final delivery, a Hanz operator owns the details and keeps the record current.",
+                  "lineHeight": 1.55,
+                  "fontFamily": "$font-body",
+                  "fontSize": 16,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "Q5JWFO",
+              "name": "Process Steps",
+              "width": "fill_container",
+              "height": 330,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "V1RpvF",
+                  "name": "PLAN",
+                  "width": "fill_container",
+                  "height": "fill_container",
+                  "stroke": "$line",
+                  "strokeWidth": {
+                    "top": 1,
+                    "right": 1,
+                    "bottom": 1
+                  },
+                  "strokeLinejoin": "round",
+                  "layout": "vertical",
+                  "padding": [
+                    34,
+                    36
+                  ],
+                  "justifyContent": "space_between",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "VHkmJ",
+                      "name": "PLAN Top",
+                      "width": "fill_container",
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "gwdro",
+                          "name": "PLAN Number",
+                          "fill": "$orange",
+                          "content": "01",
+                          "fontFamily": "$font-mono",
+                          "fontSize": 13,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "icon",
+                          "id": "efMxY",
+                          "name": "PLAN Icon",
+                          "width": 26,
+                          "height": 26,
+                          "icon": "clipboard-check",
+                          "library": "lucide",
+                          "fill": "$navy"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": 4,
+                      "id": "MbmHV",
+                      "name": "Plan Route Image",
+                      "metadata": {
+                        "type": "unsplash",
+                        "username": "kyleloftusstudios",
+                        "link": "https://unsplash.com/@kyleloftusstudios",
+                        "author": "Kyle Loftus"
+                      },
+                      "fill": {
+                        "type": "image",
+                        "enabled": true,
+                        "url": "https://images.unsplash.com/photo-1533233521468-7f200e486fbd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3ODU2Mjk1Mzl8&ixlib=rb-4.1.0&q=80&w=1080",
+                        "mode": "fill"
+                      },
+                      "width": "fill_container",
+                      "height": 104
+                    },
+                    {
+                      "type": "frame",
+                      "id": "CXCgS",
+                      "name": "PLAN Copy",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 14,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "iHUCE",
+                          "name": "PLAN Title",
+                          "fill": "$ink",
+                          "content": "PLAN",
+                          "fontFamily": "$font-heading",
+                          "fontSize": 30,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "om9De",
+                          "name": "PLAN Description",
+                          "fill": "$muted",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "We map the urgency, dimensions, handling requirements and route before tender.",
+                          "lineHeight": 1.55,
+                          "fontFamily": "$font-body",
+                          "fontSize": 15,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "L9Ut11",
+                  "name": "TRACK",
+                  "width": "fill_container",
+                  "height": "fill_container",
+                  "stroke": "$line",
+                  "strokeWidth": {
+                    "top": 1,
+                    "right": 1,
+                    "bottom": 1
+                  },
+                  "strokeLinejoin": "round",
+                  "layout": "vertical",
+                  "padding": [
+                    34,
+                    36
+                  ],
+                  "justifyContent": "space_between",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "lhQ0O",
+                      "name": "TRACK Top",
+                      "width": "fill_container",
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "K7zcDl",
+                          "name": "TRACK Number",
+                          "fill": "$orange",
+                          "content": "02",
+                          "fontFamily": "$font-mono",
+                          "fontSize": 13,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "icon",
+                          "id": "Y0NzkM",
+                          "name": "TRACK Icon",
+                          "width": 26,
+                          "height": 26,
+                          "icon": "radio-tower",
+                          "library": "lucide",
+                          "fill": "$navy"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": 4,
+                      "id": "xgLYi",
+                      "name": "Track Freight Image",
+                      "metadata": {
+                        "type": "unsplash",
+                        "username": "_christianlambert",
+                        "link": "https://unsplash.com/@_christianlambert",
+                        "author": "Christian Lambert"
+                      },
+                      "fill": {
+                        "type": "image",
+                        "enabled": true,
+                        "url": "https://images.unsplash.com/photo-1577497382372-e1d0cc39051a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3ODU2Mjk1MTh8&ixlib=rb-4.1.0&q=80&w=1080",
+                        "mode": "fill"
+                      },
+                      "width": "fill_container",
+                      "height": 104
+                    },
+                    {
+                      "type": "frame",
+                      "id": "k6lT5",
+                      "name": "TRACK Copy",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 14,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "RvjTe",
+                          "name": "TRACK Title",
+                          "fill": "$ink",
+                          "content": "TRACK",
+                          "fontFamily": "$font-heading",
+                          "fontSize": 30,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "SxcWd",
+                          "name": "TRACK Description",
+                          "fill": "$muted",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Active milestones and human oversight keep the shipment visible in motion.",
+                          "lineHeight": 1.55,
+                          "fontFamily": "$font-body",
+                          "fontSize": 15,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "qUmP5",
+                  "name": "ACCOUNT",
+                  "width": "fill_container",
+                  "height": "fill_container",
+                  "stroke": "$line",
+                  "strokeWidth": {
+                    "top": 1,
+                    "right": 1,
+                    "bottom": 1
+                  },
+                  "strokeLinejoin": "round",
+                  "layout": "vertical",
+                  "padding": [
+                    34,
+                    36
+                  ],
+                  "justifyContent": "space_between",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "KOZJU",
+                      "name": "ACCOUNT Top",
+                      "width": "fill_container",
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "VZBkj",
+                          "name": "ACCOUNT Number",
+                          "fill": "$orange",
+                          "content": "03",
+                          "fontFamily": "$font-mono",
+                          "fontSize": 13,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "icon",
+                          "id": "eKvEb",
+                          "name": "ACCOUNT Icon",
+                          "width": 26,
+                          "height": 26,
+                          "icon": "file-check",
+                          "library": "lucide",
+                          "fill": "$navy"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": 4,
+                      "id": "o45nbK",
+                      "name": "Account Delivery Image",
+                      "metadata": {
+                        "type": "unsplash",
+                        "username": "fadlysuhada",
+                        "link": "https://unsplash.com/@fadlysuhada",
+                        "author": "fadly suhada"
+                      },
+                      "fill": {
+                        "type": "image",
+                        "enabled": true,
+                        "url": "https://images.unsplash.com/photo-1634144201570-36a8e7b1313d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3ODU2Mjk1MTl8&ixlib=rb-4.1.0&q=80&w=1080",
+                        "mode": "fill"
+                      },
+                      "width": "fill_container",
+                      "height": 104
+                    },
+                    {
+                      "type": "frame",
+                      "id": "D7p4g9",
+                      "name": "ACCOUNT Copy",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 14,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "x4k8z",
+                          "name": "ACCOUNT Title",
+                          "fill": "$ink",
+                          "content": "ACCOUNT",
+                          "fontFamily": "$font-heading",
+                          "fontSize": 30,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "zHjyJ",
+                          "name": "ACCOUNT Description",
+                          "fill": "$muted",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Delivery documentation closes the loop with a complete shipment record.",
+                          "lineHeight": 1.55,
+                          "fontFamily": "$font-body",
+                          "fontSize": 15,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "U2P13",
+          "name": "Final Call to Action",
+          "clip": true,
+          "width": "fill_container",
+          "height": 520,
+          "fill": "$navy",
+          "layout": "none",
+          "children": [
+            {
+              "type": "rectangle",
+              "id": "x4TRl1",
+              "x": 0,
+              "y": 0,
+              "name": "Air Freight CTA Image",
+              "metadata": {
+                "type": "unsplash",
+                "username": "vanija",
+                "link": "https://unsplash.com/@vanija",
+                "author": "Vanja Milicic"
+              },
+              "fill": {
+                "type": "image",
+                "enabled": true,
+                "url": "https://images.unsplash.com/photo-1706525452290-50a06e80b50c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3ODU2MjkyNDV8&ixlib=rb-4.1.0&q=80&w=1080",
+                "mode": "fill"
+              },
+              "width": 1440,
+              "height": 520
+            },
+            {
+              "type": "rectangle",
+              "id": "b9CBv",
+              "x": 0,
+              "y": 0,
+              "name": "CTA Overlay",
+              "fill": {
+                "type": "gradient",
+                "gradientType": "linear",
+                "enabled": true,
+                "rotation": 90,
+                "size": {
+                  "height": 1
+                },
+                "colors": [
+                  {
+                    "color": "#10243BF2",
+                    "position": 0
+                  },
+                  {
+                    "color": "#203B5DB8",
+                    "position": 0.7
+                  },
+                  {
+                    "color": "#203B5D55",
+                    "position": 1
+                  }
+                ]
+              },
+              "width": 1440,
+              "height": 520
+            },
+            {
+              "type": "rectangle",
+              "id": "l8a0u",
+              "x": 720,
+              "y": 0,
+              "name": "CTA Grid Line",
+              "fill": "#FFFFFF20",
+              "width": 1,
+              "height": 520
+            },
+            {
+              "type": "frame",
+              "id": "sI0YO",
+              "x": 96,
+              "y": 90,
+              "name": "CTA Content",
+              "width": 1248,
+              "height": 340,
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "p5eSNh",
+                  "name": "CTA Copy",
+                  "width": 760,
+                  "layout": "vertical",
+                  "gap": 22,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "H6l6la",
+                      "name": "CTA Label",
+                      "fill": "$orange",
+                      "content": "READY WHEN THE CLOCK STARTS",
+                      "fontFamily": "$font-mono",
+                      "fontSize": 11,
+                      "fontWeight": "700",
+                      "letterSpacing": 1.6
+                    },
+                    {
+                      "type": "text",
+                      "id": "qOsme",
+                      "name": "CTA Title",
+                      "fill": "$white",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "The shipment is urgent. The next move should be clear.",
+                      "lineHeight": 1.06,
+                      "fontFamily": "$font-heading",
+                      "fontSize": 52,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "tcn3n",
+                      "name": "CTA Description",
+                      "fill": "#FFFFFFC9",
+                      "textGrowth": "fixed-width",
+                      "width": 650,
+                      "content": "Tell us what is moving, where it needs to go and when it must arrive. An operator will take it from there.",
+                      "lineHeight": 1.55,
+                      "fontFamily": "$font-body",
+                      "fontSize": 17,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "DOFig",
+                  "name": "CTA Action Box",
+                  "width": 330,
+                  "fill": "$white",
+                  "effect": {
+                    "type": "shadow",
+                    "shadowType": "outer",
+                    "color": "#00000066",
+                    "offset": {
+                      "x": 0,
+                      "y": 4
+                    },
+                    "blur": 12
+                  },
+                  "layout": "vertical",
+                  "gap": 18,
+                  "padding": [
+                    28,
+                    30
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "o4BxiU",
+                      "name": "CTA Box Label",
+                      "fill": "$navy-mid",
+                      "content": "START HERE",
+                      "fontFamily": "$font-mono",
+                      "fontSize": 10,
+                      "fontWeight": "700",
+                      "letterSpacing": 1.5
+                    },
+                    {
+                      "type": "text",
+                      "id": "O8lNRE",
+                      "name": "CTA Phone",
+                      "fill": "$ink",
+                      "content": "1 800 HANZ AIR",
+                      "fontFamily": "$font-heading",
+                      "fontSize": 27,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "Y7FTwp",
+                      "name": "CTA Email",
+                      "fill": "$muted",
+                      "content": "operations@hanzlogistics.com",
+                      "fontFamily": "$font-body",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "PxFoT",
+                      "name": "Get a Quote",
+                      "width": "fill_container",
+                      "fill": "$orange",
+                      "cornerRadius": 4,
+                      "padding": [
+                        15,
+                        18
+                      ],
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "a5Qgn",
+                          "name": "Get a Quote Text",
+                          "fill": "$white",
+                          "content": "GET A QUOTE",
+                          "fontFamily": "$font-mono",
+                          "fontSize": 12,
+                          "fontWeight": "700",
+                          "letterSpacing": 1.2
+                        },
+                        {
+                          "type": "icon",
+                          "id": "efk4t",
+                          "name": "Get a Quote Arrow",
+                          "width": 18,
+                          "height": 18,
+                          "icon": "arrow-up-right",
+                          "library": "lucide",
+                          "fill": "$white"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "Hpt0N",
+          "name": "Footer",
+          "width": "fill_container",
+          "height": 404,
+          "fill": "$navy-deep",
+          "layout": "vertical",
+          "padding": [
+            64,
+            96,
+            38,
+            96
+          ],
+          "justifyContent": "space_between",
+          "children": [
+            {
+              "type": "frame",
+              "id": "cvYNo",
+              "name": "Footer Top",
+              "width": "fill_container",
+              "justifyContent": "space_between",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "qqasl",
+                  "name": "Footer Brand",
+                  "width": 430,
+                  "layout": "vertical",
+                  "gap": 22,
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "id": "b5DBf",
+                      "name": "Footer Logo — Exact Artwork",
+                      "fill": {
+                        "type": "image",
+                        "enabled": true,
+                        "url": "assets/hanz-logistics-logo.png",
+                        "mode": "fit"
+                      },
+                      "width": 320,
+                      "height": 45
+                    },
+                    {
+                      "type": "text",
+                      "id": "dEx2d",
+                      "name": "Footer Tagline",
+                      "fill": "#FFFFFF99",
+                      "textGrowth": "fixed-width",
+                      "width": 380,
+                      "content": "Mission-critical air freight forwarding from Pittsburgh to the world.",
+                      "lineHeight": 1.55,
+                      "fontFamily": "$font-body",
+                      "fontSize": 15,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "DIdbV",
+                  "name": "Footer Navigation",
+                  "gap": 76,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "XQznQ",
+                      "name": "SERVICES",
+                      "layout": "vertical",
+                      "gap": 14,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "z2L1g",
+                          "name": "SERVICES Heading",
+                          "fill": "$orange",
+                          "content": "SERVICES",
+                          "fontFamily": "$font-mono",
+                          "fontSize": 10,
+                          "fontWeight": "700",
+                          "letterSpacing": 1.4
+                        },
+                        {
+                          "type": "text",
+                          "id": "dVkeU",
+                          "name": "Expedited Air",
+                          "fill": "#FFFFFFB8",
+                          "content": "Expedited Air",
+                          "fontFamily": "$font-body",
+                          "fontSize": 13,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "BlZkg",
+                          "name": "Charter Solutions",
+                          "fill": "#FFFFFFB8",
+                          "content": "Charter Solutions",
+                          "fontFamily": "$font-body",
+                          "fontSize": 13,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "S099r0",
+                          "name": "Hand-Carry / OBC",
+                          "fill": "#FFFFFFB8",
+                          "content": "Hand-Carry / OBC",
+                          "fontFamily": "$font-body",
+                          "fontSize": 13,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "EHHBd",
+                          "name": "Specialized Handling",
+                          "fill": "#FFFFFFB8",
+                          "content": "Specialized Handling",
+                          "fontFamily": "$font-body",
+                          "fontSize": 13,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "Qir1d",
+                      "name": "COMPANY",
+                      "layout": "vertical",
+                      "gap": 14,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "hVXi8",
+                          "name": "COMPANY Heading",
+                          "fill": "$orange",
+                          "content": "COMPANY",
+                          "fontFamily": "$font-mono",
+                          "fontSize": 10,
+                          "fontWeight": "700",
+                          "letterSpacing": 1.4
+                        },
+                        {
+                          "type": "text",
+                          "id": "liODK",
+                          "name": "About Hanz",
+                          "fill": "#FFFFFFB8",
+                          "content": "About Hanz",
+                          "fontFamily": "$font-body",
+                          "fontSize": 13,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "Z9wk0",
+                          "name": "Industries",
+                          "fill": "#FFFFFFB8",
+                          "content": "Industries",
+                          "fontFamily": "$font-body",
+                          "fontSize": 13,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "O52qRA",
+                          "name": "Our Standard",
+                          "fill": "#FFFFFFB8",
+                          "content": "Our Standard",
+                          "fontFamily": "$font-body",
+                          "fontSize": 13,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "ga7Ba",
+                          "name": "Contact",
+                          "fill": "#FFFFFFB8",
+                          "content": "Contact",
+                          "fontFamily": "$font-body",
+                          "fontSize": 13,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "hTNSZ",
+                      "name": "CONTACT",
+                      "layout": "vertical",
+                      "gap": 14,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "v8eJM",
+                          "name": "CONTACT Heading",
+                          "fill": "$orange",
+                          "content": "CONTACT",
+                          "fontFamily": "$font-mono",
+                          "fontSize": 10,
+                          "fontWeight": "700",
+                          "letterSpacing": 1.4
+                        },
+                        {
+                          "type": "text",
+                          "id": "Cz314",
+                          "name": "Pittsburgh, PA",
+                          "fill": "#FFFFFFB8",
+                          "content": "Pittsburgh, PA",
+                          "fontFamily": "$font-body",
+                          "fontSize": 13,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "Ds88h",
+                          "name": "24 / 7 / 365",
+                          "fill": "#FFFFFFB8",
+                          "content": "24 / 7 / 365",
+                          "fontFamily": "$font-body",
+                          "fontSize": 13,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "z9JGL",
+                          "name": "operations@hanzlogistics.com",
+                          "fill": "#FFFFFFB8",
+                          "content": "operations@hanzlogistics.com",
+                          "fontFamily": "$font-body",
+                          "fontSize": 13,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "L5bLm",
+              "name": "Footer Bottom",
+              "width": "fill_container",
+              "stroke": "#FFFFFF24",
+              "strokeWidth": {
+                "top": 1
+              },
+              "strokeLinejoin": "round",
+              "padding": [
+                22,
+                0,
+                0,
+                0
+              ],
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "PW5Hg",
+                  "name": "Footer Legal",
+                  "fill": "#FFFFFF66",
+                  "content": "© 2026 HANZ LOGISTICS. ALL RIGHTS RESERVED.",
+                  "fontFamily": "$font-mono",
+                  "fontSize": 10,
+                  "fontWeight": "normal",
+                  "letterSpacing": 1
+                },
+                {
+                  "type": "text",
+                  "id": "sCNE0",
+                  "name": "Footer Meta",
+                  "fill": "#FFFFFF80",
+                  "content": "PRIVACY  •  TERMS  •  TRACK A SHIPMENT",
+                  "fontFamily": "$font-mono",
+                  "fontSize": 10,
+                  "fontWeight": "normal",
+                  "letterSpacing": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variables": {
+    "navy": {
+      "type": "color",
+      "value": "#203B5D"
+    },
+    "navy-deep": {
+      "type": "color",
+      "value": "#10243B"
+    },
+    "navy-mid": {
+      "type": "color",
+      "value": "#315479"
+    },
+    "orange": {
+      "type": "color",
+      "value": "#F2693C"
+    },
+    "sky": {
+      "type": "color",
+      "value": "#C9E5F4"
+    },
+    "paper": {
+      "type": "color",
+      "value": "#F7F5F0"
+    },
+    "white": {
+      "type": "color",
+      "value": "#FFFFFF"
+    },
+    "ink": {
+      "type": "color",
+      "value": "#142638"
+    },
+    "muted": {
+      "type": "color",
+      "value": "#607080"
+    },
+    "line": {
+      "type": "color",
+      "value": "#DCE3E8"
+    },
+    "font-heading": {
+      "type": "string",
+      "value": "Funnel Sans"
+    },
+    "font-body": {
+      "type": "string",
+      "value": "Inter"
+    },
+    "font-mono": {
+      "type": "string",
+      "value": "Geist Mono"
+    }
+  },
+  "fileToken": "678d4137-b09e-4101-9fe4-a500b2766790"
+}
