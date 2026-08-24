@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { ArrowRight, BriefcaseBusiness, ClipboardCheck, Menu, Microscope, Plane, Radio, Server, ShieldCheck, Thermometer, X, Zap } from 'lucide-react'
+import { ArrowLeft, ArrowRight, BriefcaseBusiness, ClipboardCheck, Mail, Menu, Microscope, Phone, Plane, Radio, Server, ShieldCheck, Thermometer, X, Zap } from 'lucide-react'
 
 const images = {
   hero: 'https://images.unsplash.com/photo-1572017235244-8f2c23b76559?auto=format&fit=crop&w=1800&q=85',
@@ -53,6 +53,20 @@ const capabilities = [
   },
 ]
 
+const SERVICE_PATHS = [
+  '/services/expedited-air',
+  '/services/air-charter',
+  '/services/on-board-courier',
+  '/services/cold-chain-logistics',
+] as const
+
+const normalizePath = (pathname: string) => (pathname.length > 1 && pathname.endsWith('/') ? pathname.slice(0, -1) : pathname)
+
+const serviceIndexFromPath = (pathname: string) => {
+  const index = (SERVICE_PATHS as readonly string[]).indexOf(normalizePath(pathname))
+  return index >= 0 ? index : null
+}
+
 const quoteForms = [
   { color: '#60A5FA', title: 'Expedited Air Quote', button: 'Get instant quote', fields: [
     ['company','Company Name','text'], ['email','Contact Email','email'], ['phone','Phone Number','tel'], ['origin','Shipment Origin City','text'], ['destination','Destination City','text'], ['weight','Weight (kg)','number'], ['dimensions','Dimensions (L×W×H cm)','text'], ['shipmentType','Shipment Type','select','Medical|Pharma|Electronics|Documents|Other'], ['urgency','Urgency Level','select','Next Flight|48hrs|72hrs'], ['handlingNotes','Special Handling Notes','textarea'],
@@ -66,7 +80,12 @@ const quoteForms = [
   { color: '#EF4444', title: 'Specialized Handling Quote', button: 'Submit inquiry', fields: [
     ['company','Company Name','text'], ['contact','Contact Person','text'], ['email','Email','email'], ['phone','Phone','tel'], ['route','Origin / Destination','text'], ['cargoType','Cargo Type','select','Pharmaceutical|Hazmat|Oversized|Fine Art|Perishables|Other'], ['weight','Total Weight (kg)','number'], ['dimensions','Dimensions (L×W×H m)','text'], ['temperature','Temperature Range','text'], ['value','Declared Value ($)','number'], ['certifications','Certifications Needed','text'], ['handlingNotes','Special Handling Notes','textarea'], ['notes','Additional Notes','textarea'],
   ]},
+  { color: '#F2693C', title: 'General Freight Quote', button: 'Request quote', fields: [
+    ['name','Your Name','text'], ['company','Company Name','text'], ['email','Contact Email','email'], ['phone','Phone Number','tel'], ['serviceNeeded','Service Needed','select','Expedited Air|Charter Solutions|Hand-Carry / OBC|Specialized Handling|Not Sure Yet'], ['origin','Origin City / Airport','text'], ['destination','Destination City / Airport','text'], ['pickupReady','Cargo Ready / Pickup Date & Time','datetime-local'], ['delivery','Required Delivery Date & Time','datetime-local'], ['cargo','Cargo Description','textarea'], ['handling','Handling Requirements','textarea'], ['weight','Approx. Weight (kg)','number'], ['pieceCount','Piece Count','number'], ['dimensions','Dimensions (L × W × H)','text'], ['urgency','Urgency','select','Next Flight|24hrs|48hrs|72hrs|Flexible'], ['notes','Additional Notes','textarea'],
+  ]},
 ] as const
+
+const GENERAL_QUOTE = quoteForms.length - 1
 
 const industries = [
   { icon: Thermometer, title: 'Healthcare', summary: 'Temperature-sensitive and life-critical materials.', heading: 'Healthcare logistics without gaps in control.', description: 'Critical devices, therapies, and temperature-sensitive materials move under a documented handling plan from pickup through delivery.', services: ['Cold-chain coordination', 'Priority air routing', 'Documented custody'], image: 'https://images.unsplash.com/photo-1576671081837-49000212a370?auto=format&fit=crop&w=1200&q=85' },
@@ -138,13 +157,226 @@ function QuoteModal({ serviceIndex, onClose }: { serviceIndex: number, onClose: 
 
   return <div className="quote-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) onClose() }}>
     <section className="quote-modal" role="dialog" aria-modal="true" aria-labelledby="quote-title" style={{'--service-color': form.color} as React.CSSProperties}>
-      <header><div><small>Service-specific request</small><h2 id="quote-title">{form.title}</h2><p>Tell us what is moving. Required fields are marked with an asterisk.</p></div><button type="button" onClick={onClose} aria-label="Close quote form"><X /></button></header>
-      <form onSubmit={submitQuote}><input type="hidden" name="service" value={capabilities[serviceIndex].title} /><div className="quote-fields">{form.fields.map(([name,label,type,options]) => <label className={type === 'textarea' ? 'wide' : ''} key={name}><span>{label} *</span>{type === 'select' ? <select name={name} required defaultValue=""><option value="" disabled>Select an option</option>{options?.split('|').map(option => <option key={option}>{option}</option>)}</select> : type === 'textarea' ? <textarea name={name} rows={3} required /> : <input name={name} type={type} required min={type === 'number' ? '0' : undefined} step={type === 'number' ? 'any' : undefined} />}</label>)}</div>{error && <p className="form-error" role="alert">{error}</p>}<footer><p>Requests are reviewed by Hanz operations. Final pricing is confirmed after route and cargo validation.</p><button className="button" type="submit" disabled={submitting}>{submitting ? 'Submitting…' : form.button}<ArrowRight /></button></footer></form>
+      <header><div><small>{serviceIndex === GENERAL_QUOTE ? 'General request' : 'Service-specific request'}</small><h2 id="quote-title">{form.title}</h2><p>Tell us what is moving. Required fields are marked with an asterisk.</p></div><button type="button" onClick={onClose} aria-label="Close quote form"><X aria-hidden="true" /></button></header>
+      <form onSubmit={submitQuote}><input type="hidden" name="service" value={capabilities[serviceIndex]?.title ?? 'General Inquiry'} /><div className="quote-fields">{form.fields.map(([name,label,type,options]) => <label className={type === 'textarea' ? 'wide' : ''} key={name}><span>{label} *</span>{type === 'select' ? <select name={name} required defaultValue=""><option value="" disabled>Select an option</option>{options?.split('|').map(option => <option key={option}>{option}</option>)}</select> : type === 'textarea' ? <textarea name={name} rows={3} required /> : <input name={name} type={type} required min={type === 'number' ? '0' : undefined} step={type === 'number' ? 'any' : undefined} />}</label>)}</div>{error && <p className="form-error" role="alert">{error}</p>}<footer><p>{serviceIndex === GENERAL_QUOTE ? '24/7 Dispatch: Initial flight options and handling plans provided within 15–30 minutes.' : 'Requests are reviewed by Hanz operations. Final pricing is confirmed after route and cargo validation.'}</p><button className="button" type="submit" disabled={submitting}>{submitting ? 'Submitting…' : form.button}<ArrowRight /></button></footer></form>
     </section>
   </div>
 }
 
+function SiteFooter({ fromServicePage = false }: { fromServicePage?: boolean }) {
+  const company = (hash: string) => (fromServicePage ? `/${hash}` : hash)
+  return <footer className="footer section-pad"><div className="shell footer-grid"><div className="footer-brand"><img src="/assets/hanz-logistics-logo.png" alt="Hanz Logistics" /><p>Mission-critical air freight forwarding from Pittsburgh to the world.</p></div><div><h3>Services</h3>{capabilities.map(({title}, i) => <a href={SERVICE_PATHS[i]} key={title}>{title}</a>)}</div><div><h3>Company</h3><a href={company('#about')}>About Hanz</a><a href={company('#industries')}>Industries</a><a href={company('#standard')}>Our Standard</a><a href={company('#contact')}>Contact</a></div><div><h3>Contact</h3><span>Pittsburgh, PA</span><span>24 / 7 / 365</span><a href="mailto:operations@hanzlogistics.com">operations@hanzlogistics.com</a><a href="mailto:info@hanzlogistics.com">info@hanzlogistics.com</a></div></div><div className="shell legal"><span>© 2026 Hanz Logistics. All rights reserved.</span><span className="site-credit">Built by <a href="https://ogigrid.com" target="_blank" rel="noreferrer"><strong>OgiGrid</strong> Smart Solutions</a></span><span>Privacy • Terms • <a href="/track">Track a shipment</a></span></div></footer>
+}
+
+function TrackPage() {
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [referenceId, setReferenceId] = useState('')
+  const [error, setError] = useState('')
+  const [checkedReference, setCheckedReference] = useState<string | null>(null)
+  const closeMenu = () => setMenuOpen(false)
+
+  const submitTrack = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    const value = referenceId.trim()
+    if (!value) {
+      setError('Enter an AWB or Reference ID to continue.')
+      setCheckedReference(null)
+      return
+    }
+    setError('')
+    setCheckedReference(value)
+  }
+
+  return <>
+    <header className="service-top">
+      <nav className="nav shell" aria-label="Main navigation">
+        <a href="/" aria-label="Hanz Logistics home"><img src="/assets/hanz-logistics-logo.png" alt="Hanz Logistics" /></a>
+        <button className="menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-controls="track-nav-links" aria-label="Toggle navigation">{menuOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}</button>
+        <div className={`nav-links ${menuOpen ? 'open' : ''}`} id="track-nav-links">
+          <a onClick={closeMenu} href="/#capabilities">Capabilities</a>
+          <a onClick={closeMenu} href="/#industries">Industries</a>
+          <a onClick={closeMenu} href="/#standard">Why Hanz</a>
+          <a onClick={closeMenu} href="/#about">About</a>
+          <a onClick={closeMenu} href="/track" aria-current="page">Track Shipment</a>
+          <a onClick={closeMenu} className="button small" href="/#contact">Request a quote</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section className="track-hero" style={{ backgroundImage: `linear-gradient(115deg, rgba(16,36,59,.96) 0%, rgba(16,36,59,.88) 42%, rgba(16,36,59,.72) 100%), url(${images.track})` }}>
+        <div className="shell track-hero-content">
+          <a className="service-back" href="/">
+            <ArrowLeft aria-hidden="true" />
+            <span>Back to home</span>
+          </a>
+          <Label>Shipment visibility</Label>
+          <h1>Track a Shipment</h1>
+          <p className="track-lede">Enter your airway bill (AWB) or Hanz reference number from your shipping documents. An operator can confirm live status when online tracking is unavailable.</p>
+
+          <div className="track-panel">
+            <form className="track-card" onSubmit={submitTrack} noValidate>
+              <label className="track-field" htmlFor="track-reference">
+                <span>AWB / Reference ID</span>
+                <input
+                  id="track-reference"
+                  name="referenceId"
+                  type="text"
+                  inputMode="text"
+                  autoComplete="off"
+                  autoCorrect="off"
+                  autoCapitalize="characters"
+                  spellCheck={false}
+                  placeholder="e.g. 123-45678901 or HL-REF-48291"
+                  value={referenceId}
+                  onChange={(event) => {
+                    setReferenceId(event.target.value)
+                    if (error) setError('')
+                    if (checkedReference) setCheckedReference(null)
+                  }}
+                  aria-invalid={error ? true : undefined}
+                  aria-describedby={error ? 'track-reference-error' : 'track-reference-hint'}
+                  required
+                />
+              </label>
+              <p className="track-hint" id="track-reference-hint">Use the AWB printed on your airway bill or the Hanz reference from your confirmation.</p>
+              {error && <p className="form-error" id="track-reference-error" role="alert">{error}</p>}
+              <button className="button" type="submit">Track Shipment <ArrowRight /></button>
+            </form>
+
+            <aside className="track-aside">
+              <small>Need help locating a reference?</small>
+              <p>Your AWB appears on the airway bill. Hanz references are issued with shipment confirmations from operations.</p>
+              <a href="tel:+14123453837" aria-label="Call Hanz Logistics operations at (412) 345-3837">(412) 345-3837</a>
+              <a href="mailto:operations@hanzlogistics.com">operations@hanzlogistics.com</a>
+            </aside>
+          </div>
+
+          {checkedReference && (
+            <div className="track-notice" role="status">
+              <h2>Live tracking is not connected yet</h2>
+              <p>This page cannot look up shipment status automatically. There is no tracking API connected in this project. Reference <strong>{checkedReference}</strong> was entered for this request, but no shipment result was retrieved.</p>
+              <p>Contact Hanz operations for a current status update:</p>
+              <div className="track-contacts">
+                <a className="button" href="tel:+14123453837" aria-label="Call Hanz Logistics operations at (412) 345-3837">Call (412) 345-3837</a>
+                <a className="button ghost" href={`mailto:operations@hanzlogistics.com?subject=${encodeURIComponent(`Shipment status request: ${checkedReference}`)}`}>Email operations</a>
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
+    </main>
+
+    <SiteFooter fromServicePage />
+  </>
+}
+
+function QuickActions() {
+  return <nav className="quick-actions" aria-label="Quick contact actions">
+    <a href="tel:+14123453837" aria-label="Call Hanz Logistics at (412) 345-3837"><Phone aria-hidden="true" />Call Hanz</a>
+    <a href="mailto:operations@hanzlogistics.com?subject=Urgent%20Freight%20Request" aria-label="Email Hanz operations about an urgent freight request"><Mail aria-hidden="true" />Email Ops</a>
+  </nav>
+}
+
+function ServiceLanding({ serviceIndex, onRequestQuote }: { serviceIndex: number, onRequestQuote: () => void }) {
+  const [menuOpen, setMenuOpen] = useState(false)
+  const closeMenu = () => setMenuOpen(false)
+  const service = capabilities[serviceIndex]
+
+  return <>
+    <header className="service-top">
+      <nav className="nav shell" aria-label="Main navigation">
+        <a href="/" aria-label="Hanz Logistics home"><img src="/assets/hanz-logistics-logo.png" alt="Hanz Logistics" /></a>
+        <button className="menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-controls="service-nav-links" aria-label="Toggle navigation">{menuOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}</button>
+        <div className={`nav-links ${menuOpen ? 'open' : ''}`} id="service-nav-links">
+          <a onClick={closeMenu} href="/#capabilities">Capabilities</a>
+          <a onClick={closeMenu} href="/#industries">Industries</a>
+          <a onClick={closeMenu} href="/#standard">Why Hanz</a>
+          <a onClick={closeMenu} href="/#about">About</a>
+          <a onClick={closeMenu} href="/track">Track Shipment</a>
+          <button className="button small" type="button" onClick={() => { closeMenu(); onRequestQuote() }}>Request a Quote</button>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section className="service-hero" style={{ backgroundImage: `linear-gradient(105deg, rgba(16,36,59,.94) 0%, rgba(16,36,59,.72) 48%, rgba(16,36,59,.42) 100%), url(${service.image})` }}>
+        <div className="shell service-hero-content">
+          <a className="service-back" href="/#capabilities">
+            <ArrowLeft aria-hidden="true" />
+            <span>Back to services</span>
+          </a>
+          <Label>{service.eyebrow}</Label>
+          <h1>{service.title}</h1>
+          <p className="lede">{service.summary}</p>
+          <div className="actions">
+            <button className="button" type="button" onClick={onRequestQuote}>Request a Quote <ArrowRight /></button>
+            <a className="button ghost" href="tel:+14123453837" aria-label="Call Hanz Logistics operations at (412) 345-3837">Talk to operations</a>
+          </div>
+        </div>
+      </section>
+
+      <section className="service-body section-pad">
+        <div className="shell service-stack">
+          <div className="service-block service-overview">
+            <div className="service-overview-copy">
+              <Label>Service overview</Label>
+              <h2>{service.title}</h2>
+              <p>{service.description}</p>
+            </div>
+            <div className="service-overview-media" style={{ backgroundImage: `linear-gradient(180deg,transparent 35%,rgba(16,36,59,.7)),url(${service.image})` }} role="img" aria-label={`${service.title} operations`}><span>{String(serviceIndex + 1).padStart(2, '0')} / 04</span></div>
+          </div>
+
+          <div className="service-block">
+            <div className="service-block-intro">
+              <Label>Key capabilities</Label>
+              <h2>Service specifications</h2>
+            </div>
+            <ul className="service-spec-grid">
+              {service.specs.map(spec => <li key={spec}><ShieldCheck aria-hidden="true" /><span>{spec}</span></li>)}
+            </ul>
+          </div>
+
+          <div className="service-block service-ops-grid">
+            <article className="service-sla-card">
+              <Label>Operations</Label>
+              <h2>24 / 7 Dispatch</h2>
+              <p>24/7 Dispatch: Initial flight options and handling plans provided within 15–30 minutes.</p>
+            </article>
+            <article className="service-price-card">
+              <Label>Pricing</Label>
+              <h2>Planning & cargo review</h2>
+              <div className="cap-price"><small>Pricing</small><span>{service.pricing}</span></div>
+              <button className="button" type="button" onClick={onRequestQuote}>{service.cta}<ArrowRight /></button>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section className="cta section-pad" id="contact" style={{ backgroundImage: `linear-gradient(90deg, rgba(16,36,59,.8), rgba(16,36,59,.25)), url(${images.cta})` }}>
+        <div className="shell cta-grid">
+          <div>
+            <Label>Ready when the clock starts</Label>
+            <h2>Need this service for an urgent shipment?</h2>
+            <p>Tell us what is moving, where it needs to go and when it must arrive. An operator will take it from there.</p>
+            <p className="service-sla light">24/7 Dispatch: Initial flight options and handling plans provided within 15–30 minutes.</p>
+          </div>
+          <aside>
+            <small>Start here</small>
+            <a href="tel:+14123453837" aria-label="Call Hanz Logistics at (412) 345-3837">(412) 345-3837</a>
+            <a href="mailto:operations@hanzlogistics.com">operations@hanzlogistics.com</a>
+            <button className="button" type="button" onClick={onRequestQuote}>Request a Quote <ArrowRight /></button>
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <SiteFooter fromServicePage />
+  </>
+}
+
 function App() {
+  const [path, setPath] = useState(() => normalizePath(window.location.pathname))
   const [menuOpen, setMenuOpen] = useState(false)
   const [activeStep, setActiveStep] = useState<number | null>(null)
   const [activeCapability, setActiveCapability] = useState<number | null>(null)
@@ -155,6 +387,13 @@ function App() {
   const selectedStep = activeStep === null ? null : steps[activeStep]
   const selectedCapability = activeCapability === null ? null : capabilities[activeCapability]
   const selectedIndustry = industries[activeIndustry]
+  const serviceIndex = serviceIndexFromPath(path)
+
+  useEffect(() => {
+    const syncPath = () => setPath(normalizePath(window.location.pathname))
+    window.addEventListener('popstate', syncPath)
+    return () => window.removeEventListener('popstate', syncPath)
+  }, [])
 
   useEffect(() => {
     if (activeStep === null) return
@@ -183,23 +422,42 @@ function App() {
     }
   }, [activeQuote])
 
+  if (path === '/track') {
+    return <>
+      <TrackPage />
+      <QuickActions />
+    </>
+  }
+
+  if (serviceIndex !== null) {
+    return <>
+      <ServiceLanding serviceIndex={serviceIndex} onRequestQuote={() => setActiveQuote(serviceIndex)} />
+      {activeQuote !== null && <QuoteModal serviceIndex={activeQuote} onClose={() => setActiveQuote(null)} />}
+      <QuickActions />
+    </>
+  }
+
   return <>
     <header className="hero" id="top">
       <div className="hero-flight" style={{ backgroundImage: `url(${images.hero})` }} aria-hidden="true" />
       <div className="hero-overlay" aria-hidden="true" />
       <nav className="nav shell" aria-label="Main navigation">
         <a href="#top" aria-label="Hanz Logistics home"><img src="/assets/hanz-logistics-logo.png" alt="Hanz Logistics" /></a>
-        <button className="menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-controls="nav-links" aria-label="Toggle navigation">{menuOpen ? <X /> : <Menu />}</button>
+        <button className="menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-controls="nav-links" aria-label="Toggle navigation">{menuOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}</button>
         <div className={`nav-links ${menuOpen ? 'open' : ''}`} id="nav-links">
-          <a onClick={closeMenu} href="#capabilities">Capabilities</a><a onClick={closeMenu} href="#industries">Industries</a><a onClick={closeMenu} href="#standard">Why Hanz</a><a onClick={closeMenu} href="#about">About</a>
-          <a onClick={closeMenu} className="button small" href="#capabilities">Request a quote</a>
+          <a onClick={closeMenu} href="#capabilities">Capabilities</a>
+          <a onClick={closeMenu} href="#industries">Industries</a>
+          <a onClick={closeMenu} href="#standard">Why Hanz</a>
+          <a onClick={closeMenu} href="#about">About</a>
+          <a onClick={closeMenu} href="/track">Track Shipment</a>
+          <a onClick={(event) => { event.preventDefault(); closeMenu(); setActiveQuote(GENERAL_QUOTE) }} className="button small" href="#capabilities">Request a quote</a>
         </div>
       </nav>
       <div className="hero-content shell">
         <Label>Pittsburgh-based • Worldwide reach</Label>
         <h1>Air freight for cargo that cannot afford to be delayed.</h1>
         <p className="lede">Documented before it moves. Tracked while it does. Accounted for when it lands.</p>
-        <div className="actions"><a className="button" href="#capabilities">Start a shipment <ArrowRight /></a><a className="button ghost" href="tel:18004269247" aria-label="Call Hanz Logistics operations at 1 800 HANZ AIR">Talk to operations</a></div>
+        <div className="actions"><a className="button" href="#capabilities" onClick={(event) => { event.preventDefault(); setActiveQuote(GENERAL_QUOTE) }}>Start a shipment <ArrowRight /></a><a className="button ghost" href="tel:+14123453837" aria-label="Call Hanz Logistics operations at (412) 345-3837">Talk to operations</a></div>
       </div>
       <div className="facts shell">
         {[['Available','24 / 7 / 365'],['Service','Domestic + Global'],['Standard','Chain-of-custody'],['Base','PIT Airport Corridor']].map(([k,v]) => <div key={k}><small>{k}</small><strong>{v}</strong></div>)}
@@ -215,12 +473,12 @@ function App() {
       <section className="capabilities section-pad" id="capabilities">
         <div className="shell"><Label>What we move</Label><div className="section-heading"><h2>A faster path through complex freight.</h2><p>One operations team coordinates the route, documentation, handling and handoffs—so there are fewer places for critical cargo to stall.</p></div>
           <div className={`capability-explorer ${selectedCapability ? 'detail-open' : ''}`}>
-            <div className="cap-list">{capabilities.map((capability, i) => <button type="button" className={activeCapability === i ? 'active' : ''} key={capability.title} onClick={() => setActiveCapability(activeCapability === i ? null : i)} aria-expanded={activeCapability === i} aria-controls="capability-detail"><b>{String(i+1).padStart(2,'0')}</b><span className="icon"><Plane /></span><h3>{capability.title}</h3><p>{capability.summary}</p><ArrowRight /></button>)}</div>
+            <div className="cap-list">{capabilities.map((capability, i) => <button type="button" className={activeCapability === i ? 'active' : ''} key={capability.title} onClick={() => setActiveCapability(activeCapability === i ? null : i)} aria-expanded={activeCapability === i} aria-controls="capability-detail"><b>{String(i+1).padStart(2,'0')}</b><span className="icon" aria-hidden="true"><Plane /></span><h3>{capability.title}</h3><p>{capability.summary}</p><ArrowRight aria-hidden="true" /></button>)}</div>
             <aside className="cap-detail" id="capability-detail" aria-live="polite" aria-hidden={!selectedCapability}>
               {selectedCapability && <>
-                <button type="button" className="cap-close" onClick={() => setActiveCapability(null)} aria-label="Close capability details"><X /></button>
+                <button type="button" className="cap-close" onClick={() => setActiveCapability(null)} aria-label="Close capability details"><X aria-hidden="true" /></button>
                 <div className="cap-detail-image" style={{backgroundImage:`linear-gradient(180deg,transparent,rgba(16,36,59,.75)),url(${selectedCapability.image})`}}><span>{String(activeCapability!+1).padStart(2,'0')} / 04</span></div>
-                <div className="cap-detail-body"><small>{selectedCapability.eyebrow}</small><h3>{selectedCapability.title}</h3><p>{selectedCapability.description}</p><h4>Service specifications</h4><ul>{selectedCapability.specs.map(spec => <li key={spec}><ShieldCheck />{spec}</li>)}</ul><div className="cap-price"><small>Pricing</small><span>{selectedCapability.pricing}</span></div><button className="button" type="button" onClick={() => setActiveQuote(activeCapability!)}>{selectedCapability.cta}<ArrowRight /></button></div>
+                <div className="cap-detail-body"><small>{selectedCapability.eyebrow}</small><h3>{selectedCapability.title}</h3><p>{selectedCapability.description}</p><h4>Service specifications</h4><ul>{selectedCapability.specs.map(spec => <li key={spec}><ShieldCheck />{spec}</li>)}</ul><div className="cap-price"><small>Pricing</small><span>{selectedCapability.pricing}</span></div><button className="button" type="button" onClick={() => setActiveQuote(activeCapability!)}>{selectedCapability.cta}<ArrowRight /></button><a className="text-link service-page-link" href={SERVICE_PATHS[activeCapability!]}>Open dedicated service page <ArrowRight /></a></div>
               </>}
             </aside>
           </div>
@@ -233,33 +491,34 @@ function App() {
                     <div className="industry-panel-content" key={selectedIndustry.title}><Label>Built around the cargo</Label><span className="industry-kicker">{String(activeIndustry+1).padStart(2,'0')} / 06 • {selectedIndustry.title}</span><h2>{selectedIndustry.heading}</h2><p>{selectedIndustry.description}</p><ul>{selectedIndustry.services.map(service => <li key={service}><ShieldCheck />{service}</li>)}</ul><a className="industry-cta" href={`mailto:operations@hanzlogistics.com?subject=${encodeURIComponent(selectedIndustry.title + ' shipment')}`}>Discuss your shipment <ArrowRight /></a></div>
           <div className="sector-count"><strong>06</strong><span>Specialized sectors</span></div><small>⌖ Pittsburgh • Anywhere</small>
         </div>
-        <div className="industry-list section-pad" role="list">{industries.map((industry, index) => { const Icon = industry.icon; const isActive = activeIndustry === index; return <article className={`industry-item ${isActive ? 'active' : ''}`} role="listitem" key={industry.title}><button type="button" className={isActive ? 'active' : ''} onClick={() => setActiveIndustry(index)} onMouseEnter={() => setActiveIndustry(index)} aria-expanded={isActive} aria-controls={`industry-detail-${index}`}><b>{String(index+1).padStart(2,'0')}</b><span className="industry-icon"><Icon /></span><h3>{industry.title}</h3><p>{industry.summary}</p><ArrowRight /></button>{isActive && <div className="mobile-industry-detail" id={`industry-detail-${index}`}><div className="mobile-industry-image" style={{backgroundImage:`linear-gradient(180deg,transparent,rgba(16,36,59,.75)),url(${industry.image})`}}><span>{industry.title}</span></div><p>{industry.description}</p><ul>{industry.services.map(service => <li key={service}><ShieldCheck />{service}</li>)}</ul><a href={`mailto:operations@hanzlogistics.com?subject=${encodeURIComponent(industry.title + ' shipment')}`}>Discuss your shipment <ArrowRight /></a></div>}</article> })}</div>
+        <div className="industry-list section-pad" role="list">{industries.map((industry, index) => { const Icon = industry.icon; const isActive = activeIndustry === index; return <article className={`industry-item ${isActive ? 'active' : ''}`} role="listitem" key={industry.title}><button type="button" className={isActive ? 'active' : ''} onClick={() => setActiveIndustry(index)} onMouseEnter={() => setActiveIndustry(index)} aria-expanded={isActive} aria-controls={isActive ? `industry-detail-${index}` : undefined}><b>{String(index+1).padStart(2,'0')}</b><span className="industry-icon" aria-hidden="true"><Icon /></span><h3>{industry.title}</h3><p>{industry.summary}</p><ArrowRight aria-hidden="true" /></button>{isActive && <div className="mobile-industry-detail" id={`industry-detail-${index}`}><div className="mobile-industry-image" style={{backgroundImage:`linear-gradient(180deg,transparent,rgba(16,36,59,.75)),url(${industry.image})`}}><span>{industry.title}</span></div><p>{industry.description}</p><ul>{industry.services.map(service => <li key={service}><ShieldCheck aria-hidden="true" />{service}</li>)}</ul><a href={`mailto:operations@hanzlogistics.com?subject=${encodeURIComponent(industry.title + ' shipment')}`}>Discuss your shipment <ArrowRight aria-hidden="true" /></a></div>}</article> })}</div>
       </section>
 
-      <section className="process section-pad" id="standard"><div className="shell"><Label>One team • Full visibility</Label><div className="section-heading"><h2>Control at every handoff.</h2><p>From the first call to final delivery, a Hanz operator owns the details and keeps the record current.</p></div><div className="steps">{steps.map((step,i) => <button className="step-card" type="button" key={step.title} onClick={() => setActiveStep(i)} aria-haspopup="dialog"><div className="step-top"><b>{String(i+1).padStart(2,'0')}</b>{i === 1 ? <Radio /> : <ClipboardCheck />}</div><img src={step.image} alt="" loading="lazy" /><h3>{step.title}</h3><p>{step.summary}</p><span className="step-more">View full process <ArrowRight /></span></button>)}</div></div></section>
+      <section className="process section-pad" id="standard"><div className="shell"><Label>One team • Full visibility</Label><div className="section-heading"><h2>Control at every handoff.</h2><p>From the first call to final delivery, a Hanz operator owns the details and keeps the record current.</p></div><div className="steps">{steps.map((step,i) => <button className="step-card" type="button" key={step.title} onClick={() => setActiveStep(i)} aria-haspopup="dialog" aria-label={`View ${step.title} process details`}><div className="step-top"><b>{String(i+1).padStart(2,'0')}</b><span aria-hidden="true">{i === 1 ? <Radio /> : <ClipboardCheck />}</span></div><img src={step.image} alt="" loading="lazy" /><h3>{step.title}</h3><p>{step.summary}</p><span className="step-more">View full process <ArrowRight aria-hidden="true" /></span></button>)}</div><div className="credentials"><Label>Credentials</Label><div className="steps" role="list">{['TSA Indirect Air Carrier (IAC) compliant','TWIC cleared','IATA DGR & GDP handling standards'].map((title, i) => <article className="step-card" role="listitem" key={title}><div className="step-top"><b>{String(i+1).padStart(2,'0')}</b><ShieldCheck aria-hidden="true" /></div><h3>{title}</h3></article>)}</div></div></div></section>
 
-      <section className="cta section-pad" id="contact" style={{ backgroundImage: `linear-gradient(90deg, rgba(16,36,59,.8), rgba(16,36,59,.25)), url(${images.cta})` }}><div className="shell cta-grid"><div><Label>Ready when the clock starts</Label><h2>The shipment is urgent. The next move should be clear.</h2><p>Tell us what is moving, where it needs to go and when it must arrive. An operator will take it from there.</p></div><aside><small>Start here</small><a href="tel:18004269247">1 800 HANZ AIR</a><a href="mailto:operations@hanzlogistics.com">operations@hanzlogistics.com</a><a className="button" href="#capabilities">Get a quote <ArrowRight /></a></aside></div></section>
+      <section className="cta section-pad" id="contact" style={{ backgroundImage: `linear-gradient(90deg, rgba(16,36,59,.8), rgba(16,36,59,.25)), url(${images.cta})` }}><div className="shell cta-grid"><div><Label>Ready when the clock starts</Label><h2>The shipment is urgent. The next move should be clear.</h2><p>Tell us what is moving, where it needs to go and when it must arrive. An operator will take it from there.</p></div><aside><small>Start here</small><a href="tel:+14123453837" aria-label="Call Hanz Logistics at (412) 345-3837">(412) 345-3837</a><a href="mailto:operations@hanzlogistics.com">operations@hanzlogistics.com</a><a href="mailto:info@hanzlogistics.com">info@hanzlogistics.com</a><a className="button" href="#capabilities" onClick={(event) => { event.preventDefault(); setActiveQuote(GENERAL_QUOTE) }}>Get a quote <ArrowRight /></a></aside></div></section>
     </main>
 
     {activeQuote !== null && <QuoteModal serviceIndex={activeQuote} onClose={() => setActiveQuote(null)} />}
 
     {selectedStep && <div className="modal-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setActiveStep(null) }}>
       <section className="process-modal" role="dialog" aria-modal="true" aria-labelledby="process-modal-title">
-        <button ref={closeButtonRef} className="modal-close" type="button" onClick={() => setActiveStep(null)} aria-label="Close process details"><X /></button>
+        <button ref={closeButtonRef} className="modal-close" type="button" onClick={() => setActiveStep(null)} aria-label="Close process details"><X aria-hidden="true" /></button>
         <div className="modal-image" style={{ backgroundImage: `linear-gradient(180deg, transparent, rgba(16,36,59,.62)), url(${selectedStep.image})` }}><span>{String(activeStep! + 1).padStart(2, '0')} / 03</span></div>
         <div className="modal-content">
           <Label>Hanz operations standard</Label>
           <h2 id="process-modal-title">{selectedStep.title}</h2>
           <p className="modal-intro">{selectedStep.intro}</p>
           <h3>What happens at this stage</h3>
-          <ul>{selectedStep.details.map((detail) => <li key={detail}><ClipboardCheck /> <span>{detail}</span></li>)}</ul>
+          <ul>{selectedStep.details.map((detail) => <li key={detail}><ClipboardCheck aria-hidden="true" /> <span>{detail}</span></li>)}</ul>
           <div className="modal-outcome"><small>Operational outcome</small><p>{selectedStep.outcome}</p></div>
-          <a className="button" href="#contact" onClick={() => setActiveStep(null)}>Start a shipment <ArrowRight /></a>
+          <a className="button" href="#contact" onClick={() => setActiveStep(null)}>Start a shipment <ArrowRight aria-hidden="true" /></a>
         </div>
       </section>
     </div>}
 
-    <footer className="footer section-pad"><div className="shell footer-grid"><div className="footer-brand"><img src="/assets/hanz-logistics-logo.png" alt="Hanz Logistics" /><p>Mission-critical air freight forwarding from Pittsburgh to the world.</p></div><div><h3>Services</h3>{capabilities.map(({title}) => <a href="#capabilities" key={title}>{title}</a>)}</div><div><h3>Company</h3><a href="#about">About Hanz</a><a href="#industries">Industries</a><a href="#standard">Our Standard</a><a href="#contact">Contact</a></div><div><h3>Contact</h3><span>Pittsburgh, PA</span><span>24 / 7 / 365</span><a href="mailto:operations@hanzlogistics.com">operations@hanzlogistics.com</a></div></div><div className="shell legal"><span>© 2026 Hanz Logistics. All rights reserved.</span><span className="site-credit">Built by <a href="https://ogigrid.com" target="_blank" rel="noreferrer"><strong>OgiGrid</strong> Smart Solutions</a></span><span>Privacy • Terms • Track a shipment</span></div></footer>
+    <SiteFooter />
+    <QuickActions />
   </>
 }
 
