@@ -163,3 +163,912 @@
 .footer-grid a[href^="tel:"]{font-weight:600}
 @media(max-width:900px){.legal-hero{padding:34px 0 44px}.legal-hero h1{font-size:clamp(2.35rem,8vw,3.4rem)}.legal-layout{grid-template-columns:minmax(0,1fr);gap:18px}.legal-rail{position:static}.legal-document{padding:26px 20px}.capability-download{padding:20px;flex-direction:column;align-items:stretch}.capability-download .button{width:100%}}
 @media(max-width:600px){.track-hero .lede,.legal-hero .lede{max-width:min(620px,100%);margin:0;color:#e7edf2}.legal-page{background:linear-gradient(180deg,#10243b 0 220px,var(--paper) 220px)}.legal-hero h1{font-size:clamp(2.1rem,11vw,2.8rem)}.legal-document{padding:20px 16px}.legal-body{padding-top:28px}}
+
+/* Desktop density — ~125% at 100% zoom (901px+ only; ~4% smaller than prior 130% pass)
+   Strategy: html 125% scales rem/em typography once; px layout + vw in clamp scaled separately. */
+@media (min-width: 901px) {
+  html {
+    font-size: 125%;
+  }
+
+  .shell {
+    width: min(1560px, 100%);
+    padding-inline: 30px;
+  }
+
+  .section-pad {
+    padding: 140px max(30px, calc((100% - 1560px) / 2));
+  }
+
+  h1 {
+    max-width: 950px;
+    font-size: clamp(3rem, 6.5vw, 5.2rem);
+    margin: 30px 0;
+  }
+
+  h2 {
+    font-size: clamp(2.1rem, 3.75vw, 3.25rem);
+    margin-bottom: 30px;
+  }
+
+  .label {
+    gap: 12px;
+    margin-bottom: 35px;
+  }
+
+  .label span {
+    width: 9px;
+    height: 9px;
+  }
+
+  .button {
+    gap: 25px;
+    padding: 20px 28px;
+  }
+
+  .button svg,
+  .text-link svg {
+    width: 19px;
+  }
+
+  .button.small {
+    padding: 16px 22px;
+  }
+
+  .nav {
+    height: 135px;
+    gap: 20px;
+  }
+
+  .nav img,
+  .footer img {
+    width: min(275px, 40.385vw);
+  }
+
+  .nav-links {
+    gap: 40px;
+  }
+
+  .hero-content {
+    padding-top: clamp(69px, 9vh, 132px);
+    padding-bottom: 44px;
+  }
+
+  .hero h1 {
+    max-width: 1100px;
+    font-size: clamp(3.2rem, 6.563vw, 5.35rem);
+  }
+
+  .hero .lede {
+    max-width: 812px;
+    font-size: clamp(1rem, 1.562vw, 1.12rem);
+  }
+
+  .actions {
+    gap: 15px;
+    margin-top: 42px;
+  }
+
+  .facts div {
+    padding: 32px 17px;
+  }
+
+  .facts small {
+    margin-bottom: 10px;
+  }
+
+  .intro {
+    min-height: 875px;
+  }
+
+  .intro-copy > p {
+    max-width: 775px;
+  }
+
+  .text-link {
+    gap: 15px;
+    margin-top: 35px;
+  }
+
+  .image-note {
+    bottom: 50px;
+    width: min(462px, 90%);
+    padding: 30px;
+  }
+
+  .image-note small {
+    margin-bottom: 12px;
+  }
+
+  .section-heading {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 500px);
+    gap: 100px;
+  }
+
+  .capability-explorer {
+    margin-top: 50px;
+  }
+
+  .capability-explorer.detail-open {
+    gap: 38px;
+  }
+
+  .cap-list button {
+    grid-template-columns: 60px 70px 1fr 1.4fr 30px;
+    gap: 25px;
+    min-height: 140px;
+    padding: 35px 15px;
+  }
+
+  .cap-list button:hover,
+  .cap-list button.active {
+    padding-left: 25px;
+    padding-right: 25px;
+  }
+
+  .cap-list .icon {
+    width: 72px;
+    height: 72px;
+  }
+
+  .cap-list svg {
+    width: 28px;
+  }
+
+  .cap-list button > svg {
+    width: 29px;
+  }
+
+  .detail-open .cap-list button {
+    grid-template-columns: 45px 62px 1fr 22px;
+  }
+
+  .cap-close {
+    right: 20px;
+    top: 20px;
+    width: 50px;
+    height: 50px;
+  }
+
+  .cap-close svg {
+    width: 22px;
+  }
+
+  .cap-detail-image {
+    height: 282px;
+    padding: 28px;
+  }
+
+  .cap-detail-body {
+    padding: 38px;
+  }
+
+  .cap-detail-body h3 {
+    margin: 12px 0 15px;
+  }
+
+  .cap-detail-body h4 {
+    margin: 32px 0 12px;
+  }
+
+  .cap-detail-body ul {
+    gap: 0 22px;
+    margin: 0 0 28px;
+  }
+
+  .cap-detail-body li {
+    gap: 10px;
+    padding: 12px 0;
+  }
+
+  .cap-detail-body li svg {
+    width: 17px;
+  }
+
+  .cap-price {
+    padding: 16px 20px;
+    margin-bottom: 25px;
+  }
+
+  .cap-price span {
+    margin-top: 7px;
+  }
+
+  .industries {
+    min-height: 1012px;
+  }
+
+  .industry-kicker {
+    margin: -15px 0 28px;
+  }
+
+  .industry-intro h2 {
+    max-width: 550px;
+  }
+
+  .industry-intro p {
+    max-width: 538px;
+  }
+
+  .industry-intro ul {
+    gap: 12px;
+    margin: 35px 0;
+  }
+
+  .industry-intro li {
+    gap: 9px;
+    padding: 10px 12px;
+  }
+
+  .industry-intro li svg {
+    width: 17px;
+  }
+
+  .industry-cta {
+    gap: 20px;
+    padding-bottom: 10px;
+  }
+
+  .industry-cta svg {
+    width: 19px;
+  }
+
+  .sector-count {
+    padding-top: 25px;
+  }
+
+  .industry-intro > small {
+    margin-top: 69px;
+  }
+
+  .industry-list button {
+    grid-template-columns: 38px 58px 1fr 1.2fr 25px;
+    gap: 22px;
+    min-height: 140px;
+    padding: 0 28px;
+  }
+
+  .industry-list button::before {
+    top: 22px;
+    bottom: 22px;
+  }
+
+  .industry-list button:hover,
+  .industry-list button.active {
+    padding-left: 35px;
+  }
+
+  .industry-icon {
+    width: 62px;
+    height: 62px;
+  }
+
+  .industry-list svg {
+    width: 28px;
+  }
+
+  .industry-list button > svg:last-child {
+    width: 28px;
+  }
+
+  .steps {
+    gap: 28px;
+    margin-top: 65px;
+  }
+
+  .step-card {
+    padding: 0 0 35px;
+    border-radius: 10px;
+  }
+
+  .step-top {
+    padding: 28px 30px 22px;
+  }
+
+  .step-top b {
+    width: 45px;
+    height: 33px;
+  }
+
+  .step-top svg {
+    width: 26px;
+  }
+
+  .steps img {
+    height: 237px;
+  }
+
+  .steps h3,
+  .steps p,
+  .step-more {
+    margin-left: 30px;
+    margin-right: 30px;
+  }
+
+  .steps h3 {
+    margin-top: 33px;
+    margin-bottom: 12px;
+  }
+
+  .steps p {
+    min-height: 83px;
+  }
+
+  .step-more {
+    padding-top: 25px;
+    margin-top: 28px;
+  }
+
+  .step-more svg {
+    width: 19px;
+  }
+
+  .quote-backdrop {
+    padding: 30px;
+  }
+
+  .quote-modal {
+    width: min(1225px, 100%);
+    max-height: calc(100vh - 60px);
+    max-height: calc(100dvh - 60px);
+    border-top-width: 8px;
+  }
+
+  .quote-modal > header {
+    gap: 38px;
+    padding: 38px 45px 30px;
+  }
+
+  .quote-modal header h2 {
+    margin: 10px 0;
+  }
+
+  .quote-modal header button {
+    width: 53px;
+    height: 53px;
+  }
+
+  .quote-modal header button svg {
+    width: 24px;
+  }
+
+  .quote-modal form {
+    padding: 38px 45px 45px;
+  }
+
+  .quote-fields {
+    gap: 25px;
+  }
+
+  .quote-fields label {
+    gap: 10px;
+  }
+
+  .quote-fields input,
+  .quote-fields select,
+  .quote-fields textarea {
+    padding: 16px 17px;
+  }
+
+  .quote-modal form > footer {
+    gap: 38px;
+    margin-top: 35px;
+    padding-top: 30px;
+  }
+
+  .quote-modal form > footer p {
+    max-width: 625px;
+  }
+
+  .form-error {
+    padding: 15px;
+    margin: 25px 0 0;
+  }
+
+  .modal-backdrop {
+    padding: 30px;
+  }
+
+  .process-modal {
+    width: min(1200px, 100%);
+    max-height: min(1025px, calc(100vh - 60px));
+    max-height: min(1025px, calc(100dvh - 60px));
+  }
+
+  .modal-close {
+    right: 22px;
+    top: 22px;
+    width: 55px;
+    height: 55px;
+  }
+
+  .modal-close svg {
+    width: 25px;
+  }
+
+  .modal-image {
+    padding: 40px;
+  }
+
+  .modal-content {
+    padding: 80px 67px;
+  }
+
+  .modal-content h2 {
+    margin-bottom: 22px;
+  }
+
+  .modal-content > h3 {
+    margin: 38px 0 19px;
+  }
+
+  .modal-content ul {
+    margin: 0 0 33px;
+  }
+
+  .modal-content li {
+    gap: 15px;
+    padding: 13px 0;
+  }
+
+  .modal-content li svg {
+    width: 21px;
+    min-width: 21px;
+  }
+
+  .modal-outcome {
+    padding: 22px 25px;
+    margin-bottom: 32px;
+  }
+
+  .modal-outcome small {
+    margin-bottom: 9px;
+  }
+
+  .cta {
+    min-height: 650px;
+  }
+
+  .cta-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 412px);
+    gap: clamp(40px, 5.769vw, 125px);
+  }
+
+  .cta-grid > div > p {
+    max-width: 875px;
+  }
+
+  .cta aside {
+    padding: 35px;
+    gap: 15px;
+  }
+
+  .cta aside .button {
+    margin-top: 10px;
+  }
+
+  .footer {
+    padding-bottom: 38px;
+  }
+
+  .footer-grid {
+    gap: 69px;
+  }
+
+  .footer-brand p {
+    max-width: 350px;
+    margin-top: 44px;
+  }
+
+  .footer-grid > div:not(:first-child) {
+    gap: 13px;
+  }
+
+  .legal {
+    margin-top: 100px;
+    padding-top: 32px;
+    gap: 30px;
+  }
+
+  .service-hero {
+    min-height: min(72vh, 800px);
+    padding: 45px 0 90px;
+  }
+
+  .service-back {
+    gap: 12px;
+    margin: 0 0 35px;
+    padding: 13px 20px;
+  }
+
+  .service-back svg {
+    width: 20px;
+  }
+
+  .service-hero .label {
+    margin-bottom: 22px;
+  }
+
+  .service-hero h1 {
+    max-width: min(1025px, 100%);
+    margin: 0 0 22px;
+    font-size: clamp(2.6rem, 6.25vw, 4.6rem);
+  }
+
+  .service-hero .lede {
+    max-width: min(775px, 100%);
+  }
+
+  .service-hero .actions {
+    margin-top: 35px;
+  }
+
+  .service-stack {
+    gap: 90px;
+  }
+
+  .service-block-intro h2,
+  .service-overview-copy h2,
+  .service-sla-card h2,
+  .service-price-card h2 {
+    margin-bottom: 22px;
+  }
+
+  .service-overview {
+    gap: 50px;
+  }
+
+  .service-overview-copy > p {
+    max-width: 800px;
+  }
+
+  .service-overview-media {
+    min-height: 450px;
+    padding: 28px;
+  }
+
+  .service-spec-grid {
+    gap: 20px;
+  }
+
+  .service-spec-grid li {
+    gap: 15px;
+    min-height: 110px;
+    padding: 25px 22px;
+  }
+
+  .service-spec-grid svg {
+    width: 22px;
+    min-width: 22px;
+  }
+
+  .service-ops-grid {
+    gap: 28px;
+  }
+
+  .service-sla-card,
+  .service-price-card {
+    padding: 40px 35px;
+  }
+
+  .service-price-card .cap-price {
+    margin: 0 0 28px;
+  }
+
+  .service-sla {
+    margin: 35px 0 0;
+    padding: 20px 22px;
+  }
+
+  .service-page-link {
+    margin-top: 22px;
+  }
+
+  .industries > .section-pad {
+    padding-left: clamp(30px, 3.846vw, 70px);
+    padding-right: clamp(30px, 3.846vw, 70px);
+  }
+
+  .credentials {
+    margin-top: 70px;
+  }
+
+  .credentials .step-card {
+    padding: 30px 30px 35px;
+  }
+
+  .credentials .step-top {
+    padding: 0 0 20px;
+  }
+
+  .track-hero {
+    min-height: calc(100svh - 135px);
+    padding: 50px 0 120px;
+  }
+
+  .track-hero .label {
+    margin-bottom: 22px;
+  }
+
+  .track-hero h1 {
+    max-width: min(1025px, 100%);
+    margin: 0 0 22px;
+    font-size: clamp(2.6rem, 6.25vw, 4.6rem);
+  }
+
+  .track-hero .lede,
+  .legal-hero .lede {
+    max-width: min(775px, 100%);
+  }
+
+  .track-panel {
+    gap: 35px;
+    margin-top: 50px;
+  }
+
+  .track-card {
+    gap: 20px;
+    padding: 42px 40px;
+  }
+
+  .track-aside {
+    gap: 17px;
+    padding: 42px 35px;
+  }
+
+  .track-field {
+    gap: 12px;
+  }
+
+  .track-field input {
+    min-height: 70px;
+    padding: 16px 17px;
+  }
+
+  .track-card > .button {
+    margin-top: 8px;
+    min-height: 65px;
+  }
+
+  .track-notice {
+    margin-top: 35px;
+    padding: 35px 33px;
+  }
+
+  .track-notice h2 {
+    margin: 0 0 17px;
+  }
+
+  .track-notice p {
+    margin: 0 0 17px;
+  }
+
+  .track-notice p:last-of-type {
+    margin-bottom: 28px;
+  }
+
+  .track-contacts {
+    gap: 15px;
+  }
+
+  .track-result {
+    margin-top: 35px;
+    padding: 35px 33px;
+  }
+
+  .track-result-header .label {
+    margin-bottom: 15px;
+  }
+
+  .track-result-header h2 {
+    margin: 0 0 10px;
+    font-size: clamp(1.5rem, 3.75vw, 2rem);
+  }
+
+  .track-result-header p {
+    margin: 0 0 28px;
+  }
+
+  .track-result-grid {
+    gap: 20px 30px;
+    margin: 0 0 35px;
+  }
+
+  .track-result-grid div {
+    padding: 17px 20px;
+  }
+
+  .track-result-grid dt {
+    margin: 0 0 8px;
+  }
+
+  .track-history h3 {
+    margin: 0 0 17px;
+  }
+
+  .track-history ol {
+    gap: 15px;
+  }
+
+  .track-history li {
+    padding: 20px 22px;
+    gap: 5px;
+  }
+
+  .track-history li p {
+    margin: 8px 0 0;
+  }
+
+  .capability-download {
+    margin-top: 35px;
+    padding: 30px 33px;
+    gap: 22px;
+  }
+
+  .legal-page {
+    background: linear-gradient(180deg, #10243b 0 350px, var(--paper) 350px);
+  }
+
+  .legal-hero {
+    padding: 55px 0 70px;
+  }
+
+  .legal-hero-content {
+    max-width: 950px;
+  }
+
+  .legal-hero h1 {
+    max-width: min(1025px, 100%);
+    margin: 0 0 22px;
+    font-size: clamp(2.6rem, 6.25vw, 4.6rem);
+  }
+
+  .legal-body {
+    padding-top: 50px;
+  }
+
+  .legal-layout {
+    grid-template-columns: minmax(0, 300px) minmax(0, 1fr);
+    gap: 35px;
+    max-width: 1375px;
+  }
+
+  .legal-rail {
+    top: 30px;
+    padding: 28px 25px;
+  }
+
+  .legal-rail small {
+    margin-bottom: 12px;
+  }
+
+  .legal-rail p {
+    margin: 0 0 22px;
+  }
+
+  .legal-rail-contacts {
+    gap: 10px;
+  }
+
+  .legal-document {
+    max-width: 1025px;
+    padding: 45px 42px;
+  }
+
+  .legal-section {
+    margin: 0 0 35px;
+    padding: 0 0 30px;
+  }
+
+  .legal-section h2 {
+    margin: 0 0 15px;
+  }
+
+  .legal-section p {
+    margin: 0 0 12px;
+  }
+
+  .legal-section li {
+    margin: 0 0 9px;
+  }
+
+  .legal-contact {
+    margin: 35px 0 0;
+    padding-top: 28px;
+  }
+
+  .legal-contact small {
+    margin-bottom: 10px;
+  }
+}
+
+@media (min-width: 901px) and (max-width: 1100px) {
+  .shell {
+    padding-inline: 25px;
+  }
+
+  .section-pad {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  .hero-content {
+    padding-top: 112px;
+  }
+
+  .hero h1 {
+    max-width: 950px;
+  }
+
+  .capability-explorer.detail-open {
+    grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
+    gap: 28px;
+  }
+
+  .detail-open .cap-list button {
+    grid-template-columns: 38px 58px 1fr 20px;
+    gap: 15px;
+  }
+
+  .cap-detail-body {
+    padding: 33px 30px;
+  }
+
+  .industries {
+    grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
+  }
+
+  .industry-intro {
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+
+  .industry-list {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  .industry-list button {
+    grid-template-columns: 30px 55px minmax(0, 0.8fr) minmax(0, 1.2fr) 22px;
+    gap: 15px;
+  }
+
+  .footer-grid {
+    gap: 40px;
+  }
+
+  .nav-links {
+    gap: 22px;
+    row-gap: 12px;
+  }
+
+  .nav img,
+  .footer img {
+    width: min(237px, 38.462vw);
+  }
+
+  .service-overview {
+    gap: 35px;
+  }
+
+  .service-overview-media {
+    min-height: 375px;
+  }
+
+  .service-stack {
+    gap: 70px;
+  }
+
+  .track-hero {
+    padding: 45px 0 100px;
+  }
+
+  .track-panel {
+    gap: 28px;
+  }
+
+  .track-card,
+  .track-aside {
+    padding: 35px 30px;
+  }
+}

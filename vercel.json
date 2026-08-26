@@ -13,9 +13,9 @@
     "backend": {
       "root": "backend",
       "framework": "express",
-      "entrypoint": "dist/app.js",
+      "entrypoint": "package.json",
       "installCommand": "npm install",
-      "buildCommand": "npm run build"
+      "buildCommand": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\" && npx tsc -p tsconfig.json --noEmit"
     }
   },
   "rewrites": [

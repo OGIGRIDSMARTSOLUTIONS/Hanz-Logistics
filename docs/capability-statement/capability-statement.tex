@@ -1,0 +1,224 @@
+% Hanz Logistics — Capability Statement
+% Source of truth for the LaTeX capability statement.
+% Compile with: xelatex capability-statement.tex
+%   (or lualatex capability-statement.tex)
+%
+% Content is taken from the existing approved capability statement
+% (scripts/generate-capability-statement.mjs / public PDF). Do not invent claims.
+
+\documentclass[11pt,letterpaper]{article}
+
+\usepackage{iftex}
+\ifPDFTeX
+  \PackageError{capability-statement}{Compile with XeLaTeX or LuaLaTeX}{Use xelatex or lualatex.}
+\fi
+
+\usepackage{fontspec}
+\usepackage{microtype}
+\usepackage[letterpaper,top=0.85in,bottom=0.85in,left=0.85in,right=0.85in]{geometry}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{setspace}
+\usepackage{parskip}
+\usepackage{hyperref}
+\usepackage{tikz}
+
+% ---------- Brand colors ----------
+\definecolor{HanzDeep}{HTML}{10243B}
+\definecolor{HanzNavy}{HTML}{203B5D}
+\definecolor{HanzOrange}{HTML}{F2693C}
+\definecolor{HanzMuted}{HTML}{607080}
+\definecolor{HanzPaper}{HTML}{F7F5F0}
+\definecolor{HanzLine}{HTML}{DCE3E8}
+
+% ---------- Typography ----------
+% Preferred: Inter / Funnel Sans / Geist Mono from ./fonts/ (see FONTS.md).
+% Fallback: Segoe UI / Consolas when local files are absent.
+\IfFileExists{fonts/Inter-Regular.ttf}{%
+  \setmainfont{Inter}[
+    Path         = fonts/,
+    Extension    = .ttf,
+    UprightFont  = Inter-Regular,
+    BoldFont     = Inter-Bold,
+    ItalicFont   = Inter-Regular,
+    BoldItalicFont = Inter-Bold,
+  ]
+}{%
+  \setmainfont{Segoe UI}[BoldFont=Segoe UI Bold]
+}
+
+\IfFileExists{fonts/FunnelSans-Bold.ttf}{%
+  \newfontfamily\HeadingFont{FunnelSans}[
+    Path         = fonts/,
+    Extension    = .ttf,
+    UprightFont  = FunnelSans-SemiBold,
+    BoldFont     = FunnelSans-Bold,
+  ]
+}{%
+  \newfontfamily\HeadingFont{Segoe UI}[BoldFont=Segoe UI Bold]
+}
+
+\IfFileExists{fonts/GeistMono-Medium.ttf}{%
+  \newfontfamily\LabelFont{GeistMono}[
+    Path         = fonts/,
+    Extension    = .ttf,
+    UprightFont  = GeistMono-Medium,
+    BoldFont     = GeistMono-SemiBold,
+    Scale        = 0.92,
+    LetterSpace  = 8,
+  ]
+}{%
+  \newfontfamily\LabelFont{Consolas}[Scale=0.92,LetterSpace=8]
+}
+
+\newcommand{\HanzLabel}[1]{%
+  {\LabelFont\bfseries\color{HanzOrange}\MakeUppercase{#1}}\par\vspace{0.35em}%
+}
+
+\newcommand{\SectionRule}{%
+  \vspace{-0.15em}%
+  {\color{HanzOrange}\rule{2.4em}{2.2pt}}\par\vspace{0.55em}%
+}
+
+\titleformat{\section}
+  {\HeadingFont\bfseries\color{HanzDeep}\Large}
+  {}
+  {0em}
+  {}
+  [\SectionRule]
+\titlespacing*{\section}{0pt}{1.35em}{0.35em}
+
+\titleformat{\subsection}
+  {\HeadingFont\bfseries\color{HanzNavy}\large}
+  {}
+  {0em}
+  {}
+\titlespacing*{\subsection}{0pt}{0.9em}{0.25em}
+
+\setlist[itemize]{
+  leftmargin=1.15em,
+  itemsep=0.35em,
+  parsep=0pt,
+  topsep=0.35em,
+  label={\color{HanzOrange}\textbullet}
+}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=HanzNavy,
+  urlcolor=HanzNavy,
+  pdftitle={Hanz Logistics Capability Statement},
+  pdfauthor={Hanz Logistics},
+  pdfsubject={Capability Statement}
+}
+
+\setlength{\parskip}{0.55em}
+\setlength{\parindent}{0pt}
+\setstretch{1.18}
+
+% ---------- Header / footer ----------
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\footrule}{\hbox to\headwidth{\color{HanzLine}\leaders\hrule height \footrulewidth\hfill}}
+\fancyfoot[L]{\LabelFont\color{HanzMuted}\fontsize{7.5}{9}\selectfont HANZ LOGISTICS}
+\fancyfoot[C]{\color{HanzMuted}\fontsize{8}{10}\selectfont Capability Statement}
+\fancyfoot[R]{\color{HanzMuted}\fontsize{8}{10}\selectfont\thepage}
+\fancypagestyle{firstpage}{%
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+  \fancyfoot[L]{\LabelFont\color{HanzMuted}\fontsize{7.5}{9}\selectfont HANZ LOGISTICS}
+  \fancyfoot[R]{\color{HanzMuted}\fontsize{8}{10}\selectfont\thepage}
+}
+
+\begin{document}
+\thispagestyle{firstpage}
+
+% ===== Cover / brand banner =====
+\begin{tikzpicture}[remember picture,overlay]
+  \fill[HanzDeep] (current page.north west) rectangle ([yshift=-1.55in]current page.north east);
+  \fill[HanzOrange] ([yshift=-1.55in]current page.north west) rectangle ([yshift=-1.62in]current page.north east);
+\end{tikzpicture}
+
+\vspace*{-0.55in}
+\noindent
+\includegraphics[height=0.42in]{assets/hanz-logo.png}\\[0.55em]
+{\LabelFont\color{white}\fontsize{9}{11}\selectfont HANZ LOGISTICS}\\[0.2em]
+{\HeadingFont\bfseries\color{white}\fontsize{26}{30}\selectfont Capability Statement}
+
+\vspace{1.35in}
+
+{\HanzLabel{Mission-critical air freight forwarding}}
+{\HeadingFont\bfseries\color{HanzNavy}\large
+From the Pittsburgh International Airport corridor to domestic and worldwide destinations.\par}
+
+\vspace{0.55em}
+{\color{HanzDeep}\textbf{24 / 7 / 365}~\textperiodcentered~\textbf{Pittsburgh, PA}~\textperiodcentered~
+\href{tel:+14123453837}{(412) 345-3837}}\\[0.15em]
+\href{mailto:operations@hanzlogistics.com}{operations@hanzlogistics.com}
+~\textperiodcentered~
+\href{mailto:info@hanzlogistics.com}{info@hanzlogistics.com}
+
+\vspace{0.35em}
+{\color{HanzLine}\hrule height 0.6pt}
+
+\section{Company Overview}
+Hanz Logistics is an air freight forwarder coordinating mission-critical cargo with documented planning, active milestone oversight, and accountable delivery records. Shipments are handled to one operational standard: certainty through every handoff.
+
+\section{Core Logistics Capabilities}
+
+\subsection*{Expedited Air Freight}
+Next-flight-out and time-definite routing with active milestone monitoring.
+
+\subsection*{Air Charter Solutions}
+Dedicated aircraft matched to payload, airport access, handling needs, and timing.
+
+\subsection*{On-Board Courier / Hand-Carry}
+Dedicated human custody from collection through final handoff (OBC).
+
+\subsection*{Specialized Handling}
+Cold-chain coordination, dangerous-goods support, oversized and high-value freight.
+
+\subsection*{Door-to-Door Coordination}
+Door-to-door coordination and documented chain-of-custody practices.
+
+\section{Shipment Visibility}
+Customers may track shipments using a Hanz reference number and, when linked, a carrier airway bill (AWB). Visibility combines operator oversight with carrier tracking data when an AWB is available. Tracking displays depend on received carrier data and may be incomplete until updates are available.
+
+\section{Industries Served}
+Hanz supports high-stakes sectors including Healthcare; Aerospace + Defense; Advanced Manufacturing; Business Technology; Robotics + Energy; and Research --- with handling plans built around cargo risk, urgency, and compliance needs.
+
+\section{Operational Strengths}
+\begin{itemize}
+  \item Pittsburgh-based operations with domestic and global reach.
+  \item Plan $\rightarrow$ Track $\rightarrow$ Account process ownership by a Hanz operator.
+  \item Documented movement planning before tender and proof-of-delivery closure.
+  \item TSA Indirect Air Carrier (IAC) compliant; TWIC cleared; IATA DGR \& GDP handling standards.
+\end{itemize}
+
+\section{Contact}
+{\HeadingFont\bfseries\color{HanzDeep} Hanz Logistics}\\[0.25em]
+{\color{HanzMuted}
+Pittsburgh, PA~\textperiodcentered~PIT Airport Corridor\\
+Phone: \href{tel:+14123453837}{(412) 345-3837}\\
+Email: \href{mailto:operations@hanzlogistics.com}{operations@hanzlogistics.com}
+~\textperiodcentered~
+\href{mailto:info@hanzlogistics.com}{info@hanzlogistics.com}
+}
+
+\vspace{1.1em}
+\noindent
+\begin{tikzpicture}
+  \fill[HanzPaper] (0,0) rectangle (\linewidth,1.05);
+  \node[anchor=west,inner sep=12pt] at (0,0.68)
+    {\LabelFont\bfseries\color{HanzNavy}\fontsize{8.5}{10}\selectfont HANZ LOGISTICS};
+  \node[anchor=west,inner sep=12pt] at (0,0.32)
+    {\color{HanzMuted}\fontsize{9}{11}\selectfont Air freight for cargo that cannot afford to be delayed.};
+\end{tikzpicture}
+
+\end{document}
