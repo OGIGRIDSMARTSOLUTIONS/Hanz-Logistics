@@ -75,7 +75,7 @@ function LegalDocumentPage({
             </a>
             <Label>{doc.eyebrow}</Label>
             <h1>{doc.title}</h1>
-            <p className="legal-lede">{doc.intro}</p>
+            <p className="lede">{doc.intro}</p>
           </div>
         </section>
 

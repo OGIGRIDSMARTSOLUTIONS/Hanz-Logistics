@@ -354,7 +354,7 @@ function TrackPage() {
           </a>
           <Label>Shipment visibility</Label>
           <h1>Track a Shipment</h1>
-          <p className="track-lede">Enter your Hanz reference number or carrier airway bill (AWB) to retrieve live shipment status.</p>
+          <p className="lede">Enter your Hanz reference number or carrier airway bill (AWB) to retrieve live shipment status.</p>
 
           <div className="track-panel">
             <form className="track-card" onSubmit={submitTrack} noValidate>
