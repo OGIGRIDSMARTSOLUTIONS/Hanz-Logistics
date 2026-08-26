@@ -47,4 +47,9 @@ Configure the 17TRACK dashboard webhook URL to point at your public `/api/webhoo
 
 The Express app is exported from `src/app.ts`. Local `npm run dev` / `npm start` still use `src/server.ts` (`app.listen`).
 
-On Vercel, root `api/index.ts` + `vercel.json` rewrites serve `/api/*` and `/health` same-origin with the Vite frontend. Set production env vars in the Vercel project (never commit `.env`).
+On Vercel (Services mode), root `vercel.json` defines:
+
+- `frontend` — Vite app at repo root (`dist` output)
+- `backend` — Express service rooted at `backend/` (`src/app.ts` entrypoint)
+
+Top-level rewrites send `/api/*` and `/health` to the backend service, and everything else to the frontend (same-origin `/api`). Set production env vars in the Vercel project (never commit `.env`).
