@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { ArrowLeft, ArrowRight, BriefcaseBusiness, ClipboardCheck, Mail, Menu, Microscope, Phone, Plane, Radio, Server, ShieldCheck, Thermometer, X, Zap } from 'lucide-react'
+import { PrivacyPage, TermsPage } from './pages/LegalPages'
 
 const images = {
   hero: 'https://images.unsplash.com/photo-1572017235244-8f2c23b76559?auto=format&fit=crop&w=1800&q=85',
@@ -165,26 +166,167 @@ function QuoteModal({ serviceIndex, onClose }: { serviceIndex: number, onClose: 
 
 function SiteFooter({ fromServicePage = false }: { fromServicePage?: boolean }) {
   const company = (hash: string) => (fromServicePage ? `/${hash}` : hash)
-  return <footer className="footer section-pad"><div className="shell footer-grid"><div className="footer-brand"><img src="/assets/hanz-logistics-logo.png" alt="Hanz Logistics" /><p>Mission-critical air freight forwarding from Pittsburgh to the world.</p></div><div><h3>Services</h3>{capabilities.map(({title}, i) => <a href={SERVICE_PATHS[i]} key={title}>{title}</a>)}</div><div><h3>Company</h3><a href={company('#about')}>About Hanz</a><a href={company('#industries')}>Industries</a><a href={company('#standard')}>Our Standard</a><a href={company('#contact')}>Contact</a></div><div><h3>Contact</h3><span>Pittsburgh, PA</span><span>24 / 7 / 365</span><a href="mailto:operations@hanzlogistics.com">operations@hanzlogistics.com</a><a href="mailto:info@hanzlogistics.com">info@hanzlogistics.com</a></div></div><div className="shell legal"><span>© 2026 Hanz Logistics. All rights reserved.</span><span className="site-credit">Built by <a href="https://ogigrid.com" target="_blank" rel="noreferrer"><strong>OgiGrid</strong> Smart Solutions</a></span><span>Privacy • Terms • <a href="/track">Track a shipment</a></span></div></footer>
+  return (
+    <footer className="footer section-pad">
+      <div className="shell footer-grid">
+        <div className="footer-brand">
+          <img src="/assets/hanz-logistics-logo.png" alt="Hanz Logistics" />
+          <p>Mission-critical air freight forwarding from Pittsburgh to the world.</p>
+        </div>
+        <div>
+          <h3>Services</h3>
+          {capabilities.map(({ title }, i) => (
+            <a href={SERVICE_PATHS[i]} key={title}>{title}</a>
+          ))}
+        </div>
+        <div>
+          <h3>Company</h3>
+          <a href={company('#about')}>About Hanz</a>
+          <a href={company('#industries')}>Industries</a>
+          <a href={company('#standard')}>Our Standard</a>
+          <a href={company('#contact')}>Contact</a>
+          <a href="/track">Track a Shipment</a>
+          <a href="/assets/hanz-logistics-capability-statement.pdf" download="Hanz-Logistics-Capability-Statement.pdf">Capability Statement</a>
+        </div>
+        <div>
+          <h3>Contact</h3>
+          <span>Pittsburgh, PA</span>
+          <span>24 / 7 / 365</span>
+          <a href="tel:+14123453837" aria-label="Call Hanz Logistics at (412) 345-3837">(412) 345-3837</a>
+          <a href="mailto:operations@hanzlogistics.com">operations@hanzlogistics.com</a>
+          <a href="mailto:info@hanzlogistics.com">info@hanzlogistics.com</a>
+        </div>
+      </div>
+      <div className="shell legal">
+        <span>© 2026 Hanz Logistics. All rights reserved.</span>
+        <span className="site-credit">Built by <a href="https://ogigrid.com" target="_blank" rel="noreferrer"><strong>OgiGrid</strong> Smart Solutions</a></span>
+        <span className="legal-links">
+          <a href="/privacy">Privacy Policy</a>
+          <span aria-hidden="true"> · </span>
+          <a href="/terms">Terms</a>
+          <span aria-hidden="true"> · </span>
+          <a href="/track">Track a Shipment</a>
+        </span>
+      </div>
+    </footer>
+  )
 }
+
+type TrackingEvent = {
+  status: string
+  location: string
+  description: string
+  time: string
+}
+
+type TrackingResult = {
+  trackingNumber: string
+  hanzReference?: string | null
+  awb?: string | null
+  carrier: string | null
+  status: string | null
+  origin: string | null
+  destination: string | null
+  lastLocation: string | null
+  lastUpdated: string | null
+  events: TrackingEvent[]
+  unavailable?: boolean
+  message?: string
+}
+
+type TrackUiState =
+  | { kind: 'idle' }
+  | { kind: 'loading' }
+  | { kind: 'success'; data: TrackingResult }
+  | { kind: 'unavailable'; trackingNumber: string; message: string }
+  | { kind: 'not_found'; trackingNumber: string }
+  | { kind: 'error'; message: string }
 
 function TrackPage() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [referenceId, setReferenceId] = useState('')
-  const [error, setError] = useState('')
-  const [checkedReference, setCheckedReference] = useState<string | null>(null)
+  const [fieldError, setFieldError] = useState('')
+  const [trackState, setTrackState] = useState<TrackUiState>({ kind: 'idle' })
   const closeMenu = () => setMenuOpen(false)
 
-  const submitTrack = (event: React.FormEvent<HTMLFormElement>) => {
+  const submitTrack = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const value = referenceId.trim()
     if (!value) {
-      setError('Enter an AWB or Reference ID to continue.')
-      setCheckedReference(null)
+      setFieldError('Enter a Hanz reference or AWB to continue.')
+      setTrackState({ kind: 'idle' })
       return
     }
-    setError('')
-    setCheckedReference(value)
+
+    setFieldError('')
+    setTrackState({ kind: 'loading' })
+
+    const baseUrl = (import.meta.env.VITE_API_BASE_URL as string | undefined)?.replace(/\/$/, '') || ''
+    const endpoint = `${baseUrl}/api/track`
+
+    try {
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ trackingNumber: value }),
+      })
+
+      let payload: (TrackingResult & { error?: string; message?: string }) | null = null
+      try {
+        payload = await response.json()
+      } catch {
+        payload = null
+      }
+
+      if (response.status === 400) {
+        setFieldError(payload?.message || 'Enter a valid Hanz reference or AWB.')
+        setTrackState({ kind: 'idle' })
+        return
+      }
+
+      if (response.status === 404) {
+        setTrackState({ kind: 'not_found', trackingNumber: value })
+        return
+      }
+
+      if (!response.ok || !payload) {
+        setTrackState({
+          kind: 'error',
+          message: payload?.message || 'Unable to retrieve tracking information right now.',
+        })
+        return
+      }
+
+      if (payload.unavailable || (!payload.status && !(payload.events?.length))) {
+        setTrackState({
+          kind: 'unavailable',
+          trackingNumber: payload.hanzReference || payload.trackingNumber || value,
+          message: payload.message || 'Tracking information unavailable.',
+        })
+        return
+      }
+
+      setTrackState({
+        kind: 'success',
+        data: {
+          trackingNumber: payload.trackingNumber || value,
+          hanzReference: payload.hanzReference ?? null,
+          awb: payload.awb ?? null,
+          carrier: payload.carrier ?? null,
+          status: payload.status ?? null,
+          origin: payload.origin ?? null,
+          destination: payload.destination ?? null,
+          lastLocation: payload.lastLocation ?? null,
+          lastUpdated: payload.lastUpdated ?? null,
+          events: Array.isArray(payload.events) ? payload.events : [],
+        },
+      })
+    } catch {
+      setTrackState({
+        kind: 'error',
+        message: 'Network error. Check your connection and try again.',
+      })
+    }
   }
 
   return <>
@@ -212,12 +354,12 @@ function TrackPage() {
           </a>
           <Label>Shipment visibility</Label>
           <h1>Track a Shipment</h1>
-          <p className="track-lede">Enter your airway bill (AWB) or Hanz reference number from your shipping documents. An operator can confirm live status when online tracking is unavailable.</p>
+          <p className="track-lede">Enter your Hanz reference number or carrier airway bill (AWB) to retrieve live shipment status.</p>
 
           <div className="track-panel">
             <form className="track-card" onSubmit={submitTrack} noValidate>
               <label className="track-field" htmlFor="track-reference">
-                <span>AWB / Reference ID</span>
+                <span>Hanz Reference / AWB</span>
                 <input
                   id="track-reference"
                   name="referenceId"
@@ -227,39 +369,112 @@ function TrackPage() {
                   autoCorrect="off"
                   autoCapitalize="characters"
                   spellCheck={false}
-                  placeholder="e.g. 123-45678901 or HL-REF-48291"
+                  placeholder="e.g. HANZ-260825-0001 or 123-45678901"
                   value={referenceId}
                   onChange={(event) => {
                     setReferenceId(event.target.value)
-                    if (error) setError('')
-                    if (checkedReference) setCheckedReference(null)
+                    if (fieldError) setFieldError('')
+                    if (trackState.kind !== 'idle' && trackState.kind !== 'loading') setTrackState({ kind: 'idle' })
                   }}
-                  aria-invalid={error ? true : undefined}
-                  aria-describedby={error ? 'track-reference-error' : 'track-reference-hint'}
+                  aria-invalid={fieldError ? true : undefined}
+                  aria-describedby={fieldError ? 'track-reference-error' : 'track-reference-hint'}
+                  disabled={trackState.kind === 'loading'}
                   required
                 />
               </label>
-              <p className="track-hint" id="track-reference-hint">Use the AWB printed on your airway bill or the Hanz reference from your confirmation.</p>
-              {error && <p className="form-error" id="track-reference-error" role="alert">{error}</p>}
-              <button className="button" type="submit">Track Shipment <ArrowRight /></button>
+              <p className="track-hint" id="track-reference-hint">Use the Hanz reference from your confirmation, or the AWB printed on your airway bill.</p>
+              {fieldError && <p className="form-error" id="track-reference-error" role="alert">{fieldError}</p>}
+              <button className="button" type="submit" disabled={trackState.kind === 'loading'}>
+                {trackState.kind === 'loading' ? 'Tracking…' : <>Track Shipment <ArrowRight /></>}
+              </button>
             </form>
 
             <aside className="track-aside">
               <small>Need help locating a reference?</small>
-              <p>Your AWB appears on the airway bill. Hanz references are issued with shipment confirmations from operations.</p>
+              <p><strong>Hanz Reference</strong> is Hanz’s own shipment ID (format HANZ-YYMMDD-####). <strong>AWB</strong> is the carrier/airline tracking number. When an AWB is linked, live carrier status can be retrieved.</p>
               <a href="tel:+14123453837" aria-label="Call Hanz Logistics operations at (412) 345-3837">(412) 345-3837</a>
               <a href="mailto:operations@hanzlogistics.com">operations@hanzlogistics.com</a>
             </aside>
           </div>
 
-          {checkedReference && (
+          {trackState.kind === 'loading' && (
+            <div className="track-notice" role="status" aria-live="polite">
+              <h2>Looking up shipment</h2>
+              <p>Retrieving the latest available tracking information…</p>
+            </div>
+          )}
+
+          {trackState.kind === 'not_found' && (
             <div className="track-notice" role="status">
-              <h2>Live tracking is not connected yet</h2>
-              <p>This page cannot look up shipment status automatically. There is no tracking API connected in this project. Reference <strong>{checkedReference}</strong> was entered for this request, but no shipment result was retrieved.</p>
-              <p>Contact Hanz operations for a current status update:</p>
+              <h2>Tracking number not found</h2>
+              <p>No shipment was found for <strong>{trackState.trackingNumber}</strong>.</p>
+              <p>Confirm the Hanz reference or AWB, or contact Hanz operations for assistance.</p>
               <div className="track-contacts">
                 <a className="button" href="tel:+14123453837" aria-label="Call Hanz Logistics operations at (412) 345-3837">Call (412) 345-3837</a>
-                <a className="button ghost" href={`mailto:operations@hanzlogistics.com?subject=${encodeURIComponent(`Shipment status request: ${checkedReference}`)}`}>Email operations</a>
+                <a className="button ghost" href={`mailto:operations@hanzlogistics.com?subject=${encodeURIComponent(`Shipment status request: ${trackState.trackingNumber}`)}`}>Email operations</a>
+              </div>
+            </div>
+          )}
+
+          {trackState.kind === 'unavailable' && (
+            <div className="track-notice" role="status">
+              <h2>Tracking information unavailable</h2>
+              <p>{trackState.message} Reference <strong>{trackState.trackingNumber}</strong> did not return usable status details yet.</p>
+              <div className="track-contacts">
+                <a className="button" href="tel:+14123453837" aria-label="Call Hanz Logistics operations at (412) 345-3837">Call (412) 345-3837</a>
+                <a className="button ghost" href={`mailto:operations@hanzlogistics.com?subject=${encodeURIComponent(`Shipment status request: ${trackState.trackingNumber}`)}`}>Email operations</a>
+              </div>
+            </div>
+          )}
+
+          {trackState.kind === 'error' && (
+            <div className="track-notice" role="alert">
+              <h2>Unable to track shipment</h2>
+              <p>{trackState.message}</p>
+              <div className="track-contacts">
+                <a className="button" href="tel:+14123453837" aria-label="Call Hanz Logistics operations at (412) 345-3837">Call (412) 345-3837</a>
+                <a className="button ghost" href="mailto:operations@hanzlogistics.com?subject=Shipment%20tracking%20help">Email operations</a>
+              </div>
+            </div>
+          )}
+
+          {trackState.kind === 'success' && (
+            <div className="track-result" role="region" aria-label="Shipment tracking result">
+              <div className="track-result-header">
+                <Label>Live tracking</Label>
+                <h2>{trackState.data.status || 'In progress'}</h2>
+                <p>
+                  {trackState.data.hanzReference
+                    ? <>Hanz reference <strong>{trackState.data.hanzReference}</strong></>
+                    : <>Tracking number <strong>{trackState.data.trackingNumber}</strong></>}
+                </p>
+              </div>
+              <dl className="track-result-grid">
+                <div><dt>Hanz reference</dt><dd>{trackState.data.hanzReference || '—'}</dd></div>
+                <div><dt>AWB</dt><dd>{trackState.data.awb || '—'}</dd></div>
+                <div><dt>Carrier</dt><dd>{trackState.data.carrier || '—'}</dd></div>
+                <div><dt>Current status</dt><dd>{trackState.data.status || '—'}</dd></div>
+                <div><dt>Origin</dt><dd>{trackState.data.origin || '—'}</dd></div>
+                <div><dt>Destination</dt><dd>{trackState.data.destination || '—'}</dd></div>
+                <div><dt>Last location</dt><dd>{trackState.data.lastLocation || '—'}</dd></div>
+                <div><dt>Last updated</dt><dd>{trackState.data.lastUpdated ? new Date(trackState.data.lastUpdated).toLocaleString() : '—'}</dd></div>
+              </dl>
+              <div className="track-history">
+                <h3>Shipment history</h3>
+                {trackState.data.events.length === 0 ? (
+                  <p>No detailed history events were returned for this shipment.</p>
+                ) : (
+                  <ol>
+                    {trackState.data.events.map((event, index) => (
+                      <li key={`${event.time}-${index}`}>
+                        <strong>{event.status || 'Update'}</strong>
+                        <span>{event.time ? new Date(event.time).toLocaleString() : 'Time unavailable'}</span>
+                        <span>{event.location || 'Location unavailable'}</span>
+                        <p>{event.description || 'No description provided.'}</p>
+                      </li>
+                    ))}
+                  </ol>
+                )}
               </div>
             </div>
           )}
@@ -422,6 +637,20 @@ function App() {
     }
   }, [activeQuote])
 
+  if (path === '/privacy') {
+    return <>
+      <PrivacyPage footer={<SiteFooter fromServicePage />} />
+      <QuickActions />
+    </>
+  }
+
+  if (path === '/terms') {
+    return <>
+      <TermsPage footer={<SiteFooter fromServicePage />} />
+      <QuickActions />
+    </>
+  }
+
   if (path === '/track') {
     return <>
       <TrackPage />
@@ -494,7 +723,7 @@ function App() {
         <div className="industry-list section-pad" role="list">{industries.map((industry, index) => { const Icon = industry.icon; const isActive = activeIndustry === index; return <article className={`industry-item ${isActive ? 'active' : ''}`} role="listitem" key={industry.title}><button type="button" className={isActive ? 'active' : ''} onClick={() => setActiveIndustry(index)} onMouseEnter={() => setActiveIndustry(index)} aria-expanded={isActive} aria-controls={isActive ? `industry-detail-${index}` : undefined}><b>{String(index+1).padStart(2,'0')}</b><span className="industry-icon" aria-hidden="true"><Icon /></span><h3>{industry.title}</h3><p>{industry.summary}</p><ArrowRight aria-hidden="true" /></button>{isActive && <div className="mobile-industry-detail" id={`industry-detail-${index}`}><div className="mobile-industry-image" style={{backgroundImage:`linear-gradient(180deg,transparent,rgba(16,36,59,.75)),url(${industry.image})`}}><span>{industry.title}</span></div><p>{industry.description}</p><ul>{industry.services.map(service => <li key={service}><ShieldCheck aria-hidden="true" />{service}</li>)}</ul><a href={`mailto:operations@hanzlogistics.com?subject=${encodeURIComponent(industry.title + ' shipment')}`}>Discuss your shipment <ArrowRight aria-hidden="true" /></a></div>}</article> })}</div>
       </section>
 
-      <section className="process section-pad" id="standard"><div className="shell"><Label>One team • Full visibility</Label><div className="section-heading"><h2>Control at every handoff.</h2><p>From the first call to final delivery, a Hanz operator owns the details and keeps the record current.</p></div><div className="steps">{steps.map((step,i) => <button className="step-card" type="button" key={step.title} onClick={() => setActiveStep(i)} aria-haspopup="dialog" aria-label={`View ${step.title} process details`}><div className="step-top"><b>{String(i+1).padStart(2,'0')}</b><span aria-hidden="true">{i === 1 ? <Radio /> : <ClipboardCheck />}</span></div><img src={step.image} alt="" loading="lazy" /><h3>{step.title}</h3><p>{step.summary}</p><span className="step-more">View full process <ArrowRight aria-hidden="true" /></span></button>)}</div><div className="credentials"><Label>Credentials</Label><div className="steps" role="list">{['TSA Indirect Air Carrier (IAC) compliant','TWIC cleared','IATA DGR & GDP handling standards'].map((title, i) => <article className="step-card" role="listitem" key={title}><div className="step-top"><b>{String(i+1).padStart(2,'0')}</b><ShieldCheck aria-hidden="true" /></div><h3>{title}</h3></article>)}</div></div></div></section>
+      <section className="process section-pad" id="standard"><div className="shell"><Label>One team • Full visibility</Label><div className="section-heading"><h2>Control at every handoff.</h2><p>From the first call to final delivery, a Hanz operator owns the details and keeps the record current.</p></div><div className="steps">{steps.map((step,i) => <button className="step-card" type="button" key={step.title} onClick={() => setActiveStep(i)} aria-haspopup="dialog" aria-label={`View ${step.title} process details`}><div className="step-top"><b>{String(i+1).padStart(2,'0')}</b><span aria-hidden="true">{i === 1 ? <Radio /> : <ClipboardCheck />}</span></div><img src={step.image} alt="" loading="lazy" /><h3>{step.title}</h3><p>{step.summary}</p><span className="step-more">View full process <ArrowRight aria-hidden="true" /></span></button>)}</div><div className="credentials"><Label>Credentials</Label><div className="steps" role="list">{['TSA Indirect Air Carrier (IAC) compliant','TWIC cleared','IATA DGR & GDP handling standards'].map((title, i) => <article className="step-card" role="listitem" key={title}><div className="step-top"><b>{String(i+1).padStart(2,'0')}</b><ShieldCheck aria-hidden="true" /></div><h3>{title}</h3></article>)}</div><div className="capability-download"><p>Need a shareable overview of Hanz capabilities for procurement or vendor onboarding?</p><a className="button" href="/assets/hanz-logistics-capability-statement.pdf" download="Hanz-Logistics-Capability-Statement.pdf">Download Capability Statement <ArrowRight aria-hidden="true" /></a></div></div></div></section>
 
       <section className="cta section-pad" id="contact" style={{ backgroundImage: `linear-gradient(90deg, rgba(16,36,59,.8), rgba(16,36,59,.25)), url(${images.cta})` }}><div className="shell cta-grid"><div><Label>Ready when the clock starts</Label><h2>The shipment is urgent. The next move should be clear.</h2><p>Tell us what is moving, where it needs to go and when it must arrive. An operator will take it from there.</p></div><aside><small>Start here</small><a href="tel:+14123453837" aria-label="Call Hanz Logistics at (412) 345-3837">(412) 345-3837</a><a href="mailto:operations@hanzlogistics.com">operations@hanzlogistics.com</a><a href="mailto:info@hanzlogistics.com">info@hanzlogistics.com</a><a className="button" href="#capabilities" onClick={(event) => { event.preventDefault(); setActiveQuote(GENERAL_QUOTE) }}>Get a quote <ArrowRight /></a></aside></div></section>
     </main>
@@ -512,7 +741,7 @@ function App() {
           <h3>What happens at this stage</h3>
           <ul>{selectedStep.details.map((detail) => <li key={detail}><ClipboardCheck aria-hidden="true" /> <span>{detail}</span></li>)}</ul>
           <div className="modal-outcome"><small>Operational outcome</small><p>{selectedStep.outcome}</p></div>
-          <a className="button" href="#contact" onClick={() => setActiveStep(null)}>Start a shipment <ArrowRight aria-hidden="true" /></a>
+          <a className="button" href="#contact" onClick={(event) => { event.preventDefault(); setActiveStep(null); setActiveQuote(GENERAL_QUOTE) }}>Start a shipment <ArrowRight aria-hidden="true" /></a>
         </div>
       </section>
     </div>}

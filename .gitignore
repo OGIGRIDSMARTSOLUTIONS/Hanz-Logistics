@@ -3,3 +3,9 @@ dist/
 .npm-cache/
 .DS_Store
 .vercel
+.env
+.env.local
+backend/.env
+backend/node_modules/
+backend/dist/
+*.tsbuildinfo

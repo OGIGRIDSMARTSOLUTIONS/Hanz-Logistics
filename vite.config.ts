@@ -9,5 +9,12 @@ export default defineConfig({
   },
   server: {
     middlewareMode: false,
+    // Same-origin /api in dev (works for localhost and Vite --host LAN URLs).
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3001',
+        changeOrigin: true,
+      },
+    },
   },
 })
