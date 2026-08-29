@@ -7,7 +7,7 @@ const images = {
   cargo: 'https://images.unsplash.com/photo-1663689764765-c665bee4f75d?auto=format&fit=crop&w=1400&q=85',
   plan: 'https://images.unsplash.com/photo-1533233521468-7f200e486fbd?auto=format&fit=crop&w=800&q=80',
   track: 'https://images.unsplash.com/photo-1577497382372-e1d0cc39051a?auto=format&fit=crop&w=800&q=80',
-  account: 'https://images.unsplash.com/photo-1634144201570-36a8e7b1313d?auto=format&fit=crop&w=800&q=80',
+  account: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=800&q=80',
   cta: 'https://images.unsplash.com/photo-1706525452290-50a06e80b50c?auto=format&fit=crop&w=1800&q=85',
 }
 
@@ -171,7 +171,7 @@ function SiteFooter({ fromServicePage = false }: { fromServicePage?: boolean }) 
       <div className="shell footer-grid">
         <div className="footer-brand">
           <img src="/assets/hanz-logistics-logo.png" alt="Hanz Logistics" />
-          <p>Mission-critical air freight forwarding from Pittsburgh to the world.</p>
+          <p>Mission-critical air freight forwarding for domestic and worldwide destinations.</p>
         </div>
         <div>
           <h3>Services</h3>
@@ -190,8 +190,7 @@ function SiteFooter({ fromServicePage = false }: { fromServicePage?: boolean }) 
         </div>
         <div>
           <h3>Contact</h3>
-          <span>Pittsburgh, PA</span>
-          <span>24 / 7 / 365</span>
+          <span>24 / 7 / 365 Operations</span>
           <a href="tel:+14123453837" aria-label="Call Hanz Logistics at (412) 345-3837">(412) 345-3837</a>
           <a href="mailto:operations@hanzlogistics.com">operations@hanzlogistics.com</a>
           <a href="mailto:info@hanzlogistics.com">info@hanzlogistics.com</a>
@@ -683,19 +682,19 @@ function App() {
         </div>
       </nav>
       <div className="hero-content shell">
-        <Label>Pittsburgh-based • Worldwide reach</Label>
+        <Label>Time-critical • Worldwide reach</Label>
         <h1>Air freight for cargo that cannot afford to be delayed.</h1>
         <p className="lede">Documented before it moves. Tracked while it does. Accounted for when it lands.</p>
         <div className="actions"><a className="button" href="#capabilities" onClick={(event) => { event.preventDefault(); setActiveQuote(GENERAL_QUOTE) }}>Start a shipment <ArrowRight /></a><a className="button ghost" href="tel:+14123453837" aria-label="Call Hanz Logistics operations at (412) 345-3837">Talk to operations</a></div>
       </div>
       <div className="facts shell">
-        {[['Available','24 / 7 / 365'],['Service','Domestic + Global'],['Standard','Chain-of-custody'],['Base','PIT Airport Corridor']].map(([k,v]) => <div key={k}><small>{k}</small><strong>{v}</strong></div>)}
+        {[['Available','24 / 7 / 365'],['Service','Domestic + Global'],['Standard','Chain-of-custody'],['Coverage','Worldwide Reach']].map(([k,v]) => <div key={k}><small>{k}</small><strong>{v}</strong></div>)}
       </div>
     </header>
 
     <main>
       <section className="intro" id="about">
-        <div className="intro-copy section-pad"><Label>Mission-critical forwarding</Label><h2>Every shipment moves to one standard: certainty.</h2><p>Hanz Logistics is an air freight forwarder based in the Pittsburgh International Airport corridor, moving cargo domestically and worldwide. From healthcare and aerospace to robotics and energy, we coordinate shipments of any size with precise documentation and continuous oversight.</p><a className="text-link" href="#standard">How we protect your cargo <ArrowRight /></a></div>
+        <div className="intro-copy section-pad"><Label>Mission-critical forwarding</Label><h2>Every shipment moves to one standard: certainty.</h2><p>Hanz Logistics is an air freight forwarder moving cargo domestically and worldwide. From healthcare and aerospace to robotics and energy, we coordinate shipments of any size with precise documentation and continuous oversight.</p><a className="text-link" href="#standard">How we protect your cargo <ArrowRight /></a></div>
         <div className="intro-image" style={{ backgroundImage: `url(${images.cargo})` }}><div className="image-note"><small>Operations standard 01</small><span>A documented chain of custody from pickup to proof of delivery.</span></div></div>
       </section>
 
@@ -718,12 +717,12 @@ function App() {
         <div className="industry-intro section-pad" style={{backgroundImage:`linear-gradient(180deg,rgba(242,105,60,.9),rgba(191,65,30,.96)),url(${selectedIndustry.image})`}}>
           <div className="mobile-industry-intro"><Label>Built around the cargo</Label><h2>Specialized teams for high-stakes industries.</h2><p>Choose a sector below to see how we protect specialized cargo from pickup through delivery.</p></div>
                     <div className="industry-panel-content" key={selectedIndustry.title}><Label>Built around the cargo</Label><span className="industry-kicker">{String(activeIndustry+1).padStart(2,'0')} / 06 • {selectedIndustry.title}</span><h2>{selectedIndustry.heading}</h2><p>{selectedIndustry.description}</p><ul>{selectedIndustry.services.map(service => <li key={service}><ShieldCheck />{service}</li>)}</ul><a className="industry-cta" href={`mailto:operations@hanzlogistics.com?subject=${encodeURIComponent(selectedIndustry.title + ' shipment')}`}>Discuss your shipment <ArrowRight /></a></div>
-          <div className="sector-count"><strong>06</strong><span>Specialized sectors</span></div><small>⌖ Pittsburgh • Anywhere</small>
+          <div className="sector-count"><strong>06</strong><span>Specialized sectors</span></div><small>⌖ Domestic • Global</small>
         </div>
         <div className="industry-list section-pad" role="list">{industries.map((industry, index) => { const Icon = industry.icon; const isActive = activeIndustry === index; return <article className={`industry-item ${isActive ? 'active' : ''}`} role="listitem" key={industry.title}><button type="button" className={isActive ? 'active' : ''} onClick={() => setActiveIndustry(index)} onMouseEnter={() => setActiveIndustry(index)} aria-expanded={isActive} aria-controls={isActive ? `industry-detail-${index}` : undefined}><b>{String(index+1).padStart(2,'0')}</b><span className="industry-icon" aria-hidden="true"><Icon /></span><h3>{industry.title}</h3><p>{industry.summary}</p><ArrowRight aria-hidden="true" /></button>{isActive && <div className="mobile-industry-detail" id={`industry-detail-${index}`}><div className="mobile-industry-image" style={{backgroundImage:`linear-gradient(180deg,transparent,rgba(16,36,59,.75)),url(${industry.image})`}}><span>{industry.title}</span></div><p>{industry.description}</p><ul>{industry.services.map(service => <li key={service}><ShieldCheck aria-hidden="true" />{service}</li>)}</ul><a href={`mailto:operations@hanzlogistics.com?subject=${encodeURIComponent(industry.title + ' shipment')}`}>Discuss your shipment <ArrowRight aria-hidden="true" /></a></div>}</article> })}</div>
       </section>
 
-      <section className="process section-pad" id="standard"><div className="shell"><Label>One team • Full visibility</Label><div className="section-heading"><h2>Control at every handoff.</h2><p>From the first call to final delivery, a Hanz operator owns the details and keeps the record current.</p></div><div className="steps">{steps.map((step,i) => <button className="step-card" type="button" key={step.title} onClick={() => setActiveStep(i)} aria-haspopup="dialog" aria-label={`View ${step.title} process details`}><div className="step-top"><b>{String(i+1).padStart(2,'0')}</b><span aria-hidden="true">{i === 1 ? <Radio /> : <ClipboardCheck />}</span></div><img src={step.image} alt="" loading="lazy" /><h3>{step.title}</h3><p>{step.summary}</p><span className="step-more">View full process <ArrowRight aria-hidden="true" /></span></button>)}</div><div className="credentials"><Label>Credentials</Label><div className="steps" role="list">{['TSA Indirect Air Carrier (IAC) compliant','TWIC cleared','IATA DGR & GDP handling standards'].map((title, i) => <article className="step-card" role="listitem" key={title}><div className="step-top"><b>{String(i+1).padStart(2,'0')}</b><ShieldCheck aria-hidden="true" /></div><h3>{title}</h3></article>)}</div><div className="capability-download"><p>Need a shareable overview of Hanz capabilities for procurement or vendor onboarding?</p><a className="button" href="/assets/hanz-logistics-capability-statement.pdf" download="Hanz-Logistics-Capability-Statement.pdf">Download Capability Statement <ArrowRight aria-hidden="true" /></a></div></div></div></section>
+      <section className="process section-pad" id="standard"><div className="shell"><Label>One team • Full visibility</Label><div className="section-heading"><h2>Control at every handoff.</h2><p>From the first call to final delivery, a Hanz operator owns the details and keeps the record current.</p></div><div className="steps">{steps.map((step,i) => <button className="step-card" type="button" key={step.title} onClick={() => setActiveStep(i)} aria-haspopup="dialog" aria-label={`View ${step.title} process details`}><div className="step-top"><b>{String(i+1).padStart(2,'0')}</b><span aria-hidden="true">{i === 1 ? <Radio /> : <ClipboardCheck />}</span></div><img src={step.image} alt="" loading="lazy" /><h3>{step.title}</h3><p>{step.summary}</p><span className="step-more">View full process <ArrowRight aria-hidden="true" /></span></button>)}</div><div className="credentials"><Label>Credentials</Label><div className="steps" role="list">{['TSA Indirect Air Carrier (IAC) compliant','TWIC cleared'].map((title, i) => <article className="step-card" role="listitem" key={title}><div className="step-top"><b>{String(i+1).padStart(2,'0')}</b><ShieldCheck aria-hidden="true" /></div><h3>{title}</h3></article>)}</div><div className="capability-download"><p>Need a shareable overview of Hanz capabilities for procurement or vendor onboarding?</p><a className="button" href="/assets/hanz-logistics-capability-statement.pdf" download="Hanz-Logistics-Capability-Statement.pdf">Download Capability Statement <ArrowRight aria-hidden="true" /></a></div></div></div></section>
 
       <section className="cta section-pad" id="contact" style={{ backgroundImage: `linear-gradient(90deg, rgba(16,36,59,.8), rgba(16,36,59,.25)), url(${images.cta})` }}><div className="shell cta-grid"><div><Label>Ready when the clock starts</Label><h2>The shipment is urgent. The next move should be clear.</h2><p>Tell us what is moving, where it needs to go and when it must arrive. An operator will take it from there.</p></div><aside><small>Start here</small><a href="tel:+14123453837" aria-label="Call Hanz Logistics at (412) 345-3837">(412) 345-3837</a><a href="mailto:operations@hanzlogistics.com">operations@hanzlogistics.com</a><a href="mailto:info@hanzlogistics.com">info@hanzlogistics.com</a><a className="button" href="#capabilities" onClick={(event) => { event.preventDefault(); setActiveQuote(GENERAL_QUOTE) }}>Get a quote <ArrowRight /></a></aside></div></section>
     </main>

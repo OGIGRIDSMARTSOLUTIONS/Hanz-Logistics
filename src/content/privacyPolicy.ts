@@ -13,13 +13,12 @@ export const privacyPolicy = {
     {
       heading: '1. Who we are',
       paragraphs: [
-        'Hanz Logistics is an air freight forwarder based in the Pittsburgh International Airport corridor, coordinating domestic and worldwide cargo movements. For privacy questions related to this website or shipment communications, contact:',
+        'Hanz Logistics is an air freight forwarder coordinating domestic and worldwide cargo movements. For privacy questions related to this website or shipment communications, contact:',
       ],
       bullets: [
         'operations@hanzlogistics.com',
         'info@hanzlogistics.com',
         '(412) 345-3837',
-        'Pittsburgh, PA',
       ],
     },
     {

@@ -66,10 +66,10 @@ doc.y = 160
 doc.fillColor(navy).font('Helvetica-Bold').fontSize(11).text('Mission-critical air freight forwarding')
 doc.moveDown(0.25)
 doc.fillColor(muted).font('Helvetica').fontSize(10.5)
-doc.text('From the Pittsburgh International Airport corridor to domestic and worldwide destinations.', { width: contentWidth })
+doc.text('Connecting shippers to domestic and worldwide destinations.', { width: contentWidth })
 doc.moveDown(0.45)
 doc.fillColor(deep).font('Helvetica').fontSize(9.5)
-doc.text('24 / 7 / 365  ·  Pittsburgh, PA  ·  (412) 345-3837', { width: contentWidth })
+doc.text('24 / 7 / 365  ·  (412) 345-3837', { width: contentWidth })
 doc.text('operations@hanzlogistics.com  ·  info@hanzlogistics.com', { width: contentWidth })
 
 sectionTitle('Company Overview')
@@ -101,16 +101,16 @@ doc.text(
 
 sectionTitle('Operational Strengths')
 bullet([
-  'Pittsburgh-based operations with domestic and global reach.',
+  'Domestic and global operational reach.',
   'Plan → Track → Account process ownership by a Hanz operator.',
   'Documented movement planning before tender and proof-of-delivery closure.',
-  'TSA Indirect Air Carrier (IAC) compliant; TWIC cleared; IATA DGR & GDP handling standards.',
+  'TSA Indirect Air Carrier (IAC) compliant; TWIC cleared.',
 ])
 
 sectionTitle('Contact')
 doc.fillColor(deep).font('Helvetica-Bold').fontSize(10.5).text('Hanz Logistics')
 doc.fillColor(muted).font('Helvetica').fontSize(10.5)
-doc.text('Pittsburgh, PA · PIT Airport Corridor')
+doc.text('24 / 7 / 365 Operations')
 doc.text('Phone: (412) 345-3837')
 doc.text('Email: operations@hanzlogistics.com · info@hanzlogistics.com')
 
