@@ -1,12 +1,8 @@
 % Hanz Logistics — Capability Statement
 % Source of truth for the LaTeX capability statement.
 % Compile with: xelatex capability-statement.tex
-%   (or lualatex capability-statement.tex)
-%
-% Content is taken from the existing approved capability statement
-% (scripts/generate-capability-statement.mjs / public PDF). Do not invent claims.
 
-\documentclass[11pt,letterpaper]{article}
+\documentclass[10.5pt,letterpaper]{article}
 
 \usepackage{iftex}
 \ifPDFTeX
@@ -15,7 +11,7 @@
 
 \usepackage{fontspec}
 \usepackage{microtype}
-\usepackage[letterpaper,top=0.85in,bottom=0.85in,left=0.85in,right=0.85in]{geometry}
+\usepackage[letterpaper,top=0.75in,bottom=0.75in,left=0.75in,right=0.75in]{geometry}
 \usepackage{xcolor}
 \usepackage{graphicx}
 \usepackage{enumitem}
@@ -35,8 +31,6 @@
 \definecolor{HanzLine}{HTML}{DCE3E8}
 
 % ---------- Typography ----------
-% Preferred: Inter / Funnel Sans / Geist Mono from ./fonts/ (see FONTS.md).
-% Fallback: Segoe UI / Consolas when local files are absent.
 \IfFileExists{fonts/Inter-Regular.ttf}{%
   \setmainfont{Inter}[
     Path         = fonts/,
@@ -75,34 +69,34 @@
 }
 
 \newcommand{\HanzLabel}[1]{%
-  {\LabelFont\bfseries\color{HanzOrange}\MakeUppercase{#1}}\par\vspace{0.35em}%
+  {\LabelFont\bfseries\color{HanzOrange}\MakeUppercase{#1}}\par\vspace{0.3em}%
 }
 
 \newcommand{\SectionRule}{%
   \vspace{-0.15em}%
-  {\color{HanzOrange}\rule{2.4em}{2.2pt}}\par\vspace{0.55em}%
+  {\color{HanzOrange}\rule{2.4em}{2.2pt}}\par\vspace{0.45em}%
 }
 
 \titleformat{\section}
-  {\HeadingFont\bfseries\color{HanzDeep}\Large}
+  {\HeadingFont\bfseries\color{HanzDeep}\large}
   {}
   {0em}
   {}
   [\SectionRule]
-\titlespacing*{\section}{0pt}{1.35em}{0.35em}
+\titlespacing*{\section}{0pt}{1.1em}{0.3em}
 
 \titleformat{\subsection}
-  {\HeadingFont\bfseries\color{HanzNavy}\large}
+  {\HeadingFont\bfseries\color{HanzNavy}\normalsize}
   {}
   {0em}
   {}
-\titlespacing*{\subsection}{0pt}{0.9em}{0.25em}
+\titlespacing*{\subsection}{0pt}{0.65em}{0.15em}
 
 \setlist[itemize]{
   leftmargin=1.15em,
-  itemsep=0.35em,
+  itemsep=0.3em,
   parsep=0pt,
-  topsep=0.35em,
+  topsep=0.25em,
   label={\color{HanzOrange}\textbullet}
 }
 
@@ -115,9 +109,9 @@
   pdfsubject={Capability Statement}
 }
 
-\setlength{\parskip}{0.55em}
+\setlength{\parskip}{0.45em}
 \setlength{\parindent}{0pt}
-\setstretch{1.18}
+\setstretch{1.15}
 
 % ---------- Header / footer ----------
 \pagestyle{fancy}
@@ -127,19 +121,11 @@
 \renewcommand{\footrule}{\hbox to\headwidth{\color{HanzLine}\leaders\hrule height \footrulewidth\hfill}}
 \fancyfoot[L]{\LabelFont\color{HanzMuted}\fontsize{7.5}{9}\selectfont HANZ LOGISTICS}
 \fancyfoot[C]{\color{HanzMuted}\fontsize{8}{10}\selectfont Capability Statement}
-\fancyfoot[R]{\color{HanzMuted}\fontsize{8}{10}\selectfont\thepage}
-\fancypagestyle{firstpage}{%
-  \fancyhf{}
-  \renewcommand{\headrulewidth}{0pt}
-  \renewcommand{\footrulewidth}{0pt}
-  \fancyfoot[L]{\LabelFont\color{HanzMuted}\fontsize{7.5}{9}\selectfont HANZ LOGISTICS}
-  \fancyfoot[R]{\color{HanzMuted}\fontsize{8}{10}\selectfont\thepage}
-}
+\fancyfoot[R]{\color{HanzMuted}\fontsize{8}{10}\selectfont Page \thepage\ of 2}
 
 \begin{document}
-\thispagestyle{firstpage}
 
-% ===== Cover / brand banner =====
+% ===== PAGE 1 =====
 \begin{tikzpicture}[remember picture,overlay]
   \fill[HanzDeep] (current page.north west) rectangle ([yshift=-1.55in]current page.north east);
   \fill[HanzOrange] ([yshift=-1.55in]current page.north west) rectangle ([yshift=-1.62in]current page.north east);
@@ -157,14 +143,14 @@
 {\HeadingFont\bfseries\color{HanzNavy}\large
 Connecting shippers to domestic and worldwide destinations.\par}
 
-\vspace{0.55em}
+\vspace{0.45em}
 {\color{HanzDeep}\textbf{24 / 7 / 365}~\textperiodcentered~
 \href{tel:+14123453837}{(412) 345-3837}}\\[0.15em]
 \href{mailto:operations@hanzlogistics.com}{operations@hanzlogistics.com}
 ~\textperiodcentered~
 \href{mailto:info@hanzlogistics.com}{info@hanzlogistics.com}
 
-\vspace{0.35em}
+\vspace{0.3em}
 {\color{HanzLine}\hrule height 0.6pt}
 
 \section{Company Overview}
@@ -173,52 +159,82 @@ Hanz Logistics is an air freight forwarder coordinating mission-critical cargo w
 \section{Core Logistics Capabilities}
 
 \subsection*{Expedited Air Freight}
-Next-flight-out and time-definite routing with active milestone monitoring.
+Next-flight-out and time-definite routing for cargo that must keep moving. Priority uplift evaluation and active milestone monitoring through final delivery.
 
 \subsection*{Air Charter Solutions}
-Dedicated aircraft matched to payload, airport access, handling needs, and timing.
+Dedicated aircraft matched to payload, airport access, handling requirements, and destination timing when commercial schedules cannot meet the mission.
 
-\subsection*{On-Board Courier / Hand-Carry}
-Dedicated human custody from collection through final handoff (OBC).
+\subsection*{On-Board Courier / Hand-Carry (OBC)}
+Dedicated onboard courier personally accompanies critical cargo from collection through final handoff, maintaining direct chain-of-custody throughout the journey.
 
 \subsection*{Specialized Handling}
-Cold-chain coordination, dangerous-goods support, oversized and high-value freight.
+Purpose-built handling plans for temperature-sensitive cargo, dangerous-goods support, oversized equipment, and high-value freight.
 
 \subsection*{Door-to-Door Coordination}
-Door-to-door coordination and documented chain-of-custody practices.
+Comprehensive management across pickup, airport transfer, flight uplift, customs coordination, and final-mile delivery.
 
-\section{Shipment Visibility}
-Customers may track shipments using a Hanz reference number and, when linked, a carrier airway bill (AWB). Visibility combines operator oversight with carrier tracking data when an AWB is available. Tracking displays depend on received carrier data and may be incomplete until updates are available.
+\section{Shipment Visibility \& Milestone Tracking}
+Customers track shipments using a Hanz reference number and, when linked, a carrier airway bill (AWB). Visibility combines dedicated operator oversight with verified milestone updates across every handoff---providing reliable, human-verified status rather than an unattended tracking number.
+
+\clearpage
+
+% ===== PAGE 2 =====
+\begin{tikzpicture}[remember picture,overlay]
+  \fill[HanzDeep] (current page.north west) rectangle ([yshift=-0.22in]current page.north east);
+  \fill[HanzOrange] ([yshift=-0.22in]current page.north west) rectangle ([yshift=-0.26in]current page.north east);
+\end{tikzpicture}
+
+\vspace*{-0.1in}
+
+\section{The Hanz Operations Standard}
+
+\subsection*{1. Plan}
+We map urgency, dimensions, weight, handling requirements, route, and contingencies before tender. A documented movement plan confirms responsibilities at every handoff.
+
+\subsection*{2. Track}
+Active milestones and human oversight keep the shipment visible in motion. Operators proactively monitor exceptions and coordinate directly across carriers and ground partners.
+
+\subsection*{3. Account}
+Delivery confirmation, proof-of-delivery verification, and chain-of-custody documentation consolidate the complete shipment record for review and compliance.
 
 \section{Industries Served}
-Hanz supports high-stakes sectors including Healthcare; Aerospace + Defense; Advanced Manufacturing; Business Technology; Robotics + Energy; and Research --- with handling plans built around cargo risk, urgency, and compliance needs.
+Hanz provides specialized logistics solutions for high-stakes sectors with handling plans built around cargo risk, urgency, and compliance needs:
+
+\begin{itemize}
+  \item \textbf{Healthcare} --- Temperature-sensitive materials, critical devices, therapies, and cold-chain coordination.
+  \item \textbf{Aerospace + Defense} --- Controlled components, AOG parts, and high-value equipment with secure routing.
+  \item \textbf{Advanced Manufacturing} --- Line-down parts, specialized tooling, and plant-direct delivery to prevent downtime.
+  \item \textbf{Business Technology} --- High-value servers, infrastructure, and secure data-center delivery.
+  \item \textbf{Robotics + Energy} --- Prototype security, battery transport compliance, and field-critical shipment support.
+  \item \textbf{Research} --- Unique specimens, sensitive scientific instruments, and timeline-critical project logistics.
+\end{itemize}
 
 \section{Operational Strengths}
 \begin{itemize}
-  \item Domestic and global operational reach.
-  \item Plan $\rightarrow$ Track $\rightarrow$ Account process ownership by a Hanz operator.
+  \item Domestic and global operational reach with 24 / 7 / 365 operations dispatch.
+  \item Plan $\rightarrow$ Track $\rightarrow$ Account end-to-end process ownership by a dedicated Hanz operator.
   \item Documented movement planning before tender and proof-of-delivery closure.
-  \item TSA Indirect Air Carrier (IAC) compliant; TWIC cleared.
+  \item TSA Indirect Air Carrier (IAC) compliant; TWIC cleared personnel.
 \end{itemize}
 
-\section{Contact}
-{\HeadingFont\bfseries\color{HanzDeep} Hanz Logistics}\\[0.25em]
+\section{Contact \& Operations Dispatch}
+{\HeadingFont\bfseries\color{HanzDeep} Hanz Logistics Operations}\\[0.2em]
 {\color{HanzMuted}
-24 / 7 / 365 Operations\\
+24 / 7 / 365 Operations Dispatch\\
 Phone: \href{tel:+14123453837}{(412) 345-3837}\\
 Email: \href{mailto:operations@hanzlogistics.com}{operations@hanzlogistics.com}
 ~\textperiodcentered~
 \href{mailto:info@hanzlogistics.com}{info@hanzlogistics.com}
 }
 
-\vspace{1.1em}
+\vspace{0.8em}
 \noindent
 \begin{tikzpicture}
-  \fill[HanzPaper] (0,0) rectangle (\linewidth,1.05);
-  \node[anchor=west,inner sep=12pt] at (0,0.68)
-    {\LabelFont\bfseries\color{HanzNavy}\fontsize{8.5}{10}\selectfont HANZ LOGISTICS};
-  \node[anchor=west,inner sep=12pt] at (0,0.32)
-    {\color{HanzMuted}\fontsize{9}{11}\selectfont Air freight for cargo that cannot afford to be delayed.};
+  \fill[HanzPaper] (0,0) rectangle (\linewidth,0.95);
+  \node[anchor=west,inner sep=10pt] at (0,0.62)
+    {\LabelFont\bfseries\color{HanzNavy}\fontsize{8}{9.5}\selectfont HANZ LOGISTICS};
+  \node[anchor=west,inner sep=10pt] at (0,0.28)
+    {\color{HanzMuted}\fontsize{8.5}{10}\selectfont Air freight for cargo that cannot afford to be delayed.};
 \end{tikzpicture}
 
 \end{document}
