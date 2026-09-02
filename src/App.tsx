@@ -52,6 +52,16 @@ const capabilities = [
     pricing: 'Custom quote after commodity, handling, compliance, and route review.',
     cta: 'Request handling plan',
   },
+  {
+    title: 'Air Freight Coordination',
+    summary: 'End-to-end planning, booking, and oversight across every air freight handoff.',
+    image: 'https://images.unsplash.com/photo-1663689764765-c665bee4f75d?auto=format&fit=crop&w=1400&q=85',
+    eyebrow: 'Full shipment oversight',
+    description: 'From pickup through final delivery, a Hanz operator coordinates routing, carrier booking, documentation, and ground transfers so critical cargo keeps moving without gaps in control.',
+    specs: ['Pickup to delivery coordination', 'Carrier and flight booking', 'Documentation and compliance', 'Active milestone monitoring'],
+    pricing: 'Custom quote based on route, cargo profile, handling requirements, and delivery timing.',
+    cta: 'Request coordination plan',
+  },
 ]
 
 const SERVICE_PATHS = [
@@ -59,6 +69,7 @@ const SERVICE_PATHS = [
   '/services/air-charter',
   '/services/on-board-courier',
   '/services/cold-chain-logistics',
+  '/services/air-freight-coordination',
 ] as const
 
 const normalizePath = (pathname: string) => (pathname.length > 1 && pathname.endsWith('/') ? pathname.slice(0, -1) : pathname)
@@ -81,8 +92,11 @@ const quoteForms = [
   { color: '#EF4444', title: 'Specialized Handling Quote', button: 'Submit inquiry', fields: [
     ['company','Company Name','text'], ['contact','Contact Person','text'], ['email','Email','email'], ['phone','Phone','tel'], ['route','Origin / Destination','text'], ['cargoType','Cargo Type','select','Pharmaceutical|Hazmat|Oversized|Fine Art|Perishables|Other'], ['weight','Total Weight (kg)','number'], ['dimensions','Dimensions (L×W×H m)','text'], ['temperature','Temperature Range','text'], ['value','Declared Value ($)','number'], ['certifications','Certifications Needed','text'], ['handlingNotes','Special Handling Notes','textarea'], ['notes','Additional Notes','textarea'],
   ]},
+  { color: '#6366F1', title: 'Air Freight Coordination Quote', button: 'Request coordination', fields: [
+    ['company','Company Name','text'], ['email','Contact Email','email'], ['phone','Phone Number','tel'], ['origin','Origin City / Airport','text'], ['destination','Destination City / Airport','text'], ['cargo','Cargo Description','textarea'], ['weight','Approx. Weight (kg)','number'], ['dimensions','Dimensions (L × W × H)','text'], ['urgency','Urgency','select','Next Flight|24hrs|48hrs|72hrs|Flexible'], ['handlingNotes','Special Handling Notes','textarea'],
+  ]},
   { color: '#F2693C', title: 'General Freight Quote', button: 'Request quote', fields: [
-    ['name','Your Name','text'], ['company','Company Name','text'], ['email','Contact Email','email'], ['phone','Phone Number','tel'], ['serviceNeeded','Service Needed','select','Expedited Air|Charter Solutions|Hand-Carry / OBC|Specialized Handling|Not Sure Yet'], ['origin','Origin City / Airport','text'], ['destination','Destination City / Airport','text'], ['pickupReady','Cargo Ready / Pickup Date & Time','datetime-local'], ['delivery','Required Delivery Date & Time','datetime-local'], ['cargo','Cargo Description','textarea'], ['handling','Handling Requirements','textarea'], ['weight','Approx. Weight (kg)','number'], ['pieceCount','Piece Count','number'], ['dimensions','Dimensions (L × W × H)','text'], ['urgency','Urgency','select','Next Flight|24hrs|48hrs|72hrs|Flexible'], ['notes','Additional Notes','textarea'],
+    ['name','Your Name','text'], ['company','Company Name','text'], ['email','Contact Email','email'], ['phone','Phone Number','tel'], ['serviceNeeded','Service Needed','select','Expedited Air|Charter Solutions|Hand-Carry / OBC|Specialized Handling|Air Freight Coordination|Not Sure Yet'], ['origin','Origin City / Airport','text'], ['destination','Destination City / Airport','text'], ['pickupReady','Cargo Ready / Pickup Date & Time','datetime-local'], ['delivery','Required Delivery Date & Time','datetime-local'], ['cargo','Cargo Description','textarea'], ['handling','Handling Requirements','textarea'], ['weight','Approx. Weight (kg)','number'], ['pieceCount','Piece Count','number'], ['dimensions','Dimensions (L × W × H)','text'], ['urgency','Urgency','select','Next Flight|24hrs|48hrs|72hrs|Flexible'], ['notes','Additional Notes','textarea'],
   ]},
 ] as const
 
@@ -583,7 +597,7 @@ function ServiceLanding({ serviceIndex, onRequestQuote }: { serviceIndex: number
               <h2>{service.title}</h2>
               <p>{service.description}</p>
             </div>
-            <div className="service-overview-media" style={{ backgroundImage: `linear-gradient(180deg,transparent 35%,rgba(16,36,59,.7)),url(${service.image})` }} role="img" aria-label={`${service.title} operations`}><span>{String(serviceIndex + 1).padStart(2, '0')} / 04</span></div>
+            <div className="service-overview-media" style={{ backgroundImage: `linear-gradient(180deg,transparent 35%,rgba(16,36,59,.7)),url(${service.image})` }} role="img" aria-label={`${service.title} operations`}><span>{String(serviceIndex + 1).padStart(2, '0')} / {String(capabilities.length).padStart(2, '0')}</span></div>
           </div>
 
           <div className="service-block">
@@ -800,7 +814,7 @@ function App() {
             <aside className="cap-detail" id="capability-detail" aria-live="polite" aria-hidden={!selectedCapability}>
               {selectedCapability && <>
                 <button type="button" className="cap-close" onClick={() => setActiveCapability(null)} aria-label="Close capability details"><X aria-hidden="true" /></button>
-                <div className="cap-detail-image" style={{backgroundImage:`linear-gradient(180deg,transparent,rgba(16,36,59,.75)),url(${selectedCapability.image})`}}><span>{String(activeCapability!+1).padStart(2,'0')} / 04</span></div>
+                <div className="cap-detail-image" style={{backgroundImage:`linear-gradient(180deg,transparent,rgba(16,36,59,.75)),url(${selectedCapability.image})`}}><span>{String(activeCapability!+1).padStart(2,'0')} / {String(capabilities.length).padStart(2,'0')}</span></div>
                 <div className="cap-detail-body"><small>{selectedCapability.eyebrow}</small><h3>{selectedCapability.title}</h3><p>{selectedCapability.description}</p><h4>Service specifications</h4><ul>{selectedCapability.specs.map(spec => <li key={spec}><ShieldCheck />{spec}</li>)}</ul><div className="cap-price"><small>Pricing</small><span>{selectedCapability.pricing}</span></div><button className="button" type="button" onClick={() => setActiveQuote(activeCapability!)}>{selectedCapability.cta}<ArrowRight /></button><a className="text-link service-page-link" href={SERVICE_PATHS[activeCapability!]}>Open dedicated service page <ArrowRight /></a></div>
               </>}
             </aside>
