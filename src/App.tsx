@@ -54,13 +54,13 @@ const capabilities = [
   },
   {
     title: 'Air Freight Coordination',
-    summary: 'End-to-end planning, booking, and oversight across every air freight handoff.',
-    image: 'https://images.unsplash.com/photo-1663689764765-c665bee4f75d?auto=format&fit=crop&w=1400&q=85',
-    eyebrow: 'Full shipment oversight',
-    description: 'From pickup through final delivery, a Hanz operator coordinates routing, carrier booking, documentation, and ground transfers so critical cargo keeps moving without gaps in control.',
-    specs: ['Pickup to delivery coordination', 'Carrier and flight booking', 'Documentation and compliance', 'Active milestone monitoring'],
-    pricing: 'Custom quote based on route, cargo profile, handling requirements, and delivery timing.',
-    cta: 'Request coordination plan',
+    summary: 'Full-service forwarding from pickup planning through carrier booking, documentation, and delivery oversight.',
+    image: 'https://images.unsplash.com/photo-1580674285054-bed903e58391?auto=format&fit=crop&w=1400&q=85',
+    eyebrow: 'End-to-end air forwarding',
+    description: 'Hanz coordinates the complete air freight movement: pickup and ground transfer, carrier selection and booking, export/import documentation, customs handoffs, and active milestone oversight through final delivery.',
+    specs: ['Door-to-door and airport routing', 'Carrier booking and AWB coordination', 'Export/import documentation', 'Customs and ground-transfer coordination', 'Active milestone monitoring'],
+    pricing: 'Custom quote after route, commodity, documentation, and delivery scope review.',
+    cta: 'Request coordination quote',
   },
 ]
 
@@ -92,8 +92,8 @@ const quoteForms = [
   { color: '#EF4444', title: 'Specialized Handling Quote', button: 'Submit inquiry', fields: [
     ['company','Company Name','text'], ['contact','Contact Person','text'], ['email','Email','email'], ['phone','Phone','tel'], ['route','Origin / Destination','text'], ['cargoType','Cargo Type','select','Pharmaceutical|Hazmat|Oversized|Fine Art|Perishables|Other'], ['weight','Total Weight (kg)','number'], ['dimensions','Dimensions (L×W×H m)','text'], ['temperature','Temperature Range','text'], ['value','Declared Value ($)','number'], ['certifications','Certifications Needed','text'], ['handlingNotes','Special Handling Notes','textarea'], ['notes','Additional Notes','textarea'],
   ]},
-  { color: '#6366F1', title: 'Air Freight Coordination Quote', button: 'Request coordination', fields: [
-    ['company','Company Name','text'], ['email','Contact Email','email'], ['phone','Phone Number','tel'], ['origin','Origin City / Airport','text'], ['destination','Destination City / Airport','text'], ['cargo','Cargo Description','textarea'], ['weight','Approx. Weight (kg)','number'], ['dimensions','Dimensions (L × W × H)','text'], ['urgency','Urgency','select','Next Flight|24hrs|48hrs|72hrs|Flexible'], ['handlingNotes','Special Handling Notes','textarea'],
+  { color: '#6366F1', title: 'Air Freight Coordination Quote', button: 'Submit coordination request', fields: [
+    ['company','Company Name','text'], ['contact','Contact Person','text'], ['email','Contact Email','email'], ['phone','Phone Number','tel'], ['pickup','Pickup Location (address / city)','text'], ['originAirport','Origin Airport','text'], ['delivery','Delivery Location (address / city)','text'], ['destinationAirport','Destination Airport','text'], ['pickupReady','Cargo Ready Date & Time','datetime-local'], ['deliveryRequired','Required Delivery Date & Time','datetime-local'], ['commodity','Commodity Description','textarea'], ['pieceCount','Piece Count','number'], ['weight','Total Weight (kg)','number'], ['dimensions','Dimensions (L × W × H per piece or total)','text'], ['scope','Shipment Scope','select','Door-to-Door|Door-to-Airport|Airport-to-Airport|Airport-to-Door'], ['customs','Customs Coordination','select','Origin only|Destination only|Both|Not required|Unsure'], ['documentation','Documentation Support Needed','select','Air Waybill (AWB)|Commercial Invoice|Packing List|Certificate of Origin|Full export/import set|Unsure'], ['carrierPreference','Preferred Airline / Carrier','text'], ['handling','Special Handling Requirements','textarea'], ['notes','Additional Coordination Notes','textarea'],
   ]},
   { color: '#F2693C', title: 'General Freight Quote', button: 'Request quote', fields: [
     ['name','Your Name','text'], ['company','Company Name','text'], ['email','Contact Email','email'], ['phone','Phone Number','tel'], ['serviceNeeded','Service Needed','select','Expedited Air|Charter Solutions|Hand-Carry / OBC|Specialized Handling|Air Freight Coordination|Not Sure Yet'], ['origin','Origin City / Airport','text'], ['destination','Destination City / Airport','text'], ['pickupReady','Cargo Ready / Pickup Date & Time','datetime-local'], ['delivery','Required Delivery Date & Time','datetime-local'], ['cargo','Cargo Description','textarea'], ['handling','Handling Requirements','textarea'], ['weight','Approx. Weight (kg)','number'], ['pieceCount','Piece Count','number'], ['dimensions','Dimensions (L × W × H)','text'], ['urgency','Urgency','select','Next Flight|24hrs|48hrs|72hrs|Flexible'], ['notes','Additional Notes','textarea'],
