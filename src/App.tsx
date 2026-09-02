@@ -55,7 +55,7 @@ const capabilities = [
   {
     title: 'Air Freight Coordination',
     summary: 'Full-service forwarding from pickup planning through carrier booking, documentation, and delivery oversight.',
-    image: 'https://images.unsplash.com/photo-1580674285054-bed903e58391?auto=format&fit=crop&w=1400&q=85',
+    image: 'https://images.unsplash.com/photo-1774698078446-59299e016718?auto=format&fit=crop&w=1400&q=85',
     eyebrow: 'End-to-end air forwarding',
     description: 'Hanz coordinates the complete air freight movement: pickup and ground transfer, carrier selection and booking, export/import documentation, customs handoffs, and active milestone oversight through final delivery.',
     specs: ['Door-to-door and airport routing', 'Carrier booking and AWB coordination', 'Export/import documentation', 'Customs and ground-transfer coordination', 'Active milestone monitoring'],
