@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { ArrowLeft, ArrowRight, BriefcaseBusiness, ClipboardCheck, Mail, Menu, Microscope, Phone, Plane, Radio, Server, ShieldCheck, Thermometer, X, Zap } from 'lucide-react'
+import { ArrowLeft, ArrowRight, BriefcaseBusiness, ClipboardCheck, Mail, Menu, Microscope, Phone, Plane, Radio, Server, ShieldCheck, Smile, Thermometer, X, Zap, type LucideIcon } from 'lucide-react'
 import { PrivacyPage, TermsPage } from './pages/LegalPages'
 
 const images = {
@@ -97,6 +97,20 @@ const industries = [
   { icon: Microscope, title: 'Research', summary: 'Careful coordination for unique specimens and instruments.', heading: 'Protecting the work behind every breakthrough.', description: 'Unique specimens, instruments, and research materials move with careful documentation and handling tailored to the project.', services: ['Specimen handling', 'Instrument transport', 'Research timelines'], image: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=1200&q=85' },
 ]
 
+const credentials: { title: string; icon: LucideIcon }[] = [
+  { title: 'TSA Indirect Air Carrier (IAC) compliant', icon: ShieldCheck },
+  { title: 'TWIC cleared', icon: ShieldCheck },
+  { title: 'Customer-centric — happy customers', icon: Smile },
+]
+
+const HOME_SECTIONS = [
+  { id: 'about', label: 'About' },
+  { id: 'capabilities', label: 'Capabilities' },
+  { id: 'industries', label: 'Industries' },
+  { id: 'standard', label: 'Our Standard' },
+  { id: 'contact', label: 'Contact' },
+] as const
+
 const steps = [
   {
     title: 'Plan',
@@ -126,6 +140,37 @@ const steps = [
 
 function Label({ children }: { children: React.ReactNode }) {
   return <p className="label"><span />{children}</p>
+}
+
+function SectionNav({
+  visible,
+  activeSection,
+  onNavigate,
+}: {
+  visible: boolean
+  activeSection: string | null
+  onNavigate: () => void
+}) {
+  return (
+    <nav
+      className={`section-nav ${visible ? 'visible' : ''}`}
+      aria-label="Page sections"
+      aria-hidden={!visible}
+    >
+      <div className="shell section-nav-inner">
+        {HOME_SECTIONS.map(({ id, label }) => (
+          <a
+            key={id}
+            href={`#${id}`}
+            className={activeSection === id ? 'active' : ''}
+            onClick={onNavigate}
+          >
+            {label}
+          </a>
+        ))}
+      </div>
+    </nav>
+  )
 }
 
 function QuoteModal({ serviceIndex, onClose }: { serviceIndex: number, onClose: () => void }) {
@@ -596,6 +641,8 @@ function App() {
   const [activeCapability, setActiveCapability] = useState<number | null>(null)
   const [activeIndustry, setActiveIndustry] = useState(0)
   const [activeQuote, setActiveQuote] = useState<number | null>(null)
+  const [sectionNavVisible, setSectionNavVisible] = useState(false)
+  const [activeSection, setActiveSection] = useState<string | null>(null)
   const closeButtonRef = useRef<HTMLButtonElement>(null)
   const closeMenu = () => setMenuOpen(false)
   const selectedStep = activeStep === null ? null : steps[activeStep]
@@ -636,6 +683,49 @@ function App() {
     }
   }, [activeQuote])
 
+  const isHomePage = path === '/' || path === ''
+
+  useEffect(() => {
+    if (!isHomePage) {
+      setSectionNavVisible(false)
+      setActiveSection(null)
+      return
+    }
+
+    const hero = document.getElementById('top')
+    const sectionElements = HOME_SECTIONS
+      .map(({ id }) => document.getElementById(id))
+      .filter((element): element is HTMLElement => element !== null)
+
+    const updateNavVisibility = () => {
+      const heroBottom = hero?.getBoundingClientRect().bottom ?? 0
+      setSectionNavVisible(heroBottom <= 0)
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)
+        if (visible[0]?.target.id) {
+          setActiveSection(visible[0].target.id)
+        }
+      },
+      { rootMargin: '-35% 0px -50% 0px', threshold: [0, 0.15, 0.35] },
+    )
+
+    sectionElements.forEach((element) => observer.observe(element))
+    updateNavVisibility()
+    window.addEventListener('scroll', updateNavVisibility, { passive: true })
+    window.addEventListener('resize', updateNavVisibility)
+
+    return () => {
+      observer.disconnect()
+      window.removeEventListener('scroll', updateNavVisibility)
+      window.removeEventListener('resize', updateNavVisibility)
+    }
+  }, [isHomePage])
+
   if (path === '/privacy') {
     return <>
       <PrivacyPage footer={<SiteFooter fromServicePage />} />
@@ -666,6 +756,11 @@ function App() {
   }
 
   return <>
+    <SectionNav
+      visible={sectionNavVisible}
+      activeSection={activeSection}
+      onNavigate={closeMenu}
+    />
     <header className="hero" id="top">
       <div className="hero-flight" style={{ backgroundImage: `url(${images.hero})` }} aria-hidden="true" />
       <div className="hero-overlay" aria-hidden="true" />
@@ -722,7 +817,7 @@ function App() {
         <div className="industry-list section-pad" role="list">{industries.map((industry, index) => { const Icon = industry.icon; const isActive = activeIndustry === index; return <article className={`industry-item ${isActive ? 'active' : ''}`} role="listitem" key={industry.title}><button type="button" className={isActive ? 'active' : ''} onClick={() => setActiveIndustry(index)} onMouseEnter={() => setActiveIndustry(index)} aria-expanded={isActive} aria-controls={isActive ? `industry-detail-${index}` : undefined}><b>{String(index+1).padStart(2,'0')}</b><span className="industry-icon" aria-hidden="true"><Icon /></span><h3>{industry.title}</h3><p>{industry.summary}</p><ArrowRight aria-hidden="true" /></button>{isActive && <div className="mobile-industry-detail" id={`industry-detail-${index}`}><div className="mobile-industry-image" style={{backgroundImage:`linear-gradient(180deg,transparent,rgba(16,36,59,.75)),url(${industry.image})`}}><span>{industry.title}</span></div><p>{industry.description}</p><ul>{industry.services.map(service => <li key={service}><ShieldCheck aria-hidden="true" />{service}</li>)}</ul><a href={`mailto:operations@hanzlogistics.com?subject=${encodeURIComponent(industry.title + ' shipment')}`}>Discuss your shipment <ArrowRight aria-hidden="true" /></a></div>}</article> })}</div>
       </section>
 
-      <section className="process section-pad" id="standard"><div className="shell"><Label>One team • Full visibility</Label><div className="section-heading"><h2>Control at every handoff.</h2><p>From the first call to final delivery, a Hanz operator owns the details and keeps the record current.</p></div><div className="steps">{steps.map((step,i) => <button className="step-card" type="button" key={step.title} onClick={() => setActiveStep(i)} aria-haspopup="dialog" aria-label={`View ${step.title} process details`}><div className="step-top"><b>{String(i+1).padStart(2,'0')}</b><span aria-hidden="true">{i === 1 ? <Radio /> : <ClipboardCheck />}</span></div><img src={step.image} alt="" loading="lazy" /><h3>{step.title}</h3><p>{step.summary}</p><span className="step-more">View full process <ArrowRight aria-hidden="true" /></span></button>)}</div><div className="credentials"><Label>Credentials</Label><div className="steps" role="list">{['TSA Indirect Air Carrier (IAC) compliant','TWIC cleared'].map((title, i) => <article className="step-card" role="listitem" key={title}><div className="step-top"><b>{String(i+1).padStart(2,'0')}</b><ShieldCheck aria-hidden="true" /></div><h3>{title}</h3></article>)}</div><div className="capability-download"><p>Need a shareable overview of Hanz capabilities for procurement or vendor onboarding?</p><a className="button" href="/assets/hanz-logistics-capability-statement.pdf" download="Hanz-Logistics-Capability-Statement.pdf">Download Capability Statement <ArrowRight aria-hidden="true" /></a></div></div></div></section>
+      <section className="process section-pad" id="standard"><div className="shell"><Label>One team • Full visibility</Label><div className="section-heading"><h2>Control at every handoff.</h2><p>From the first call to final delivery, a Hanz operator owns the details and keeps the record current.</p></div><div className="steps">{steps.map((step,i) => <button className="step-card" type="button" key={step.title} onClick={() => setActiveStep(i)} aria-haspopup="dialog" aria-label={`View ${step.title} process details`}><div className="step-top"><b>{String(i+1).padStart(2,'0')}</b><span aria-hidden="true">{i === 1 ? <Radio /> : <ClipboardCheck />}</span></div><img src={step.image} alt="" loading="lazy" /><h3>{step.title}</h3><p>{step.summary}</p><span className="step-more">View full process <ArrowRight aria-hidden="true" /></span></button>)}</div><div className="credentials"><Label>Credentials</Label><div className="steps" role="list">{credentials.map(({ title, icon: Icon }, i) => <article className="step-card" role="listitem" key={title}><div className="step-top"><b>{String(i+1).padStart(2,'0')}</b><Icon aria-hidden="true" /></div><h3>{title}</h3></article>)}</div><div className="capability-download"><p>Need a shareable overview of Hanz capabilities for procurement or vendor onboarding?</p><a className="button" href="/assets/hanz-logistics-capability-statement.pdf" download="Hanz-Logistics-Capability-Statement.pdf">Download Capability Statement <ArrowRight aria-hidden="true" /></a></div></div></div></section>
 
       <section className="cta section-pad" id="contact" style={{ backgroundImage: `linear-gradient(90deg, rgba(16,36,59,.8), rgba(16,36,59,.25)), url(${images.cta})` }}><div className="shell cta-grid"><div><Label>Ready when the clock starts</Label><h2>The shipment is urgent. The next move should be clear.</h2><p>Tell us what is moving, where it needs to go and when it must arrive. An operator will take it from there.</p></div><aside><small>Start here</small><a href="tel:+14123453837" aria-label="Call Hanz Logistics at (412) 345-3837">(412) 345-3837</a><a href="mailto:operations@hanzlogistics.com">operations@hanzlogistics.com</a><a href="mailto:info@hanzlogistics.com">info@hanzlogistics.com</a><a className="button" href="#capabilities" onClick={(event) => { event.preventDefault(); setActiveQuote(GENERAL_QUOTE) }}>Get a quote <ArrowRight /></a></aside></div></section>
     </main>
