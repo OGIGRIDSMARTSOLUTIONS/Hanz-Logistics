@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { ArrowLeft, ArrowRight, BriefcaseBusiness, ClipboardCheck, Mail, Menu, Microscope, Phone, Plane, Radio, Server, ShieldCheck, Smile, Thermometer, X, Zap, type LucideIcon } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Mail, Menu, Phone, X } from 'lucide-react'
 import { PrivacyPage, TermsPage } from './pages/LegalPages'
 
 const images = {
@@ -13,17 +13,19 @@ const images = {
 
 const capabilities = [
   {
-    title: 'Expedited Air',
+    title: 'Expedited Air Freight',
+    icon: '✈️',
     summary: 'Next-flight-out and time-definite routing for cargo that must keep moving.',
     image: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1400&q=85',
     eyebrow: 'Time-critical air freight',
     description: 'Priority routing and active oversight for urgent domestic and international freight. We evaluate the available schedules, secure the right uplift, and monitor each milestone through delivery.',
-    specs: ['Next-flight-out routing', 'Domestic + international', 'Door-to-door coordination', 'Active milestone monitoring'],
+    specs: ['Next-flight-out routing', 'Domestic and international', 'Door-to-door coordination', 'Active milestone monitoring'],
     pricing: 'Custom quote based on route, dimensions, weight, and required delivery time.',
     cta: 'Get expedited quote',
   },
   {
-    title: 'Charter Solutions',
+    title: 'Air Charter Solutions',
+    icon: '🛫',
     summary: 'Aircraft matched to shipment size, urgency, handling needs and destination.',
     image: 'https://images.unsplash.com/photo-1540962351504-03099e0a754b?auto=format&fit=crop&w=1400&q=85',
     eyebrow: 'Dedicated aircraft capacity',
@@ -33,32 +35,35 @@ const capabilities = [
     cta: 'Price a charter',
   },
   {
-    title: 'Hand-Carry / OBC',
+    title: 'On-Board Courier / Hand-Carry',
+    icon: '🧳',
     summary: 'Dedicated onboard courier service with direct human custody end to end.',
     image: 'https://images.unsplash.com/photo-1529074963764-98f45c47344b?auto=format&fit=crop&w=1400&q=85',
     eyebrow: 'Uninterrupted human custody',
-    description: 'A vetted onboard courier personally accompanies critical cargo from collection through final handoff, minimizing transfers and maintaining direct chain-of-custody throughout the journey.',
+    description: 'A vetted onboard courier personally accompanies critical cargo from collection through final handoff, minimizing transfers and maintaining direct chain of custody throughout the journey.',
     specs: ['Dedicated courier', 'Cabin or checked handling', 'Secure hand-to-hand delivery', 'Live journey communication'],
     pricing: 'Custom quote based on courier routing, travel requirements, and cargo profile.',
     cta: 'Arrange a courier',
   },
   {
     title: 'Specialized Handling',
+    icon: '📦',
     summary: 'Cold chain, dangerous goods, oversized and high-value freight coordination.',
     image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1400&q=85',
     eyebrow: 'Complex cargo expertise',
     description: 'Purpose-built handling plans for freight with strict temperature, compliance, security, size, or value requirements. Qualified partners and documented controls protect the cargo at every stage.',
-    specs: ['Cold-chain coordination', 'Dangerous-goods support', 'Oversized and high-value cargo', 'Documented chain-of-custody'],
+    specs: ['Cold-chain coordination', 'Dangerous-goods support', 'Oversized and high-value cargo', 'Documented chain of custody'],
     pricing: 'Custom quote after commodity, handling, compliance, and route review.',
     cta: 'Request handling plan',
   },
   {
     title: 'Air Freight Coordination',
+    icon: '🌐',
     summary: 'Full-service forwarding from pickup planning through carrier booking, documentation, and delivery oversight.',
     image: 'https://images.unsplash.com/photo-1774698078446-59299e016718?auto=format&fit=crop&w=1400&q=85',
     eyebrow: 'End-to-end air forwarding',
     description: 'Hanz coordinates the complete air freight movement: pickup and ground transfer, carrier selection and booking, export/import documentation, customs handoffs, and active milestone oversight through final delivery.',
-    specs: ['Door-to-door and airport routing', 'Carrier booking and AWB coordination', 'Export/import documentation', 'Customs and ground-transfer coordination', 'Active milestone monitoring'],
+    specs: ['Door-to-door and airport routing', 'Carrier booking and air waybill (AWB) coordination', 'Export/import documentation', 'Customs and ground-transfer coordination', 'Active milestone monitoring'],
     pricing: 'Custom quote after route, commodity, documentation, and delivery scope review.',
     cta: 'Request coordination quote',
   },
@@ -68,54 +73,64 @@ const SERVICE_PATHS = [
   '/services/expedited-air',
   '/services/air-charter',
   '/services/on-board-courier',
-  '/services/cold-chain-logistics',
+  '/services/specialized-handling',
   '/services/air-freight-coordination',
 ] as const
+
+const LEGACY_SERVICE_PATHS: Record<string, number> = {
+  '/services/cold-chain-logistics': 3,
+}
 
 const normalizePath = (pathname: string) => (pathname.length > 1 && pathname.endsWith('/') ? pathname.slice(0, -1) : pathname)
 
 const serviceIndexFromPath = (pathname: string) => {
-  const index = (SERVICE_PATHS as readonly string[]).indexOf(normalizePath(pathname))
-  return index >= 0 ? index : null
+  const path = normalizePath(pathname)
+  const index = (SERVICE_PATHS as readonly string[]).indexOf(path)
+  if (index >= 0) return index
+  return LEGACY_SERVICE_PATHS[path] ?? null
 }
 
 const quoteForms = [
-  { color: '#60A5FA', title: 'Expedited Air Quote', button: 'Get instant quote', fields: [
-    ['company','Company Name','text'], ['email','Contact Email','email'], ['phone','Phone Number','tel'], ['origin','Shipment Origin City','text'], ['destination','Destination City','text'], ['weight','Weight (kg)','number'], ['dimensions','Dimensions (L×W×H cm)','text'], ['shipmentType','Shipment Type','select','Medical|Pharma|Electronics|Documents|Other'], ['urgency','Urgency Level','select','Next Flight|48hrs|72hrs'], ['handlingNotes','Special Handling Notes','textarea'],
+  { color: '#60A5FA', title: 'Expedited Air Freight Quote', button: 'Request expedited quote', fields: [
+    ['company','Company Name','text'], ['email','Contact Email','email'], ['phone','Phone Number','tel'], ['origin','Shipment Origin City','text'], ['destination','Destination City','text'], ['weight','Weight (kg)','number'], ['dimensions','Dimensions (L×W×H cm)','text'], ['shipmentType','Shipment Type','select','Medical|Pharma|Electronics|Documents|Other'], ['urgency','Urgency Level','select','Next Flight|48hrs|72hrs'], ['handlingNotes','Special Handling Notes (optional)','textarea'],
   ]},
-  { color: '#10B981', title: 'Charter Solutions Quote', button: 'Request aircraft', fields: [
-    ['company','Company Name','text'], ['email','Contact Email','email'], ['phone','Phone Number','tel'], ['origin','Departure Airport','text'], ['destination','Destination Airport','text'], ['weight','Total Weight (tons)','number'], ['volume','Volume (m³)','number'], ['cargoType','Cargo Type','select','Machinery|Project Cargo|Consolidation|Equipment|Other'], ['aircraft','Aircraft Size Needed','select','Turboprop|Regional|Narrow-body|Wide-body|747'], ['requirements','Special Requirements','textarea'],
+  { color: '#10B981', title: 'Air Charter Solutions Quote', button: 'Request aircraft', fields: [
+    ['company','Company Name','text'], ['email','Contact Email','email'], ['phone','Phone Number','tel'], ['origin','Departure Airport','text'], ['destination','Destination Airport','text'], ['weight','Total Weight (metric tons)','number'], ['volume','Volume (m³)','number'], ['cargoType','Cargo Type','select','Machinery|Project Cargo|Consolidation|Equipment|Other'], ['aircraft','Aircraft Preference (if known)','select','Turboprop|Regional Jet|Narrow-body|Wide-body|Not Sure'], ['requirements','Special Requirements (optional)','textarea'],
   ]},
-  { color: '#F59E0B', title: 'Hand-Carry / OBC Quote', button: 'Arrange courier', fields: [
-    ['name','Your Name','text'], ['company','Company','text'], ['email','Email','email'], ['phone','Phone','tel'], ['route','Origin / Destination Cities','text'], ['description','Cargo Description','textarea'], ['value','Estimated Value ($)','number'], ['cargoType','Cargo Type','select','Documents|Jewelry|Prototypes|Samples|Confidential|Other'], ['insurance','Insurance Required','select','Yes|No'], ['customs','Customs Clearance','select','Yes|No|Unsure'], ['instructions','Special Instructions','textarea'],
+  { color: '#F59E0B', title: 'On-Board Courier / Hand-Carry Quote', button: 'Arrange courier', fields: [
+    ['name','Your Name','text'], ['company','Company','text'], ['email','Email','email'], ['phone','Phone','tel'], ['route','Origin / Destination Cities','text'], ['description','Cargo Description','textarea'], ['value','Estimated Value (USD)','number'], ['cargoType','Cargo Type','select','Documents|Jewelry|Prototypes|Samples|Confidential|Other'], ['insurance','Insurance Required','select','Yes|No'], ['customs','Customs Clearance','select','Yes|No|Unsure'], ['instructions','Special Instructions (optional)','textarea'],
   ]},
   { color: '#EF4444', title: 'Specialized Handling Quote', button: 'Submit inquiry', fields: [
-    ['company','Company Name','text'], ['contact','Contact Person','text'], ['email','Email','email'], ['phone','Phone','tel'], ['route','Origin / Destination','text'], ['cargoType','Cargo Type','select','Pharmaceutical|Hazmat|Oversized|Fine Art|Perishables|Other'], ['weight','Total Weight (kg)','number'], ['dimensions','Dimensions (L×W×H m)','text'], ['temperature','Temperature Range','text'], ['value','Declared Value ($)','number'], ['certifications','Certifications Needed','text'], ['handlingNotes','Special Handling Notes','textarea'], ['notes','Additional Notes','textarea'],
+    ['company','Company Name','text'], ['contact','Contact Person','text'], ['email','Email','email'], ['phone','Phone','tel'], ['route','Origin / Destination','text'], ['cargoType','Cargo Type','select','Pharmaceutical|Hazmat|Oversized|Fine Art|Perishables|Other'], ['weight','Total Weight (kg)','number'], ['dimensions','Dimensions (L×W×H cm)','text'], ['temperature','Temperature Range (optional)','text'], ['value','Declared Value (USD)','number'], ['certifications','Certifications Needed (optional)','text'], ['handlingNotes','Special Handling Notes (optional)','textarea'], ['notes','Additional Notes (optional)','textarea'],
   ]},
   { color: '#6366F1', title: 'Air Freight Coordination Quote', button: 'Submit coordination request', fields: [
-    ['company','Company Name','text'], ['contact','Contact Person','text'], ['email','Contact Email','email'], ['phone','Phone Number','tel'], ['pickup','Pickup Location (address / city)','text'], ['originAirport','Origin Airport','text'], ['delivery','Delivery Location (address / city)','text'], ['destinationAirport','Destination Airport','text'], ['pickupReady','Cargo Ready Date & Time','datetime-local'], ['deliveryRequired','Required Delivery Date & Time','datetime-local'], ['commodity','Commodity Description','textarea'], ['pieceCount','Piece Count','number'], ['weight','Total Weight (kg)','number'], ['dimensions','Dimensions (L × W × H per piece or total)','text'], ['scope','Shipment Scope','select','Door-to-Door|Door-to-Airport|Airport-to-Airport|Airport-to-Door'], ['customs','Customs Coordination','select','Origin only|Destination only|Both|Not required|Unsure'], ['documentation','Documentation Support Needed','select','Air Waybill (AWB)|Commercial Invoice|Packing List|Certificate of Origin|Full export/import set|Unsure'], ['carrierPreference','Preferred Airline / Carrier','text'], ['handling','Special Handling Requirements','textarea'], ['notes','Additional Coordination Notes','textarea'],
+    ['company','Company Name','text'], ['contact','Contact Person','text'], ['email','Contact Email','email'], ['phone','Phone Number','tel'], ['pickup','Pickup Location (address / city) (optional)','text'], ['originAirport','Origin Airport (optional)','text'], ['delivery','Delivery Location (address / city) (optional)','text'], ['destinationAirport','Destination Airport (optional)','text'], ['pickupReady','Cargo Ready Date & Time (local to pickup)','datetime-local'], ['deliveryRequired','Required Delivery Date & Time (local to delivery)','datetime-local'], ['commodity','Commodity Description','textarea'], ['pieceCount','Piece Count','number'], ['weight','Total Weight (kg)','number'], ['dimensions','Dimensions (L × W × H cm, per piece or total)','text'], ['scope','Shipment Scope','select','Door-to-Door|Door-to-Airport|Airport-to-Airport|Airport-to-Door'], ['customs','Customs Coordination','select','Origin only|Destination only|Both|Not required|Unsure'], ['documentation','Primary Documentation Needed','select','Air Waybill (AWB)|Commercial Invoice|Packing List|Certificate of Origin|Full export/import set|Unsure'], ['carrierPreference','Preferred Airline / Carrier (optional)','text'], ['handling','Special Handling Requirements (optional)','textarea'], ['notes','Additional Coordination Notes (optional)','textarea'],
   ]},
   { color: '#F2693C', title: 'General Freight Quote', button: 'Request quote', fields: [
-    ['name','Your Name','text'], ['company','Company Name','text'], ['email','Contact Email','email'], ['phone','Phone Number','tel'], ['serviceNeeded','Service Needed','select','Expedited Air|Charter Solutions|Hand-Carry / OBC|Specialized Handling|Air Freight Coordination|Not Sure Yet'], ['origin','Origin City / Airport','text'], ['destination','Destination City / Airport','text'], ['pickupReady','Cargo Ready / Pickup Date & Time','datetime-local'], ['delivery','Required Delivery Date & Time','datetime-local'], ['cargo','Cargo Description','textarea'], ['handling','Handling Requirements','textarea'], ['weight','Approx. Weight (kg)','number'], ['pieceCount','Piece Count','number'], ['dimensions','Dimensions (L × W × H)','text'], ['urgency','Urgency','select','Next Flight|24hrs|48hrs|72hrs|Flexible'], ['notes','Additional Notes','textarea'],
+    ['name','Your Name','text'], ['company','Company Name','text'], ['email','Contact Email','email'], ['phone','Phone Number','tel'], ['serviceNeeded','Service Needed','select','Expedited Air Freight|Air Charter Solutions|On-Board Courier / Hand-Carry|Specialized Handling|Air Freight Coordination|Not Sure Yet'], ['origin','Origin City / Airport','text'], ['destination','Destination City / Airport','text'], ['pickupReady','Cargo Ready / Pickup Date & Time (local to origin) (optional)','datetime-local'], ['delivery','Required Delivery Date & Time (local to destination) (optional)','datetime-local'], ['cargo','Cargo Description','textarea'], ['handling','Handling Requirements (optional)','textarea'], ['weight','Approx. Weight (kg)','number'], ['pieceCount','Piece Count','number'], ['dimensions','Dimensions (L × W × H cm)','text'], ['urgency','Urgency','select','Next Flight|24hrs|48hrs|72hrs|Flexible'], ['notes','Additional Notes (optional)','textarea'],
   ]},
 ] as const
 
 const GENERAL_QUOTE = quoteForms.length - 1
 
 const industries = [
-  { icon: Thermometer, title: 'Healthcare', summary: 'Temperature-sensitive and life-critical materials.', heading: 'Healthcare logistics without gaps in control.', description: 'Critical devices, therapies, and temperature-sensitive materials move under a documented handling plan from pickup through delivery.', services: ['Cold-chain coordination', 'Priority air routing', 'Documented custody'], image: 'https://images.unsplash.com/photo-1576671081837-49000212a370?auto=format&fit=crop&w=1200&q=85' },
-  { icon: ShieldCheck, title: 'Aerospace + Defense', summary: 'Controlled handling for high-value, regulated freight.', heading: 'Precision movement for mission-critical programs.', description: 'Aircraft parts, controlled components, and high-value equipment receive secure routing with visibility at every transfer.', services: ['Secure handling', 'Time-definite delivery', 'Compliance support'], image: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1200&q=85' },
-  { icon: BriefcaseBusiness, title: 'Advanced Manufacturing', summary: 'Parts and equipment timed to keep production online.', heading: 'Keep the line moving when every hour matters.', description: 'Production parts, tooling, and specialized equipment are routed against operational deadlines to minimize costly downtime.', services: ['Line-down response', 'Oversized equipment', 'Plant-direct delivery'], image: 'https://images.unsplash.com/photo-1565514020179-026b92b84bb6?auto=format&fit=crop&w=1200&q=85' },
-  { icon: Server, title: 'Business Technology', summary: 'Secure movement for systems, servers and infrastructure.', heading: 'Secure logistics for connected infrastructure.', description: 'Sensitive servers, systems, and high-value technology move with controlled handling and carefully coordinated site delivery.', services: ['High-value security', 'Data-center delivery', 'Chain-of-custody'], image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=85' },
-  { icon: Zap, title: 'Robotics + Energy', summary: 'Prototype, battery and field-critical shipment support.', heading: 'Specialized support for technology in motion.', description: 'Prototypes, battery systems, and field-critical components receive handling plans built around risk, urgency, and compliance.', services: ['Battery compliance', 'Prototype security', 'Remote-site support'], image: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=1200&q=85' },
-  { icon: Microscope, title: 'Research', summary: 'Careful coordination for unique specimens and instruments.', heading: 'Protecting the work behind every breakthrough.', description: 'Unique specimens, instruments, and research materials move with careful documentation and handling tailored to the project.', services: ['Specimen handling', 'Instrument transport', 'Research timelines'], image: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=1200&q=85' },
+  { icon: '🌡️', title: 'Healthcare', summary: 'Temperature-sensitive and life-critical materials.', heading: 'Healthcare logistics without gaps in control.', description: 'Critical devices, therapies, and temperature-sensitive materials move under a documented handling plan from pickup through delivery.', services: ['Cold-chain coordination', 'Priority air routing', 'Documented custody'], image: 'https://images.unsplash.com/photo-1576671081837-49000212a370?auto=format&fit=crop&w=1200&q=85' },
+  { icon: '🛡️', title: 'Aerospace + Defense', summary: 'Controlled handling for high-value, regulated freight.', heading: 'Precision movement for mission-critical programs.', description: 'Aircraft parts, controlled components, and high-value equipment receive secure routing with visibility at every transfer.', services: ['Secure handling', 'Time-definite delivery', 'Compliance support'], image: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1200&q=85' },
+  { icon: '💼', title: 'Advanced Manufacturing', summary: 'Parts and equipment timed to keep production online.', heading: 'Keep the line moving when every hour matters.', description: 'Production parts, tooling, and specialized equipment are routed against operational deadlines to minimize costly downtime.', services: ['Line-down response', 'Oversized equipment', 'Plant-direct delivery'], image: 'https://images.unsplash.com/photo-1565514020179-026b92b84bb6?auto=format&fit=crop&w=1200&q=85' },
+  { icon: '🖥️', title: 'Business Technology', summary: 'Secure movement for systems, servers and infrastructure.', heading: 'Secure logistics for connected infrastructure.', description: 'Sensitive servers, systems, and high-value technology move with controlled handling and carefully coordinated site delivery.', services: ['High-value security', 'Data-center delivery', 'Chain of custody'], image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=85' },
+  { icon: '⚡', title: 'Robotics + Energy', summary: 'Prototype, battery and field-critical shipment support.', heading: 'Specialized support for technology in motion.', description: 'Prototypes, battery systems, and field-critical components receive handling plans built around risk, urgency, and compliance.', services: ['Battery compliance', 'Prototype security', 'Remote-site support'], image: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=1200&q=85' },
+  { icon: '🔬', title: 'Research', summary: 'Careful coordination for unique specimens and instruments.', heading: 'Protecting the work behind every breakthrough.', description: 'Unique specimens, instruments, and research materials move with careful documentation and handling tailored to the project.', services: ['Specimen handling', 'Instrument transport', 'Research timelines'], image: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=1200&q=85' },
 ]
 
-const credentials: { title: string; icon: LucideIcon }[] = [
-  { title: 'TSA Indirect Air Carrier (IAC) compliant', icon: ShieldCheck },
-  { title: 'TWIC cleared', icon: ShieldCheck },
-  { title: 'Customer-centric — happy customers', icon: Smile },
+const credentials: { title: string; icon: string }[] = [
+  { title: 'TSA Indirect Air Carrier (IAC) compliant', icon: '🛡️' },
+  { title: 'TWIC-cleared personnel', icon: '🪪' },
+  { title: 'Customer-centric', icon: '😊' },
 ]
+
+const stepIcons = ['📋', '📡', '✅'] as const
+
+const CHECK = '✅'
 
 const HOME_SECTIONS = [
   { id: 'about', label: 'About' },
@@ -143,11 +158,11 @@ const steps = [
     outcome: 'Current, human-verified shipment visibility—not an unattended tracking number.',
   },
   {
-    title: 'Account',
+    title: 'Close Out',
     summary: 'Delivery documentation closes the loop with a complete shipment record.',
     image: images.account,
     intro: 'At destination, Hanz confirms the final handoff and consolidates the records required to close the shipment with confidence.',
-    details: ['Consignee and delivery confirmation', 'Proof-of-delivery collection and verification', 'Chain-of-custody and exception documentation', 'Final shipment record prepared for review'],
+    details: ['Consignee and delivery confirmation', 'Proof-of-delivery collection and verification', 'Chain of custody and exception documentation', 'Final shipment record prepared for review'],
     outcome: 'A complete, accountable record from initial pickup through confirmed delivery.',
   },
 ]
@@ -170,6 +185,7 @@ function SectionNav({
       className={`section-nav ${visible ? 'visible' : ''}`}
       aria-label="Page sections"
       aria-hidden={!visible}
+      {...(!visible ? ({ inert: true } as React.HTMLAttributes<HTMLElement>) : {})}
     >
       <div className="shell section-nav-inner">
         {HOME_SECTIONS.map(({ id, label }) => (
@@ -178,6 +194,7 @@ function SectionNav({
             href={`#${id}`}
             className={activeSection === id ? 'active' : ''}
             onClick={onNavigate}
+            tabIndex={visible ? 0 : -1}
           >
             {label}
           </a>
@@ -218,7 +235,7 @@ function QuoteModal({ serviceIndex, onClose }: { serviceIndex: number, onClose: 
   return <div className="quote-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) onClose() }}>
     <section className="quote-modal" role="dialog" aria-modal="true" aria-labelledby="quote-title" style={{'--service-color': form.color} as React.CSSProperties}>
       <header><div><small>{serviceIndex === GENERAL_QUOTE ? 'General request' : 'Service-specific request'}</small><h2 id="quote-title">{form.title}</h2><p>Tell us what is moving. Required fields are marked with an asterisk.</p></div><button type="button" onClick={onClose} aria-label="Close quote form"><X aria-hidden="true" /></button></header>
-      <form onSubmit={submitQuote}><input type="hidden" name="service" value={capabilities[serviceIndex]?.title ?? 'General Inquiry'} /><div className="quote-fields">{form.fields.map(([name,label,type,options]) => <label className={type === 'textarea' ? 'wide' : ''} key={name}><span>{label} *</span>{type === 'select' ? <select name={name} required defaultValue=""><option value="" disabled>Select an option</option>{options?.split('|').map(option => <option key={option}>{option}</option>)}</select> : type === 'textarea' ? <textarea name={name} rows={3} required /> : <input name={name} type={type} required min={type === 'number' ? '0' : undefined} step={type === 'number' ? 'any' : undefined} />}</label>)}</div>{error && <p className="form-error" role="alert">{error}</p>}<footer><p>{serviceIndex === GENERAL_QUOTE ? '24/7 Dispatch: Initial flight options and handling plans provided within 15–30 minutes.' : 'Requests are reviewed by Hanz operations. Final pricing is confirmed after route and cargo validation.'}</p><button className="button" type="submit" disabled={submitting}>{submitting ? 'Submitting…' : form.button}<ArrowRight /></button></footer></form>
+      <form onSubmit={submitQuote}><input type="hidden" name="service" value={capabilities[serviceIndex]?.title ?? 'General Inquiry'} /><div className="quote-fields">{form.fields.map(([name,label,type,options]) => { const optional = label.includes('(optional)') || label.includes('(if known)'); return <label className={type === 'textarea' ? 'wide' : ''} key={name}><span>{optional ? label : `${label} *`}</span>{type === 'select' ? <select name={name} required={!optional} defaultValue="">{optional ? <option value="">Select an option</option> : <option value="" disabled>Select an option</option>}{options?.split('|').map(option => <option key={option}>{option}</option>)}</select> : type === 'textarea' ? <textarea name={name} rows={3} required={!optional} /> : <input name={name} type={type} required={!optional} min={type === 'number' ? (name === 'pieceCount' ? '1' : '0.01') : undefined} step={type === 'number' ? 'any' : undefined} />}</label> })}</div>{error && <p className="form-error" role="alert">{error}</p>}<p className="quote-privacy">By submitting, you agree we may contact you about this request. See our <a href="/privacy" target="_blank" rel="noreferrer">Privacy Policy</a> and <a href="/terms" target="_blank" rel="noreferrer">Terms</a>.</p><footer><p>{serviceIndex === GENERAL_QUOTE ? '24/7 Dispatch: Initial flight options and handling plans provided within 15–30 minutes.' : 'Requests are reviewed by Hanz operations. Final pricing is confirmed after route and cargo validation.'}</p><button className="button" type="submit" disabled={submitting}>{submitting ? 'Submitting…' : form.button}<ArrowRight /></button></footer></form>
     </section>
   </div>
 }
@@ -230,7 +247,7 @@ function SiteFooter({ fromServicePage = false }: { fromServicePage?: boolean }) 
       <div className="shell footer-grid">
         <div className="footer-brand">
           <img src="/assets/hanz-logistics-logo.png" alt="Hanz Logistics" />
-          <p>Mission-critical air freight forwarding for domestic and worldwide destinations.</p>
+          <p>Mission-critical air freight forwarding for domestic and international destinations.</p>
         </div>
         <div>
           <h3>Services</h3>
@@ -393,11 +410,11 @@ function TrackPage() {
         <a href="/" aria-label="Hanz Logistics home"><img src="/assets/hanz-logistics-logo.png" alt="Hanz Logistics" /></a>
         <button className="menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-controls="track-nav-links" aria-label="Toggle navigation">{menuOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}</button>
         <div className={`nav-links ${menuOpen ? 'open' : ''}`} id="track-nav-links">
+          <a onClick={closeMenu} href="/#about">About</a>
           <a onClick={closeMenu} href="/#capabilities">Capabilities</a>
           <a onClick={closeMenu} href="/#industries">Industries</a>
-          <a onClick={closeMenu} href="/#standard">Why Hanz</a>
-          <a onClick={closeMenu} href="/#about">About</a>
-          <a onClick={closeMenu} href="/track" aria-current="page">Track Shipment</a>
+          <a onClick={closeMenu} href="/#standard">Our Standard</a>
+          <a onClick={closeMenu} href="/track" aria-current="page">Track a Shipment</a>
           <a onClick={closeMenu} className="button small" href="/#contact">Request a quote</a>
         </div>
       </nav>
@@ -412,7 +429,7 @@ function TrackPage() {
           </a>
           <Label>Shipment visibility</Label>
           <h1>Track a Shipment</h1>
-          <p className="lede">Enter your Hanz reference number or carrier airway bill (AWB) to retrieve live shipment status.</p>
+          <p className="lede">Enter your Hanz reference number or carrier air waybill (AWB) to retrieve the latest available shipment status.</p>
 
           <div className="track-panel">
             <form className="track-card" onSubmit={submitTrack} noValidate>
@@ -440,16 +457,16 @@ function TrackPage() {
                   required
                 />
               </label>
-              <p className="track-hint" id="track-reference-hint">Use the Hanz reference from your confirmation, or the AWB printed on your airway bill.</p>
+              <p className="track-hint" id="track-reference-hint">Use the Hanz reference from your confirmation, or the AWB printed on your air waybill.</p>
               {fieldError && <p className="form-error" id="track-reference-error" role="alert">{fieldError}</p>}
               <button className="button" type="submit" disabled={trackState.kind === 'loading'}>
-                {trackState.kind === 'loading' ? 'Tracking…' : <>Track Shipment <ArrowRight /></>}
+                {trackState.kind === 'loading' ? 'Tracking…' : <>Track a Shipment <ArrowRight /></>}
               </button>
             </form>
 
             <aside className="track-aside">
               <small>Need help locating a reference?</small>
-              <p><strong>Hanz Reference</strong> is Hanz’s own shipment ID (format HANZ-YYMMDD-####). <strong>AWB</strong> is the carrier/airline tracking number. When an AWB is linked, live carrier status can be retrieved.</p>
+              <p><strong>Hanz Reference</strong> is Hanz’s own shipment ID (format HANZ-YYMMDD-####). <strong>AWB</strong> is the carrier/airline tracking number. When an AWB is linked, the latest available carrier status can be retrieved.</p>
               <a href="tel:+14123453837" aria-label="Call Hanz Logistics operations at (412) 345-3837">(412) 345-3837</a>
               <a href="mailto:operations@hanzlogistics.com">operations@hanzlogistics.com</a>
             </aside>
@@ -562,11 +579,11 @@ function ServiceLanding({ serviceIndex, onRequestQuote }: { serviceIndex: number
         <a href="/" aria-label="Hanz Logistics home"><img src="/assets/hanz-logistics-logo.png" alt="Hanz Logistics" /></a>
         <button className="menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-controls="service-nav-links" aria-label="Toggle navigation">{menuOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}</button>
         <div className={`nav-links ${menuOpen ? 'open' : ''}`} id="service-nav-links">
+          <a onClick={closeMenu} href="/#about">About</a>
           <a onClick={closeMenu} href="/#capabilities">Capabilities</a>
           <a onClick={closeMenu} href="/#industries">Industries</a>
-          <a onClick={closeMenu} href="/#standard">Why Hanz</a>
-          <a onClick={closeMenu} href="/#about">About</a>
-          <a onClick={closeMenu} href="/track">Track Shipment</a>
+          <a onClick={closeMenu} href="/#standard">Our Standard</a>
+          <a onClick={closeMenu} href="/track">Track a Shipment</a>
           <button className="button small" type="button" onClick={() => { closeMenu(); onRequestQuote() }}>Request a Quote</button>
         </div>
       </nav>
@@ -606,7 +623,7 @@ function ServiceLanding({ serviceIndex, onRequestQuote }: { serviceIndex: number
               <h2>Service specifications</h2>
             </div>
             <ul className="service-spec-grid">
-              {service.specs.map(spec => <li key={spec}><ShieldCheck aria-hidden="true" /><span>{spec}</span></li>)}
+              {service.specs.map(spec => <li key={spec}><span className="emoji-icon" aria-hidden="true">{CHECK}</span><span>{spec}</span></li>)}
             </ul>
           </div>
 
@@ -782,40 +799,40 @@ function App() {
         <a href="#top" aria-label="Hanz Logistics home"><img src="/assets/hanz-logistics-logo.png" alt="Hanz Logistics" /></a>
         <button className="menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-controls="nav-links" aria-label="Toggle navigation">{menuOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}</button>
         <div className={`nav-links ${menuOpen ? 'open' : ''}`} id="nav-links">
+          <a onClick={closeMenu} href="#about">About</a>
           <a onClick={closeMenu} href="#capabilities">Capabilities</a>
           <a onClick={closeMenu} href="#industries">Industries</a>
-          <a onClick={closeMenu} href="#standard">Why Hanz</a>
-          <a onClick={closeMenu} href="#about">About</a>
-          <a onClick={closeMenu} href="/track">Track Shipment</a>
-          <a onClick={(event) => { event.preventDefault(); closeMenu(); setActiveQuote(GENERAL_QUOTE) }} className="button small" href="#capabilities">Request a quote</a>
+          <a onClick={closeMenu} href="#standard">Our Standard</a>
+          <a onClick={closeMenu} href="/track">Track a Shipment</a>
+          <a onClick={(event) => { event.preventDefault(); closeMenu(); setActiveQuote(GENERAL_QUOTE) }} className="button small" href="#contact">Request a quote</a>
         </div>
       </nav>
       <div className="hero-content shell">
-        <Label>Time-critical • Worldwide reach</Label>
+        <Label>Time-critical • Domestic and international</Label>
         <h1>Air freight for cargo that cannot afford to be delayed.</h1>
-        <p className="lede">Documented before it moves. Tracked while it does. Accounted for when it lands.</p>
+        <p className="lede">Documented before it moves. Tracked while it does. Closed out after confirmed delivery.</p>
         <div className="actions"><a className="button" href="#capabilities" onClick={(event) => { event.preventDefault(); setActiveQuote(GENERAL_QUOTE) }}>Start a shipment <ArrowRight /></a><a className="button ghost" href="tel:+14123453837" aria-label="Call Hanz Logistics operations at (412) 345-3837">Talk to operations</a></div>
       </div>
       <div className="facts shell">
-        {[['Available','24 / 7 / 365'],['Service','Domestic + Global'],['Standard','Chain-of-custody'],['Coverage','Worldwide Reach']].map(([k,v]) => <div key={k}><small>{k}</small><strong>{v}</strong></div>)}
+        {[['Available','24 / 7 / 365'],['Service','Domestic + International'],['Standard','Chain of custody'],['Support','Live operators']].map(([k,v]) => <div key={k}><small>{k}</small><strong>{v}</strong></div>)}
       </div>
     </header>
 
     <main>
       <section className="intro" id="about">
-        <div className="intro-copy section-pad"><Label>Mission-critical forwarding</Label><h2>Every shipment moves to one standard: certainty.</h2><p>Hanz Logistics is an air freight forwarder moving cargo domestically and worldwide. From healthcare and aerospace to robotics and energy, we coordinate shipments of any size with precise documentation and continuous oversight.</p><a className="text-link" href="#standard">How we protect your cargo <ArrowRight /></a></div>
+        <div className="intro-copy section-pad"><Label>Mission-critical forwarding</Label><h2>Every shipment moves to one standard: certainty.</h2><p>Hanz Logistics is an air freight forwarder moving cargo domestically and internationally. From healthcare and aerospace to robotics and energy, we coordinate shipments of any size with precise documentation and continuous oversight.</p><a className="text-link" href="#standard">How we protect your cargo <ArrowRight /></a></div>
         <div className="intro-image" style={{ backgroundImage: `url(${images.cargo})` }}><div className="image-note"><small>Operations standard 01</small><span>A documented chain of custody from pickup to proof of delivery.</span></div></div>
       </section>
 
       <section className="capabilities section-pad" id="capabilities">
-        <div className="shell"><Label>What we move</Label><div className="section-heading"><h2>A faster path through complex freight.</h2><p>One operations team coordinates the route, documentation, handling and handoffs—so there are fewer places for critical cargo to stall.</p></div>
+        <div className="shell"><Label>Our services</Label><div className="section-heading"><h2>A faster path through complex freight.</h2><p>One operations team coordinates the route, documentation, handling and handoffs—so there are fewer places for critical cargo to stall.</p></div>
           <div className={`capability-explorer ${selectedCapability ? 'detail-open' : ''}`}>
-            <div className="cap-list">{capabilities.map((capability, i) => <button type="button" className={activeCapability === i ? 'active' : ''} key={capability.title} onClick={() => setActiveCapability(activeCapability === i ? null : i)} aria-expanded={activeCapability === i} aria-controls="capability-detail"><b>{String(i+1).padStart(2,'0')}</b><span className="icon" aria-hidden="true"><Plane /></span><h3>{capability.title}</h3><p>{capability.summary}</p><ArrowRight aria-hidden="true" /></button>)}</div>
+            <div className="cap-list">{capabilities.map((capability, i) => <button type="button" className={activeCapability === i ? 'active' : ''} key={capability.title} onClick={() => setActiveCapability(activeCapability === i ? null : i)} aria-expanded={activeCapability === i} aria-controls="capability-detail"><b>{String(i+1).padStart(2,'0')}</b><span className="icon" aria-hidden="true"><span className="emoji-icon">{capability.icon}</span></span><h3>{capability.title}</h3><p>{capability.summary}</p><ArrowRight aria-hidden="true" /></button>)}</div>
             <aside className="cap-detail" id="capability-detail" aria-live="polite" aria-hidden={!selectedCapability}>
               {selectedCapability && <>
                 <button type="button" className="cap-close" onClick={() => setActiveCapability(null)} aria-label="Close capability details"><X aria-hidden="true" /></button>
                 <div className="cap-detail-image" style={{backgroundImage:`linear-gradient(180deg,transparent,rgba(16,36,59,.75)),url(${selectedCapability.image})`}}><span>{String(activeCapability!+1).padStart(2,'0')} / {String(capabilities.length).padStart(2,'0')}</span></div>
-                <div className="cap-detail-body"><small>{selectedCapability.eyebrow}</small><h3>{selectedCapability.title}</h3><p>{selectedCapability.description}</p><h4>Service specifications</h4><ul>{selectedCapability.specs.map(spec => <li key={spec}><ShieldCheck />{spec}</li>)}</ul><div className="cap-price"><small>Pricing</small><span>{selectedCapability.pricing}</span></div><button className="button" type="button" onClick={() => setActiveQuote(activeCapability!)}>{selectedCapability.cta}<ArrowRight /></button><a className="text-link service-page-link" href={SERVICE_PATHS[activeCapability!]}>Open dedicated service page <ArrowRight /></a></div>
+                <div className="cap-detail-body"><small>{selectedCapability.eyebrow}</small><h3>{selectedCapability.title}</h3><p>{selectedCapability.description}</p><h4>Service specifications</h4><ul>{selectedCapability.specs.map(spec => <li key={spec}><span className="emoji-icon" aria-hidden="true">{CHECK}</span>{spec}</li>)}</ul><div className="cap-price"><small>Pricing</small><span>{selectedCapability.pricing}</span></div><button className="button" type="button" onClick={() => setActiveQuote(activeCapability!)}>{selectedCapability.cta}<ArrowRight /></button><a className="text-link service-page-link" href={SERVICE_PATHS[activeCapability!]}>Open dedicated service page <ArrowRight /></a></div>
               </>}
             </aside>
           </div>
@@ -825,13 +842,13 @@ function App() {
       <section className="industries" id="industries">
         <div className="industry-intro section-pad" style={{backgroundImage:`linear-gradient(180deg,rgba(242,105,60,.9),rgba(191,65,30,.96)),url(${selectedIndustry.image})`}}>
           <div className="mobile-industry-intro"><Label>Built around the cargo</Label><h2>Specialized teams for high-stakes industries.</h2><p>Choose a sector below to see how we protect specialized cargo from pickup through delivery.</p></div>
-                    <div className="industry-panel-content" key={selectedIndustry.title}><Label>Built around the cargo</Label><span className="industry-kicker">{String(activeIndustry+1).padStart(2,'0')} / 06 • {selectedIndustry.title}</span><h2>{selectedIndustry.heading}</h2><p>{selectedIndustry.description}</p><ul>{selectedIndustry.services.map(service => <li key={service}><ShieldCheck />{service}</li>)}</ul><a className="industry-cta" href={`mailto:operations@hanzlogistics.com?subject=${encodeURIComponent(selectedIndustry.title + ' shipment')}`}>Discuss your shipment <ArrowRight /></a></div>
-          <div className="sector-count"><strong>06</strong><span>Specialized sectors</span></div><small>⌖ Domestic • Global</small>
+                    <div className="industry-panel-content" key={selectedIndustry.title}><Label>Built around the cargo</Label><span className="industry-kicker">{String(activeIndustry+1).padStart(2,'0')} / 06 • {selectedIndustry.title}</span><h2>{selectedIndustry.heading}</h2><p>{selectedIndustry.description}</p><ul>{selectedIndustry.services.map(service => <li key={service}><span className="emoji-icon" aria-hidden="true">{CHECK}</span>{service}</li>)}</ul><a className="industry-cta" href={`mailto:operations@hanzlogistics.com?subject=${encodeURIComponent(selectedIndustry.title + ' shipment')}`}>Discuss your shipment <ArrowRight /></a></div>
+          <div className="sector-count"><strong>06</strong><span>Specialized sectors</span></div><small>⌖ Domestic • International</small>
         </div>
-        <div className="industry-list section-pad" role="list">{industries.map((industry, index) => { const Icon = industry.icon; const isActive = activeIndustry === index; return <article className={`industry-item ${isActive ? 'active' : ''}`} role="listitem" key={industry.title}><button type="button" className={isActive ? 'active' : ''} onClick={() => setActiveIndustry(index)} onMouseEnter={() => setActiveIndustry(index)} aria-expanded={isActive} aria-controls={isActive ? `industry-detail-${index}` : undefined}><b>{String(index+1).padStart(2,'0')}</b><span className="industry-icon" aria-hidden="true"><Icon /></span><h3>{industry.title}</h3><p>{industry.summary}</p><ArrowRight aria-hidden="true" /></button>{isActive && <div className="mobile-industry-detail" id={`industry-detail-${index}`}><div className="mobile-industry-image" style={{backgroundImage:`linear-gradient(180deg,transparent,rgba(16,36,59,.75)),url(${industry.image})`}}><span>{industry.title}</span></div><p>{industry.description}</p><ul>{industry.services.map(service => <li key={service}><ShieldCheck aria-hidden="true" />{service}</li>)}</ul><a href={`mailto:operations@hanzlogistics.com?subject=${encodeURIComponent(industry.title + ' shipment')}`}>Discuss your shipment <ArrowRight aria-hidden="true" /></a></div>}</article> })}</div>
+        <div className="industry-list section-pad" role="list">{industries.map((industry, index) => { const isActive = activeIndustry === index; return <article className={`industry-item ${isActive ? 'active' : ''}`} role="listitem" key={industry.title}><button type="button" className={isActive ? 'active' : ''} onClick={() => setActiveIndustry(index)} onMouseEnter={() => setActiveIndustry(index)} aria-expanded={isActive} aria-controls={isActive ? `industry-detail-${index}` : undefined}><b>{String(index+1).padStart(2,'0')}</b><span className="industry-icon" aria-hidden="true"><span className="emoji-icon">{industry.icon}</span></span><h3>{industry.title}</h3><p>{industry.summary}</p><ArrowRight aria-hidden="true" /></button>{isActive && <div className="mobile-industry-detail" id={`industry-detail-${index}`}><div className="mobile-industry-image" style={{backgroundImage:`linear-gradient(180deg,transparent,rgba(16,36,59,.75)),url(${industry.image})`}}><span>{industry.title}</span></div><p>{industry.description}</p><ul>{industry.services.map(service => <li key={service}><span className="emoji-icon" aria-hidden="true">{CHECK}</span>{service}</li>)}</ul><a href={`mailto:operations@hanzlogistics.com?subject=${encodeURIComponent(industry.title + ' shipment')}`}>Discuss your shipment <ArrowRight aria-hidden="true" /></a></div>}</article> })}</div>
       </section>
 
-      <section className="process section-pad" id="standard"><div className="shell"><Label>One team • Full visibility</Label><div className="section-heading"><h2>Control at every handoff.</h2><p>From the first call to final delivery, a Hanz operator owns the details and keeps the record current.</p></div><div className="steps">{steps.map((step,i) => <button className="step-card" type="button" key={step.title} onClick={() => setActiveStep(i)} aria-haspopup="dialog" aria-label={`View ${step.title} process details`}><div className="step-top"><b>{String(i+1).padStart(2,'0')}</b><span aria-hidden="true">{i === 1 ? <Radio /> : <ClipboardCheck />}</span></div><img src={step.image} alt="" loading="lazy" /><h3>{step.title}</h3><p>{step.summary}</p><span className="step-more">View full process <ArrowRight aria-hidden="true" /></span></button>)}</div><div className="credentials"><Label>Credentials</Label><div className="steps" role="list">{credentials.map(({ title, icon: Icon }, i) => <article className="step-card" role="listitem" key={title}><div className="step-top"><b>{String(i+1).padStart(2,'0')}</b><Icon aria-hidden="true" /></div><h3>{title}</h3></article>)}</div><div className="capability-download"><p>Need a shareable overview of Hanz capabilities for procurement or vendor onboarding?</p><a className="button" href="/assets/hanz-logistics-capability-statement.pdf" download="Hanz-Logistics-Capability-Statement.pdf">Download Capability Statement <ArrowRight aria-hidden="true" /></a></div></div></div></section>
+      <section className="process section-pad" id="standard"><div className="shell"><Label>One team • Full visibility</Label><div className="section-heading"><h2>Control at every handoff.</h2><p>From the first call to final delivery, a Hanz operator owns the details and keeps the record current.</p></div><div className="steps">{steps.map((step,i) => <button className="step-card" type="button" key={step.title} onClick={() => setActiveStep(i)} aria-haspopup="dialog" aria-label={`View ${step.title} process details`}><div className="step-top"><b>{String(i+1).padStart(2,'0')}</b><span className="emoji-icon" aria-hidden="true">{stepIcons[i]}</span></div><img src={step.image} alt="" loading="lazy" /><h3>{step.title}</h3><p>{step.summary}</p><span className="step-more">View full process <ArrowRight aria-hidden="true" /></span></button>)}</div><div className="credentials"><Label>Credentials &amp; strengths</Label><div className="steps" role="list">{credentials.map(({ title, icon }, i) => <article className="step-card" role="listitem" key={title}><div className="step-top"><b>{String(i+1).padStart(2,'0')}</b><span className="emoji-icon" aria-hidden="true">{icon}</span></div><h3>{title}</h3></article>)}</div><div className="capability-download"><p>Need a shareable overview of Hanz capabilities for procurement or vendor onboarding?</p><a className="button" href="/assets/hanz-logistics-capability-statement.pdf" download="Hanz-Logistics-Capability-Statement.pdf">Download Capability Statement <ArrowRight aria-hidden="true" /></a></div></div></div></section>
 
       <section className="cta section-pad" id="contact" style={{ backgroundImage: `linear-gradient(90deg, rgba(16,36,59,.8), rgba(16,36,59,.25)), url(${images.cta})` }}><div className="shell cta-grid"><div><Label>Ready when the clock starts</Label><h2>The shipment is urgent. The next move should be clear.</h2><p>Tell us what is moving, where it needs to go and when it must arrive. An operator will take it from there.</p></div><aside><small>Start here</small><a href="tel:+14123453837" aria-label="Call Hanz Logistics at (412) 345-3837">(412) 345-3837</a><a href="mailto:operations@hanzlogistics.com">operations@hanzlogistics.com</a><a href="mailto:info@hanzlogistics.com">info@hanzlogistics.com</a><a className="button" href="#capabilities" onClick={(event) => { event.preventDefault(); setActiveQuote(GENERAL_QUOTE) }}>Get a quote <ArrowRight /></a></aside></div></section>
     </main>
@@ -847,7 +864,7 @@ function App() {
           <h2 id="process-modal-title">{selectedStep.title}</h2>
           <p className="modal-intro">{selectedStep.intro}</p>
           <h3>What happens at this stage</h3>
-          <ul>{selectedStep.details.map((detail) => <li key={detail}><ClipboardCheck aria-hidden="true" /> <span>{detail}</span></li>)}</ul>
+          <ul>{selectedStep.details.map((detail) => <li key={detail}><span className="emoji-icon" aria-hidden="true">{CHECK}</span> <span>{detail}</span></li>)}</ul>
           <div className="modal-outcome"><small>Operational outcome</small><p>{selectedStep.outcome}</p></div>
           <a className="button" href="#contact" onClick={(event) => { event.preventDefault(); setActiveStep(null); setActiveQuote(GENERAL_QUOTE) }}>Start a shipment <ArrowRight aria-hidden="true" /></a>
         </div>

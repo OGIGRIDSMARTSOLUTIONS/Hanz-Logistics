@@ -1,8 +1,12 @@
 \documentclass[10pt]{article}
 
-\usepackage[letterpaper,margin=0.48in]{geometry}
+% Exactly 2 pages.
+% Page 1: header, title, overview, 5 capabilities, process bar, industries
+% Page 2: operations, strengths, contact
+
+\usepackage[letterpaper,top=0.40in,bottom=0.45in,left=0.50in,right=0.50in]{geometry}
 \usepackage[T1]{fontenc}
-\usepackage[scaled=0.96]{helvet}
+\usepackage[scaled=0.97]{helvet}
 \renewcommand{\familydefault}{\sfdefault}
 \usepackage{xcolor}
 \usepackage{titlesec}
@@ -16,474 +20,230 @@
 \usepackage{setspace}
 \usepackage{hyperref}
 
-% =========================================================
-% COLORS
-% =========================================================
-
 \definecolor{HanzBlue}{HTML}{10243B}
-\definecolor{HanzOrange}{HTML}{F26522}
-\definecolor{HanzGray}{HTML}{6B6B6B}
-\definecolor{HanzLight}{HTML}{F4F4F2}
-\definecolor{HanzLine}{HTML}{E0E0DE}
+\definecolor{HanzOrange}{HTML}{F2693C}
+\definecolor{HanzGray}{HTML}{4F5F6E}
+\definecolor{HanzMuted}{HTML}{6A7A89}
+\definecolor{HanzLight}{HTML}{F1F4F7}
+\definecolor{HanzLine}{HTML}{D8DFE6}
 
-\hypersetup{
-  colorlinks=true,
-  urlcolor=HanzBlue,
-  linkcolor=HanzBlue
-}
-
-% =========================================================
-% GLOBAL
-% =========================================================
+\hypersetup{colorlinks=true,urlcolor=HanzBlue,linkcolor=HanzBlue}
 
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0pt}
-\setstretch{1.06}
+\setstretch{1.07}
 \sloppy
-
-% =========================================================
-% FOOTER
-% =========================================================
+\setlength{\tabcolsep}{0pt}
 
 \pagestyle{fancy}
 \fancyhf{}
 \renewcommand{\headrulewidth}{0pt}
-\renewcommand{\footrulewidth}{0pt}
-
-\fancyfoot[L]{%
-  \fontsize{7}{9}\selectfont
-  \textcolor{HanzGray}{%
-    \textbf{HANZ LOGISTICS}
-    \ \textbullet\
-    Capability Statement
-  }%
-}
-
-\fancyfoot[R]{%
-  \fontsize{7}{9}\selectfont
-  \textcolor{HanzGray}{%
-    Page \thepage\ of \pageref{LastPage}%
-  }%
-}
-
-% =========================================================
-% SECTION STYLE
-% =========================================================
+\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\footrule}{\hbox to\headwidth{\color{HanzLine}\leaders\hrule height \footrulewidth\hfill}}
+\fancyfoot[L]{\fontsize{7.5}{9}\selectfont\textcolor{HanzMuted}{\textbf{HANZ LOGISTICS}\ \textbullet\ Capability Statement}}
+\fancyfoot[R]{\fontsize{7.5}{9}\selectfont\textcolor{HanzMuted}{Page \thepage\ of \pageref{LastPage}}}
 
 \titleformat{\section}
-  {\fontsize{14}{16}\selectfont\bfseries\color{HanzBlue}}
+  {\fontsize{13.5}{15.5}\selectfont\bfseries\color{HanzBlue}}
   {}{0pt}{}
-  [\vspace{3pt}{\color{HanzOrange}\rule{0.55in}{2pt}}]
+  [\vspace{2.5pt}{\color{HanzOrange}\rule{0.68in}{2.3pt}}]
+\titlespacing*{\section}{0pt}{8pt}{5pt}
 
-\titlespacing*{\section}{0pt}{9pt}{6pt}
-
-% =========================================================
-% SERVICE BLOCK
-% =========================================================
-
-\newcommand{\service}[2]{%
-  \par\noindent
-  {\bfseries
-   \fontsize{10.2}{12.8}\selectfont
-   \color{HanzBlue}#1}\\[3pt]
-  {\fontsize{9.4}{12.2}\selectfont
-   \color{HanzBlue!85}#2}
-  \par\vspace{5pt}
+\newcommand{\itemtitle}[1]{%
+  {\bfseries\fontsize{10.4}{12.5}\selectfont\color{HanzBlue}#1\par}%
+  \vspace{2pt}%
+}
+\newcommand{\itembody}[1]{%
+  {\fontsize{9.6}{12.2}\selectfont\color{HanzGray}#1\par}%
 }
 
-% =========================================================
-% INDUSTRY BLOCK
-% =========================================================
-
-\newcommand{\industry}[2]{%
-  \par\noindent
-  {\bfseries
-   \fontsize{10}{12.8}\selectfont
-   \color{HanzBlue}#1}
-  \par\vspace{2pt}
-  {\fontsize{9.4}{12.2}\selectfont
-   \color{HanzBlue!85}#2}
-  \par\vspace{5pt}
-}
-
-% =========================================================
-% NUMBERED PROCESS BOX
-% =========================================================
-
-\newcommand{\numberbox}[3]{%
-  \noindent
-  \begin{tabularx}{\linewidth}{@{}c@{\hspace{10pt}}X@{}}
-
-  \raisebox{-0.02in}{%
-    \colorbox{HanzBlue}{%
-      \parbox[c][0.5in][c]{0.5in}{%
-        \centering
-        \color{HanzOrange}
-        \fontsize{22}{24}\selectfont
-        \bfseries #1%
-      }%
-    }%
-  }
-
-  &
-
-  \begin{minipage}[c]{\linewidth}
-    {\bfseries
-     \fontsize{10.5}{12.8}\selectfont
-     \color{HanzOrange}#2}\\[4pt]
-
-    {\fontsize{9.2}{12}\selectfont
-     \color{HanzBlue!88}#3}
-  \end{minipage}
-
-  \end{tabularx}
-
-  \par\vspace{4pt}
-  {\color{HanzLine}\hrule height 0.5pt}
-  \vspace{4pt}
-}
-
-% =========================================================
-% MASTHEAD — natural height, all content stays inside the bar
-% Usage: \masthead (page 1) or \masthead[compact] (page 2)
-% =========================================================
-
-\newcommand{\masthead}[1][standard]{%
-  \noindent
-  \setlength{\fboxsep}{0pt}%
-  \ifx#1compact
-    \def\mastpad{8pt}%
-    \def\masttitle{\fontsize{16}{19}\selectfont}%
-    \def\masttag{\fontsize{7.8}{10}\selectfont}%
-    \def\mastcontact{\fontsize{8.2}{11}\selectfont}%
-  \else
-    \def\mastpad{10pt}%
-    \def\masttitle{\fontsize{18}{21}\selectfont}%
-    \def\masttag{\fontsize{8}{10.5}\selectfont}%
-    \def\mastcontact{\fontsize{8.6}{11.5}\selectfont}%
-  \fi
+\newcommand{\masthead}{%
+  \noindent\setlength{\fboxsep}{0pt}%
   \colorbox{HanzBlue}{%
     \begin{minipage}{\textwidth}
-      \vspace{\mastpad}
+      \vspace{9.5pt}%
       \hspace{14pt}%
-      \begin{minipage}[t]{0.56\textwidth}
-        {\masttitle\bfseries\color{white}HANZ\ %
-         \color{HanzOrange}LOGISTICS\par\vspace{4pt}}%
-        {\masttag\bfseries\color{white!80}%
-         MISSION-CRITICAL AIR FREIGHT FORWARDING\par}%
+      \begin{minipage}[c]{0.56\textwidth}
+        {\fontsize{17.5}{19.5}\selectfont\bfseries\color{white}HANZ\ \textcolor{HanzOrange}{LOGISTICS}\par}%
+        \vspace{3pt}%
+        {\color{HanzOrange}\rule{1.25in}{2pt}\par}%
+        \vspace{3pt}%
+        {\fontsize{7.8}{9.6}\selectfont\bfseries\color{white!90}%
+          MISSION-CRITICAL AIR FREIGHT FORWARDING\par}%
       \end{minipage}%
       \hfill
-      \begin{minipage}[t]{0.36\textwidth}
+      \begin{minipage}[c]{0.36\textwidth}
         \raggedleft
-        {\color{white}\mastcontact
-          \textcolor{HanzOrange}{\textbf{24/7/365}}\par\vspace{3pt}%
-          \textbf{OPERATIONS DISPATCH}\par\vspace{4pt}%
-          \textbf{(412) 345-3837}\par\vspace{3pt}%
-          operations@hanzlogistics.com\par}%
+        {\fontsize{8.4}{10.6}\selectfont\color{white}%
+          \textcolor{HanzOrange}{\textbf{24 / 7 / 365}}\par\vspace{1pt}%
+          {\fontsize{7.6}{9.2}\selectfont\bfseries OPERATIONS DISPATCH\par}%
+          \vspace{3pt}%
+          {\fontsize{10.6}{12.4}\selectfont\bfseries (412) 345-3837\par}%
+          \vspace{2pt}%
+          {\fontsize{8.2}{10}\selectfont operations@hanzlogistics.com\par}%
+        }%
       \end{minipage}%
       \hspace{14pt}%
-      \vspace{\mastpad}
+      \vspace{9.5pt}%
     \end{minipage}%
-  }%
-  \par\vspace{5pt}%
+  }\par
+  \noindent{\color{HanzOrange}\rule{\linewidth}{2.8pt}\par}%
 }
 
-% =========================================================
-% DOCUMENT
-% =========================================================
+\newcommand{\processbar}{%
+  \noindent\setlength{\fboxsep}{0pt}%
+  \colorbox{HanzBlue}{%
+    \parbox{\textwidth}{%
+      \vspace{7pt}\centering
+      {\fontsize{11.5}{13.5}\selectfont\bfseries\color{white}%
+        PLAN\quad\textcolor{HanzOrange}{\textbullet}\quad
+        TRACK\quad\textcolor{HanzOrange}{\textbullet}\quad
+        CLOSE OUT\par}%
+      \vspace{2pt}%
+      {\fontsize{8.6}{10.6}\selectfont\color{white!86}%
+        Documented planning.\quad Active oversight.\quad Verified delivery records.\par}%
+      \vspace{7pt}%
+    }%
+  }\par
+}
+
+\newcommand{\steprow}[3]{%
+  \noindent
+  \begin{tabularx}{\linewidth}{@{}c@{\hspace{11pt}}X@{}}
+    \colorbox{HanzBlue}{%
+      \parbox[c][0.45in][c]{0.45in}{%
+        \centering\textcolor{HanzOrange}{\fontsize{19}{21}\selectfont\bfseries #1}%
+      }%
+    } &
+    {\bfseries\fontsize{11}{13}\selectfont\color{HanzOrange}#2\par\vspace{2pt}}%
+    {\fontsize{9.7}{12.4}\selectfont\color{HanzGray}#3\par}
+  \end{tabularx}%
+  \par\vspace{4pt}{\color{HanzLine}\hrule height 0.5pt}\vspace{4pt}%
+}
 
 \begin{document}
 
-% =========================================================
-% PAGE 1
-% =========================================================
-
+% ========================= PAGE 1 =========================
 \masthead
+\vspace{7pt}
 
 \noindent
-{\color{HanzOrange}\rule{\linewidth}{2.5pt}}
-
-\vspace{10pt}
-
-{\fontsize{22}{26}\selectfont
- \bfseries
- \color{HanzBlue}Capability\ %
- \color{HanzOrange}Statement}
-
+{\fontsize{22}{25}\selectfont\bfseries\color{HanzBlue}Capability\ \textcolor{HanzOrange}{Statement}\par}
+\vspace{3pt}
+\noindent
+{\fontsize{10.8}{13.5}\selectfont\color{HanzMuted}%
+Connecting shippers to domestic and international destinations\,---\,on time, every time.\par}
 \vspace{6pt}
-
-{\fontsize{13}{17}\selectfont
- \color{HanzBlue!85}
- Connecting shippers to domestic and worldwide destinations\,---\,on time, every time.}
-
-\vspace{8pt}
-
-{\color{HanzLine}\hrule height 0.6pt}
-
-\vspace{8pt}
+{\color{HanzLine}\hrule height 0.7pt\par}
 
 \section*{Company Overview}
-
-\justifying
-{\fontsize{10.5}{14.2}\selectfont
-Hanz Logistics is an air freight forwarder coordinating mission-critical cargo with documented planning, active milestone oversight, and accountable delivery records. Every shipment is handled to one operational standard: \textbf{\color{HanzOrange}certainty through every handoff.}}
+{\fontsize{10.1}{13.2}\selectfont\color{HanzBlue!93}%
+Hanz Logistics is an air freight forwarder coordinating mission-critical cargo with documented planning, active milestone oversight, and accountable delivery records. Every shipment is handled to one operational standard: \textbf{\color{HanzOrange}certainty through every handoff.}\par}
 
 \section*{Core Logistics Capabilities}
+% Five services (matches the website). Visibility covered by process bar below.
+\noindent
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}X@{\hspace{15pt}}>{\raggedright\arraybackslash}X@{}}
+\itemtitle{Expedited Air Freight}
+\itembody{Next-flight-out and time-definite routing for cargo that must keep moving, with priority uplift evaluation and active milestone monitoring through final delivery.}
+&
+\itemtitle{Specialized Handling}
+\itembody{Purpose-built handling plans for temperature-sensitive cargo, dangerous-goods support, oversized equipment, and high-value freight.}
+\\[6pt]
+\itemtitle{Air Charter Solutions}
+\itembody{Dedicated aircraft matched to payload, airport access, handling requirements, and destination timing when commercial schedules cannot meet the mission.}
+&
+\itemtitle{Air Freight Coordination}
+\itembody{End-to-end forwarding from pickup through carrier booking, export/import documentation, customs handoffs, and door-to-door delivery oversight.}
+\\[6pt]
+\itemtitle{On-Board Courier / Hand-Carry}
+\itembody{A dedicated courier personally accompanies critical cargo from collection through final handoff, maintaining direct chain of custody throughout the journey.}
+&
+\itemtitle{Door-to-Door Oversight}
+\itembody{Pickup, airport transfer, flight uplift, customs coordination, and final-mile delivery managed as one continuous movement.}
+\end{tabularx}
 
-\begin{minipage}[t]{0.485\linewidth}
-
-\service{Expedited Air Freight}
-{Next-flight-out and time-definite routing for cargo that must keep moving, with priority uplift evaluation and active milestone monitoring through final delivery.}
-
-\service{Air Charter Solutions}
-{Dedicated aircraft matched to payload, airport access, handling requirements, and destination timing when commercial schedules cannot meet the mission.}
-
-\service{On-Board Courier / Hand-Carry}
-{A dedicated courier personally accompanies critical cargo from collection through final handoff, maintaining direct chain-of-custody throughout the journey.}
-
-\end{minipage}%
-\hfill
-\begin{minipage}[t]{0.485\linewidth}
-
-\service{Specialized Handling}
-{Purpose-built handling plans for temperature-sensitive cargo, dangerous-goods support, oversized equipment, and high-value freight.}
-
-\service{Air Freight Coordination}
-{End-to-end forwarding from pickup through carrier booking, export/import documentation, customs handoffs, and active milestone oversight through final delivery.}
-
-\service{Door-to-Door Coordination}
-{Comprehensive management across pickup, airport transfer, flight uplift, customs coordination, and final-mile delivery.}
-
-\service{Visibility \& Milestone Tracking}
-{Shipments are tracked by Hanz reference number and, when linked, a carrier airway bill (AWB) --- combining dedicated operator oversight with verified milestones at every handoff.}
-
-\end{minipage}
+\vspace{7pt}
+\processbar
 
 \vspace{2pt}
-
-\noindent
-\colorbox{HanzLight}{%
-  \parbox{\dimexpr\linewidth-2\fboxsep\relax}{%
-
-    \vspace{6pt}
-
-    \centering
-
-    {\fontsize{12.5}{15}\selectfont
-     \bfseries
-     \color{HanzBlue}
-     PLAN\
-     \textcolor{HanzOrange}{\textbullet}\
-     TRACK\
-     \textcolor{HanzOrange}{\textbullet}\
-     ACCOUNT}\\[3pt]
-
-    {\fontsize{9.5}{12}\selectfont
-     \color{HanzGray}
-     Documented planning.
-     Active oversight.
-     Accountable delivery records.}
-
-    \vspace{6pt}
-
-  }%
-}
-
+% minipage keeps industries from splitting across pages
+\noindent\begin{minipage}{\textwidth}
 \section*{Industries Served}
-
-\enlargethispage{4\baselineskip}
-
-{\fontsize{9.8}{12.8}\selectfont
- \color{HanzBlue!85}
- Specialized logistics solutions for high-stakes sectors, with handling plans built around cargo risk, urgency, and compliance needs.}
-
+{\fontsize{9.6}{12.2}\selectfont\color{HanzMuted}%
+Specialized logistics for high-stakes sectors, with handling plans built around cargo risk, urgency, and compliance needs.\par}
 \vspace{4pt}
-
-\begin{minipage}[t]{0.485\linewidth}
-
-\industry{Healthcare}
-{Temperature-sensitive materials, critical devices, therapies, and cold-chain coordination.}
-
-\industry{Aerospace \& Defense}
-{Controlled components, AOG parts, and high-value equipment with secure routing.}
-
-\industry{Advanced Manufacturing}
-{Line-down parts, specialized tooling, and plant-direct delivery to prevent downtime.}
-
-\end{minipage}%
-\hfill
-\begin{minipage}[t]{0.485\linewidth}
-
-\industry{Business Technology}
-{High-value servers, infrastructure, and secure data-center delivery.}
-
-\industry{Robotics \& Energy}
-{Prototype security, battery transport compliance, and field-critical shipment support.}
-
-\industry{Research}
-{Unique specimens, sensitive scientific instruments, and timeline-critical project logistics.}
-
+\noindent
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}X@{\hspace{15pt}}>{\raggedright\arraybackslash}X@{}}
+\itemtitle{Healthcare}
+\itembody{Temperature-sensitive materials, critical devices, therapies, and cold-chain coordination.}
+&
+\itemtitle{Business Technology}
+\itembody{High-value servers, infrastructure, and secure data-center delivery.}
+\\[5pt]
+\itemtitle{Aerospace \& Defense}
+\itembody{Controlled components, AOG parts, and high-value equipment with secure routing.}
+&
+\itemtitle{Robotics \& Energy}
+\itembody{Prototype security, battery transport compliance, and field-critical shipment support.}
+\\[5pt]
+\itemtitle{Advanced Manufacturing}
+\itembody{Line-down parts, specialized tooling, and plant-direct delivery to prevent downtime.}
+&
+\itemtitle{Research}
+\itembody{Unique specimens, sensitive scientific instruments, and timeline-critical project logistics.}
+\end{tabularx}
 \end{minipage}
 
-% =========================================================
-% PAGE 2
-% =========================================================
-
+% ========================= PAGE 2 =========================
 \newpage
-
-\masthead[compact]
-
-\noindent
-{\color{HanzOrange}\rule{\linewidth}{2.5pt}}
-
-\vspace{8pt}
+\masthead
+\vspace{6pt}
 
 \section*{The Hanz Operations Standard}
-
-\numberbox
-{1}
-{PLAN}
-{We map urgency, dimensions, weight, handling requirements, route, and contingencies before tender. A documented movement plan confirms responsibilities at every handoff.}
-
-\numberbox
-{2}
-{TRACK}
-{Active milestones and human oversight keep the shipment visible in motion. Operators proactively monitor exceptions and coordinate directly across carriers and ground partners.}
-
-\numberbox
-{3}
-{ACCOUNT}
-{Delivery confirmation, proof-of-delivery verification, and chain-of-custody documentation consolidate the complete shipment record for review and compliance.}
-
-\vspace{-6pt}
+\vspace{1pt}
+\steprow{1}{PLAN}{We map urgency, dimensions, weight, handling requirements, route, and contingencies before tender. A documented movement plan confirms responsibilities at every handoff.}
+\steprow{2}{TRACK}{Active milestones and human oversight keep the shipment visible in motion. Operators monitor exceptions and coordinate directly across carriers and ground partners.}
+\steprow{3}{CLOSE OUT}{Delivery confirmation, proof-of-delivery verification, and chain of custody documentation consolidate the complete shipment record for review and compliance.}
 
 \section*{Operational Strengths}
-
-\begin{itemize}
-[
-  leftmargin=14pt,
-  itemsep=3pt,
-  topsep=0pt,
-  label=\textcolor{HanzOrange}{\small\textbullet}
-]
-
-\setlength\itemsep{3pt}
-
-\item[\textcolor{HanzOrange}{\textbullet}]
-\fontsize{9.8}{12.8}\selectfont
-Domestic and global operational reach with 24/7/365 operations dispatch.
-
-\item[\textcolor{HanzOrange}{\textbullet}]
-\fontsize{9.8}{12.8}\selectfont
-\textbf{Plan}
-\textcolor{HanzOrange}{$\rightarrow$}
-\textbf{Track}
-\textcolor{HanzOrange}{$\rightarrow$}
-\textbf{Account}
----
-end-to-end process ownership by a dedicated Hanz operator.
-
-\item[\textcolor{HanzOrange}{\textbullet}]
-\fontsize{9.8}{12.8}\selectfont
-Documented movement planning before tender, with proof-of-delivery closure on every job.
-
-\item[\textcolor{HanzOrange}{\textbullet}]
-\fontsize{9.8}{12.8}\selectfont
-TSA Indirect Air Carrier (IAC) compliant, with TWIC-cleared personnel.
-
+\begin{itemize}[leftmargin=15pt,itemsep=4pt,topsep=1pt,parsep=0pt,label=\textcolor{HanzOrange}{\textbullet}]
+\item {\fontsize{9.9}{12.8}\selectfont\color{HanzGray}Domestic and international operational reach with 24/7/365 operations dispatch.}
+\item {\fontsize{9.9}{12.8}\selectfont\color{HanzGray}\textbf{\color{HanzBlue}Plan}\textcolor{HanzOrange}{$\rightarrow$}\textbf{\color{HanzBlue}Track}\textcolor{HanzOrange}{$\rightarrow$}\textbf{\color{HanzBlue}Close Out} --- end-to-end ownership by a dedicated Hanz operator.}
+\item {\fontsize{9.9}{12.8}\selectfont\color{HanzGray}Documented movement planning before tender, with proof-of-delivery closure on every job.}
+\item {\fontsize{9.9}{12.8}\selectfont\color{HanzGray}TSA Indirect Air Carrier (IAC) compliant, with TWIC-cleared personnel.}
+\item {\fontsize{9.9}{12.8}\selectfont\color{HanzGray}Customer-centric operations focused on clear communication and reliable handoffs.}
 \end{itemize}
 
-\vspace{2pt}
-
+\vspace{1pt}
 \section*{Contact \& Operations Dispatch}
-
-\enlargethispage{3\baselineskip}
-
-\noindent
+\noindent\setlength{\fboxsep}{0pt}%
 \colorbox{HanzLight}{%
-  \parbox{\dimexpr\linewidth-2\fboxsep\relax}{%
-
-    \vspace{6pt}
-
-    \begin{minipage}[c]{0.60\linewidth}
-
-      {\fontsize{12.5}{15}\selectfont
-       \bfseries
-       \color{HanzOrange}
-       Hanz Logistics Operations}\\[5pt]
-
-      {\fontsize{9.5}{12}\selectfont
-       \bfseries
-       \color{HanzBlue}
-       24/7/365 Operations Dispatch}\\[5pt]
-
-      {\fontsize{9.5}{12}\selectfont
-       \color{HanzBlue}
-       \textbf{Phone:}
-       \href{tel:+14123453837}{(412) 345-3837}}\\[3pt]
-
-      {\fontsize{9.5}{12}\selectfont
-       \color{HanzBlue}
-       \textbf{Email:}
-       \href{mailto:operations@hanzlogistics.com}
-       {operations@hanzlogistics.com}}\\[3pt]
-
-      {\fontsize{9.5}{12}\selectfont
-       \color{HanzBlue}
-       \href{mailto:info@hanzlogistics.com}
-       {info@hanzlogistics.com}}
-
-    \end{minipage}%
-    \hfill
-
-    \begin{minipage}[c]{0.34\linewidth}
-
+  \parbox{\textwidth}{%
+    \vspace{10pt}\hspace{13pt}%
+    \begin{minipage}[c]{0.58\textwidth}
+      {\fontsize{12.8}{15}\selectfont\bfseries\color{HanzOrange}Hanz Logistics Operations\par}%
+      \vspace{3pt}%
+      {\fontsize{9.7}{12.3}\selectfont\bfseries\color{HanzBlue}24/7/365 Operations Dispatch\par}%
+      \vspace{4.5pt}%
+      {\fontsize{9.7}{12.3}\selectfont\color{HanzBlue}%
+        \textbf{Phone:} \href{tel:+14123453837}{(412) 345-3837}\par\vspace{2.2pt}%
+        \textbf{Email:} \href{mailto:operations@hanzlogistics.com}{operations@hanzlogistics.com}\par\vspace{2.2pt}%
+        \href{mailto:info@hanzlogistics.com}{info@hanzlogistics.com}\par}%
+    \end{minipage}\hfill
+    \begin{minipage}[c]{0.34\textwidth}
       \raggedleft
-
-      {\fontsize{15}{17}\selectfont
-       \bfseries
-       \color{HanzBlue}
-       HANZ}\\[1pt]
-
-      {\fontsize{11.5}{13}\selectfont
-       \bfseries
-       \color{HanzOrange}
-       LOGISTICS}\\[6pt]
-
-      {\fontsize{8.6}{11}\selectfont
-       \itshape
-       \color{HanzGray}
-       Air freight for cargo that cannot afford to be delayed.}
-
-    \end{minipage}
-
-    \vspace{6pt}
-
+      {\fontsize{15.5}{17.5}\selectfont\bfseries\color{HanzBlue}HANZ\par}%
+      {\fontsize{11.8}{13.5}\selectfont\bfseries\color{HanzOrange}LOGISTICS\par}%
+      \vspace{4.5pt}%
+      {\fontsize{8.6}{11}\selectfont\itshape\color{HanzMuted}%
+        Air freight for cargo that cannot afford to be delayed.\par}%
+    \end{minipage}%
+    \hspace{13pt}\vspace{10pt}%
   }%
 }
 
-\vspace{2pt}
-
-\noindent
-\begingroup
-\setlength{\fboxsep}{0pt}%
-\colorbox{HanzBlue}{%
-  \parbox[c][0.28in][c]{\dimexpr\textwidth\relax}{%
-    \centering
-    {\fontsize{10}{12}\selectfont
-     \bfseries
-     \color{white}
-     P\,L\,A\,N
-     \quad
-     \textcolor{HanzOrange}{\textbullet}
-     \quad
-     T\,R\,A\,C\,K
-     \quad
-     \textcolor{HanzOrange}{\textbullet}
-     \quad
-     A\,C\,C\,O\,U\,N\,T}%
-  }%
-}%
-\endgroup
+\vspace{8pt}
+\processbar
 
 \end{document}

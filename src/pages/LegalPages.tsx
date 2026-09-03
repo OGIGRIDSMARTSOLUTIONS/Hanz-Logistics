@@ -56,11 +56,11 @@ function LegalDocumentPage({
             {menuOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
           </button>
           <div className={`nav-links ${menuOpen ? 'open' : ''}`} id="legal-nav-links">
+            <a onClick={closeMenu} href="/#about">About</a>
             <a onClick={closeMenu} href="/#capabilities">Capabilities</a>
             <a onClick={closeMenu} href="/#industries">Industries</a>
-            <a onClick={closeMenu} href="/#standard">Why Hanz</a>
-            <a onClick={closeMenu} href="/#about">About</a>
-            <a onClick={closeMenu} href="/track">Track Shipment</a>
+            <a onClick={closeMenu} href="/#standard">Our Standard</a>
+            <a onClick={closeMenu} href="/track">Track a Shipment</a>
             <a onClick={closeMenu} className="button small" href="/#contact">Request a quote</a>
           </div>
         </nav>

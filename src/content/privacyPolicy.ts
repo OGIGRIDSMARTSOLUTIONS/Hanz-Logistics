@@ -28,7 +28,7 @@ export const privacyPolicy = {
       ],
       bullets: [
         'Contact and company details submitted through quote requests or inquiry forms (such as name, company, email, phone, and shipment particulars).',
-        'Shipment identifiers and related logistics details used for tracking and operations (including Hanz reference numbers and carrier airway bills / AWBs when provided).',
+        'Shipment identifiers and related logistics details used for tracking and operations (including Hanz reference numbers and carrier air waybills / AWBs when provided).',
         'Communications with Hanz by phone, email, or other channels you choose to use.',
         'Technical information commonly collected by websites, such as browser type, device information, approximate location derived from IP address, pages visited, and referral source, where analytics or similar tools are enabled.',
         'Cookie or similar technology data, if used to support website performance, preferences, or analytics.',
