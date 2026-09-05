@@ -64,7 +64,7 @@
     order: 2;
   }
 }
-.credentials{margin-top:56px}.credentials .step-card{cursor:default;padding:24px 24px 28px}.credentials .step-top{padding:0 0 16px}.credentials .step-top .emoji-icon{font-size:1.45rem}.credentials .steps h3{margin:0;font-size:1.05rem;line-height:1.35;text-transform:none;letter-spacing:-.01em}
+.credentials{margin-top:56px}.credentials .step-card{cursor:default;padding:24px 24px 28px}.credentials .step-top{padding:0 0 16px}.credentials .cred-icon{width:28px;height:28px;color:#ff9b79;stroke:currentColor;fill:none}.credentials .steps h3{margin:0;font-size:1.05rem;line-height:1.35;text-transform:none;letter-spacing:-.01em}
 .emoji-icon{display:inline-flex;align-items:center;justify-content:center;line-height:1;font-style:normal;font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif;flex-shrink:0}
 .cap-list .icon .emoji-icon{font-size:1.4rem}
 .industry-icon .emoji-icon{font-size:1.35rem}
@@ -146,7 +146,8 @@
 .cta .label,
 .track-aside small,
 .nav-links a[aria-current="page"]{color:#ff9b79}
-.step-more{color:#ff9b79}
+.step-more{color:#ff9b79;transition:color .2s}
+.step-card:hover .step-more{color:#fff}
 .button:focus-visible,
 .menu-button:focus-visible,
 .nav-links a:focus-visible,
@@ -432,12 +433,7 @@
   }
 
   .industry-cta {
-    gap: 20px;
-    padding-bottom: 10px;
-  }
-
-  .industry-cta svg {
-    width: 19px;
+    padding: 16px 26px;
   }
 
   .sector-count {
@@ -1098,4 +1094,261 @@
   .track-aside {
     padding: 35px 30px;
   }
+}
+
+/* Boss polish: bump UI type + Lucide line icons site-wide */
+.nav-links {
+  font-size: 1.08rem;
+}
+
+.button {
+  font-size: .82rem;
+  letter-spacing: .07em;
+}
+
+.label {
+  font-size: .82rem;
+}
+
+.hero .lede {
+  font-size: clamp(1.08rem, 1.4vw, 1.22rem);
+}
+
+.facts small {
+  font-size: .72rem;
+}
+
+.facts strong {
+  font-size: .88rem;
+}
+
+.intro-copy > p,
+.section-heading p,
+.cta-grid > div > p {
+  font-size: 1.05rem;
+}
+
+.text-link,
+.industry-cta,
+.service-back {
+  font-size: .82rem;
+}
+
+.industry-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 8px;
+  padding: 14px 22px;
+  border: 1px solid #fff;
+  background: #fff;
+  color: var(--deep);
+  font: 600 .82rem 'Geist Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  transition: background .2s, color .2s, border-color .2s, transform .2s;
+}
+
+.industry-cta:hover,
+.industry-cta:focus-visible {
+  background: var(--deep);
+  border-color: var(--deep);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.mobile-industry-detail .industry-cta {
+  margin-top: 18px;
+  width: 100%;
+  background: var(--orange);
+  border-color: var(--orange);
+  color: #fff;
+}
+
+.mobile-industry-detail .industry-cta:hover,
+.mobile-industry-detail .industry-cta:focus-visible {
+  background: var(--deep);
+  border-color: var(--deep);
+  color: #fff;
+}
+
+.image-note small {
+  font-size: .72rem;
+}
+
+.image-note span {
+  font-size: .92rem;
+}
+
+.cap-list h3 {
+  font-size: 1.32rem;
+}
+
+.cap-list p {
+  font-size: 1.08rem;
+}
+
+.cap-detail-body > small,
+.cap-detail-body h4,
+.cap-price small {
+  font-size: .72rem;
+}
+
+.cap-detail-body > p {
+  font-size: 1rem;
+  line-height: 1.65;
+  color: #c5d2de;
+}
+
+.cap-detail-body li {
+  font-size: .88rem;
+}
+
+.cap-price span {
+  font-size: .88rem;
+}
+
+.industry-kicker,
+.industry-intro li,
+.sector-count span,
+.industry-intro > small {
+  font-size: .72rem;
+}
+
+.industry-intro p,
+.mobile-industry-detail p {
+  font-size: 1.02rem;
+}
+
+.industry-list h3 {
+  font-size: 1.28rem;
+}
+
+.industry-list p {
+  font-size: 1.05rem;
+}
+
+.steps h3 {
+  font-size: 1.55rem;
+}
+
+.steps p {
+  font-size: .95rem;
+}
+
+.step-more {
+  font-size: .72rem;
+  justify-content: flex-start;
+}
+
+.step-more svg {
+  display: none;
+}
+
+.step-card:hover .step-more {
+  color: #fff;
+}
+
+.capability-download p {
+  font-size: .95rem;
+}
+
+.footer-brand p,
+.footer-grid > div:not(:first-child) {
+  font-size: .88rem;
+}
+
+.legal {
+  font-size: .68rem;
+}
+
+.section-nav a {
+  font-size: .78rem;
+}
+
+.cta aside > a:nth-of-type(2),
+.cta aside > a:nth-of-type(3) {
+  font-size: .88rem;
+}
+
+.modal-intro,
+.modal-content li,
+.modal-outcome p {
+  font-size: .95rem;
+}
+
+.service-overview-copy > p {
+  font-size: 1.08rem;
+}
+
+.service-spec-grid li {
+  font-size: .95rem;
+}
+
+.line-icon {
+  display: inline-flex;
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  color: currentColor;
+  stroke: currentColor;
+  fill: none;
+}
+
+.cap-list .icon .line-icon {
+  width: 24px;
+  height: 24px;
+  color: #c9e5f4;
+}
+
+.industry-icon .line-icon {
+  width: 24px;
+  height: 24px;
+  color: var(--navy);
+}
+
+.industry-list button.active .industry-icon .line-icon,
+.industry-list button:hover .industry-icon .line-icon {
+  color: var(--orange);
+}
+
+.step-top .line-icon {
+  width: 22px;
+  height: 22px;
+  color: #c9e5f4;
+}
+
+.check-icon {
+  width: 16px;
+  height: 16px;
+  color: #69c892;
+}
+
+.industry-intro .check-icon {
+  color: #fff;
+}
+
+.mobile-industry-detail .check-icon,
+.modal-content .check-icon,
+.service-spec-grid .check-icon {
+  color: var(--orange);
+}
+
+.cap-list .icon,
+.industry-icon {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.industry-list button.active .industry-icon {
+  background: transparent;
+  border-color: transparent;
+}
+
+.credentials .cred-icon,
+.credentials .line-icon {
+  width: 30px;
+  height: 30px;
+  color: #ff9b79;
 }

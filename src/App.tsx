@@ -1,6 +1,34 @@
 import { useEffect, useRef, useState } from 'react'
-import { ArrowLeft, ArrowRight, Mail, Menu, Phone, X } from 'lucide-react'
+import {
+  ArrowLeft,
+  ArrowRight,
+  BadgeCheck,
+  Check,
+  ClipboardList,
+  Factory,
+  Globe,
+  HeartHandshake,
+  Luggage,
+  Mail,
+  Menu,
+  Microscope,
+  Monitor,
+  Package,
+  Phone,
+  Plane,
+  PlaneTakeoff,
+  Radar,
+  Shield,
+  Thermometer,
+  X,
+  Zap,
+  type LucideIcon,
+} from 'lucide-react'
 import { PrivacyPage, TermsPage } from './pages/LegalPages'
+
+const LineIcon = ({ icon: Icon, className = '' }: { icon: LucideIcon; className?: string }) => (
+  <Icon className={`line-icon ${className}`.trim()} aria-hidden="true" strokeWidth={1.75} />
+)
 
 const images = {
   hero: 'https://images.unsplash.com/photo-1572017235244-8f2c23b76559?auto=format&fit=crop&w=1800&q=85',
@@ -14,7 +42,7 @@ const images = {
 const capabilities = [
   {
     title: 'Expedited Air Freight',
-    icon: '✈️',
+    Icon: Plane,
     summary: 'Next-flight-out and time-definite routing for cargo that must keep moving.',
     image: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1400&q=85',
     eyebrow: 'Time-critical air freight',
@@ -25,7 +53,7 @@ const capabilities = [
   },
   {
     title: 'Air Charter Solutions',
-    icon: '🛫',
+    Icon: PlaneTakeoff,
     summary: 'Aircraft matched to shipment size, urgency, handling needs and destination.',
     image: 'https://images.unsplash.com/photo-1540962351504-03099e0a754b?auto=format&fit=crop&w=1400&q=85',
     eyebrow: 'Dedicated aircraft capacity',
@@ -36,7 +64,7 @@ const capabilities = [
   },
   {
     title: 'On-Board Courier / Hand-Carry',
-    icon: '🧳',
+    Icon: Luggage,
     summary: 'Dedicated onboard courier service with direct human custody end to end.',
     image: 'https://images.unsplash.com/photo-1529074963764-98f45c47344b?auto=format&fit=crop&w=1400&q=85',
     eyebrow: 'Uninterrupted human custody',
@@ -47,7 +75,7 @@ const capabilities = [
   },
   {
     title: 'Specialized Handling',
-    icon: '📦',
+    Icon: Package,
     summary: 'Cold chain, dangerous goods, oversized and high-value freight coordination.',
     image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1400&q=85',
     eyebrow: 'Complex cargo expertise',
@@ -58,7 +86,7 @@ const capabilities = [
   },
   {
     title: 'Air Freight Coordination',
-    icon: '🌐',
+    Icon: Globe,
     summary: 'Full-service forwarding from pickup planning through carrier booking, documentation, and delivery oversight.',
     image: 'https://images.unsplash.com/photo-1774698078446-59299e016718?auto=format&fit=crop&w=1400&q=85',
     eyebrow: 'End-to-end air forwarding',
@@ -114,23 +142,21 @@ const quoteForms = [
 const GENERAL_QUOTE = quoteForms.length - 1
 
 const industries = [
-  { icon: '🌡️', title: 'Healthcare', summary: 'Temperature-sensitive and life-critical materials.', heading: 'Healthcare logistics without gaps in control.', description: 'Critical devices, therapies, and temperature-sensitive materials move under a documented handling plan from pickup through delivery.', services: ['Cold-chain coordination', 'Priority air routing', 'Documented custody'], image: 'https://images.unsplash.com/photo-1576671081837-49000212a370?auto=format&fit=crop&w=1200&q=85' },
-  { icon: '🛡️', title: 'Aerospace + Defense', summary: 'Controlled handling for high-value, regulated freight.', heading: 'Precision movement for mission-critical programs.', description: 'Aircraft parts, controlled components, and high-value equipment receive secure routing with visibility at every transfer.', services: ['Secure handling', 'Time-definite delivery', 'Compliance support'], image: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1200&q=85' },
-  { icon: '💼', title: 'Advanced Manufacturing', summary: 'Parts and equipment timed to keep production online.', heading: 'Keep the line moving when every hour matters.', description: 'Production parts, tooling, and specialized equipment are routed against operational deadlines to minimize costly downtime.', services: ['Line-down response', 'Oversized equipment', 'Plant-direct delivery'], image: 'https://images.unsplash.com/photo-1565514020179-026b92b84bb6?auto=format&fit=crop&w=1200&q=85' },
-  { icon: '🖥️', title: 'Business Technology', summary: 'Secure movement for systems, servers and infrastructure.', heading: 'Secure logistics for connected infrastructure.', description: 'Sensitive servers, systems, and high-value technology move with controlled handling and carefully coordinated site delivery.', services: ['High-value security', 'Data-center delivery', 'Chain of custody'], image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=85' },
-  { icon: '⚡', title: 'Robotics + Energy', summary: 'Prototype, battery and field-critical shipment support.', heading: 'Specialized support for technology in motion.', description: 'Prototypes, battery systems, and field-critical components receive handling plans built around risk, urgency, and compliance.', services: ['Battery compliance', 'Prototype security', 'Remote-site support'], image: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=1200&q=85' },
-  { icon: '🔬', title: 'Research', summary: 'Careful coordination for unique specimens and instruments.', heading: 'Protecting the work behind every breakthrough.', description: 'Unique specimens, instruments, and research materials move with careful documentation and handling tailored to the project.', services: ['Specimen handling', 'Instrument transport', 'Research timelines'], image: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=1200&q=85' },
+  { Icon: Thermometer, title: 'Healthcare', summary: 'Temperature-sensitive and life-critical materials.', heading: 'Healthcare logistics without gaps in control.', description: 'Critical devices, therapies, and temperature-sensitive materials move under a documented handling plan from pickup through delivery.', services: ['Cold-chain coordination', 'Priority air routing', 'Documented custody'], image: 'https://images.unsplash.com/photo-1576671081837-49000212a370?auto=format&fit=crop&w=1200&q=85' },
+  { Icon: Shield, title: 'Aerospace + Defense', summary: 'Controlled handling for high-value, regulated freight.', heading: 'Precision movement for mission-critical programs.', description: 'Aircraft parts, controlled components, and high-value equipment receive secure routing with visibility at every transfer.', services: ['Secure handling', 'Time-definite delivery', 'Compliance support'], image: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1200&q=85' },
+  { Icon: Factory, title: 'Advanced Manufacturing', summary: 'Parts and equipment timed to keep production online.', heading: 'Keep the line moving when every hour matters.', description: 'Production parts, tooling, and specialized equipment are routed against operational deadlines to minimize costly downtime.', services: ['Line-down response', 'Oversized equipment', 'Plant-direct delivery'], image: 'https://images.unsplash.com/photo-1565514020179-026b92b84bb6?auto=format&fit=crop&w=1200&q=85' },
+  { Icon: Monitor, title: 'Business Technology', summary: 'Secure movement for systems, servers and infrastructure.', heading: 'Secure logistics for connected infrastructure.', description: 'Sensitive servers, systems, and high-value technology move with controlled handling and carefully coordinated site delivery.', services: ['High-value security', 'Data-center delivery', 'Chain of custody'], image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=85' },
+  { Icon: Zap, title: 'Robotics + Energy', summary: 'Prototype, battery and field-critical shipment support.', heading: 'Specialized support for technology in motion.', description: 'Prototypes, battery systems, and field-critical components receive handling plans built around risk, urgency, and compliance.', services: ['Battery compliance', 'Prototype security', 'Remote-site support'], image: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=1200&q=85' },
+  { Icon: Microscope, title: 'Research', summary: 'Careful coordination for unique specimens and instruments.', heading: 'Protecting the work behind every breakthrough.', description: 'Unique specimens, instruments, and research materials move with careful documentation and handling tailored to the project.', services: ['Specimen handling', 'Instrument transport', 'Research timelines'], image: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=1200&q=85' },
 ]
 
-const credentials: { title: string; icon: string }[] = [
-  { title: 'TSA Indirect Air Carrier (IAC) compliant', icon: '🛡️' },
-  { title: 'TWIC-cleared personnel', icon: '🪪' },
-  { title: 'Customer-centric', icon: '😊' },
-]
+const credentials = [
+  { title: 'TSA Indirect Air Carrier (IAC) compliant', Icon: Shield },
+  { title: 'TWIC-cleared personnel', Icon: BadgeCheck },
+  { title: 'Customer-centric', Icon: HeartHandshake },
+] as const
 
-const stepIcons = ['📋', '📡', '✅'] as const
-
-const CHECK = '✅'
+const stepIcons = [ClipboardList, Radar, Check] as const
 
 const HOME_SECTIONS = [
   { id: 'about', label: 'About' },
@@ -623,7 +649,7 @@ function ServiceLanding({ serviceIndex, onRequestQuote }: { serviceIndex: number
               <h2>Service specifications</h2>
             </div>
             <ul className="service-spec-grid">
-              {service.specs.map(spec => <li key={spec}><span className="emoji-icon" aria-hidden="true">{CHECK}</span><span>{spec}</span></li>)}
+              {service.specs.map(spec => <li key={spec}><LineIcon icon={Check} className="check-icon" /><span>{spec}</span></li>)}
             </ul>
           </div>
 
@@ -827,12 +853,12 @@ function App() {
       <section className="capabilities section-pad" id="capabilities">
         <div className="shell"><Label>Our services</Label><div className="section-heading"><h2>A faster path through complex freight.</h2><p>One operations team coordinates the route, documentation, handling and handoffs—so there are fewer places for critical cargo to stall.</p></div>
           <div className={`capability-explorer ${selectedCapability ? 'detail-open' : ''}`}>
-            <div className="cap-list">{capabilities.map((capability, i) => <button type="button" className={activeCapability === i ? 'active' : ''} key={capability.title} onClick={() => setActiveCapability(activeCapability === i ? null : i)} aria-expanded={activeCapability === i} aria-controls="capability-detail"><b>{String(i+1).padStart(2,'0')}</b><span className="icon" aria-hidden="true"><span className="emoji-icon">{capability.icon}</span></span><h3>{capability.title}</h3><p>{capability.summary}</p><ArrowRight aria-hidden="true" /></button>)}</div>
+            <div className="cap-list">{capabilities.map((capability, i) => <button type="button" className={activeCapability === i ? 'active' : ''} key={capability.title} onClick={() => setActiveCapability(activeCapability === i ? null : i)} aria-expanded={activeCapability === i} aria-controls="capability-detail"><b>{String(i+1).padStart(2,'0')}</b><span className="icon" aria-hidden="true"><LineIcon icon={capability.Icon} /></span><h3>{capability.title}</h3><p>{capability.summary}</p><ArrowRight aria-hidden="true" /></button>)}</div>
             <aside className="cap-detail" id="capability-detail" aria-live="polite" aria-hidden={!selectedCapability}>
               {selectedCapability && <>
                 <button type="button" className="cap-close" onClick={() => setActiveCapability(null)} aria-label="Close capability details"><X aria-hidden="true" /></button>
                 <div className="cap-detail-image" style={{backgroundImage:`linear-gradient(180deg,transparent,rgba(16,36,59,.75)),url(${selectedCapability.image})`}}><span>{String(activeCapability!+1).padStart(2,'0')} / {String(capabilities.length).padStart(2,'0')}</span></div>
-                <div className="cap-detail-body"><small>{selectedCapability.eyebrow}</small><h3>{selectedCapability.title}</h3><p>{selectedCapability.description}</p><h4>Service specifications</h4><ul>{selectedCapability.specs.map(spec => <li key={spec}><span className="emoji-icon" aria-hidden="true">{CHECK}</span>{spec}</li>)}</ul><div className="cap-price"><small>Pricing</small><span>{selectedCapability.pricing}</span></div><button className="button" type="button" onClick={() => setActiveQuote(activeCapability!)}>{selectedCapability.cta}<ArrowRight /></button><a className="text-link service-page-link" href={SERVICE_PATHS[activeCapability!]}>Open dedicated service page <ArrowRight /></a></div>
+                <div className="cap-detail-body"><small>{selectedCapability.eyebrow}</small><h3>{selectedCapability.title}</h3><p>{selectedCapability.description}</p><h4>Service specifications</h4><ul>{selectedCapability.specs.map(spec => <li key={spec}><LineIcon icon={Check} className="check-icon" />{spec}</li>)}</ul><div className="cap-price"><small>Pricing</small><span>{selectedCapability.pricing}</span></div><button className="button" type="button" onClick={() => setActiveQuote(activeCapability!)}>{selectedCapability.cta}<ArrowRight /></button><a className="text-link service-page-link" href={SERVICE_PATHS[activeCapability!]}>Open dedicated service page <ArrowRight /></a></div>
               </>}
             </aside>
           </div>
@@ -842,13 +868,13 @@ function App() {
       <section className="industries" id="industries">
         <div className="industry-intro section-pad" style={{backgroundImage:`linear-gradient(180deg,rgba(242,105,60,.9),rgba(191,65,30,.96)),url(${selectedIndustry.image})`}}>
           <div className="mobile-industry-intro"><Label>Built around the cargo</Label><h2>Specialized teams for high-stakes industries.</h2><p>Choose a sector below to see how we protect specialized cargo from pickup through delivery.</p></div>
-                    <div className="industry-panel-content" key={selectedIndustry.title}><Label>Built around the cargo</Label><span className="industry-kicker">{String(activeIndustry+1).padStart(2,'0')} / 06 • {selectedIndustry.title}</span><h2>{selectedIndustry.heading}</h2><p>{selectedIndustry.description}</p><ul>{selectedIndustry.services.map(service => <li key={service}><span className="emoji-icon" aria-hidden="true">{CHECK}</span>{service}</li>)}</ul><a className="industry-cta" href={`mailto:operations@hanzlogistics.com?subject=${encodeURIComponent(selectedIndustry.title + ' shipment')}`}>Discuss your shipment <ArrowRight /></a></div>
+                    <div className="industry-panel-content" key={selectedIndustry.title}><Label>Built around the cargo</Label><span className="industry-kicker">{String(activeIndustry+1).padStart(2,'0')} / 06 • {selectedIndustry.title}</span><h2>{selectedIndustry.heading}</h2><p>{selectedIndustry.description}</p><ul>{selectedIndustry.services.map(service => <li key={service}><LineIcon icon={Check} className="check-icon" />{service}</li>)}</ul><a className="industry-cta" href={`mailto:operations@hanzlogistics.com?subject=${encodeURIComponent(selectedIndustry.title + ' shipment')}`}>Discuss your shipment</a></div>
           <div className="sector-count"><strong>06</strong><span>Specialized sectors</span></div><small>⌖ Domestic • International</small>
         </div>
-        <div className="industry-list section-pad" role="list">{industries.map((industry, index) => { const isActive = activeIndustry === index; return <article className={`industry-item ${isActive ? 'active' : ''}`} role="listitem" key={industry.title}><button type="button" className={isActive ? 'active' : ''} onClick={() => setActiveIndustry(index)} onMouseEnter={() => setActiveIndustry(index)} aria-expanded={isActive} aria-controls={isActive ? `industry-detail-${index}` : undefined}><b>{String(index+1).padStart(2,'0')}</b><span className="industry-icon" aria-hidden="true"><span className="emoji-icon">{industry.icon}</span></span><h3>{industry.title}</h3><p>{industry.summary}</p><ArrowRight aria-hidden="true" /></button>{isActive && <div className="mobile-industry-detail" id={`industry-detail-${index}`}><div className="mobile-industry-image" style={{backgroundImage:`linear-gradient(180deg,transparent,rgba(16,36,59,.75)),url(${industry.image})`}}><span>{industry.title}</span></div><p>{industry.description}</p><ul>{industry.services.map(service => <li key={service}><span className="emoji-icon" aria-hidden="true">{CHECK}</span>{service}</li>)}</ul><a href={`mailto:operations@hanzlogistics.com?subject=${encodeURIComponent(industry.title + ' shipment')}`}>Discuss your shipment <ArrowRight aria-hidden="true" /></a></div>}</article> })}</div>
+        <div className="industry-list section-pad" role="list">{industries.map((industry, index) => { const isActive = activeIndustry === index; return <article className={`industry-item ${isActive ? 'active' : ''}`} role="listitem" key={industry.title}><button type="button" className={isActive ? 'active' : ''} onClick={() => setActiveIndustry(index)} onMouseEnter={() => setActiveIndustry(index)} aria-expanded={isActive} aria-controls={isActive ? `industry-detail-${index}` : undefined}><b>{String(index+1).padStart(2,'0')}</b><span className="industry-icon" aria-hidden="true"><LineIcon icon={industry.Icon} /></span><h3>{industry.title}</h3><p>{industry.summary}</p><ArrowRight aria-hidden="true" /></button>{isActive && <div className="mobile-industry-detail" id={`industry-detail-${index}`}><div className="mobile-industry-image" style={{backgroundImage:`linear-gradient(180deg,transparent,rgba(16,36,59,.75)),url(${industry.image})`}}><span>{industry.title}</span></div><p>{industry.description}</p><ul>{industry.services.map(service => <li key={service}><LineIcon icon={Check} className="check-icon" />{service}</li>)}</ul><a className="industry-cta" href={`mailto:operations@hanzlogistics.com?subject=${encodeURIComponent(industry.title + ' shipment')}`}>Discuss your shipment</a></div>}</article> })}</div>
       </section>
 
-      <section className="process section-pad" id="standard"><div className="shell"><Label>One team • Full visibility</Label><div className="section-heading"><h2>Control at every handoff.</h2><p>From the first call to final delivery, a Hanz operator owns the details and keeps the record current.</p></div><div className="steps">{steps.map((step,i) => <button className="step-card" type="button" key={step.title} onClick={() => setActiveStep(i)} aria-haspopup="dialog" aria-label={`View ${step.title} process details`}><div className="step-top"><b>{String(i+1).padStart(2,'0')}</b><span className="emoji-icon" aria-hidden="true">{stepIcons[i]}</span></div><img src={step.image} alt="" loading="lazy" /><h3>{step.title}</h3><p>{step.summary}</p><span className="step-more">View full process <ArrowRight aria-hidden="true" /></span></button>)}</div><div className="credentials"><Label>Credentials &amp; strengths</Label><div className="steps" role="list">{credentials.map(({ title, icon }, i) => <article className="step-card" role="listitem" key={title}><div className="step-top"><b>{String(i+1).padStart(2,'0')}</b><span className="emoji-icon" aria-hidden="true">{icon}</span></div><h3>{title}</h3></article>)}</div><div className="capability-download"><p>Need a shareable overview of Hanz capabilities for procurement or vendor onboarding?</p><a className="button" href="/assets/hanz-logistics-capability-statement.pdf" download="Hanz-Logistics-Capability-Statement.pdf">Download Capability Statement <ArrowRight aria-hidden="true" /></a></div></div></div></section>
+      <section className="process section-pad" id="standard"><div className="shell"><Label>One team • Full visibility</Label><div className="section-heading"><h2>Control at every handoff.</h2><p>From the first call to final delivery, a Hanz operator owns the details and keeps the record current.</p></div><div className="steps">{steps.map((step,i) => { const StepIcon = stepIcons[i]; return <button className="step-card" type="button" key={step.title} onClick={() => setActiveStep(i)} aria-haspopup="dialog" aria-label={`View ${step.title} process details`}><div className="step-top"><b>{String(i+1).padStart(2,'0')}</b><LineIcon icon={StepIcon} /></div><img src={step.image} alt="" loading="lazy" /><h3>{step.title}</h3><p>{step.summary}</p><span className="step-more">View full process</span></button>})}</div><div className="credentials"><Label>Credentials &amp; strengths</Label><div className="steps" role="list">{credentials.map(({ title, Icon }, i) => <article className="step-card" role="listitem" key={title}><div className="step-top"><b>{String(i+1).padStart(2,'0')}</b><LineIcon icon={Icon} className="cred-icon" /></div><h3>{title}</h3></article>)}</div><div className="capability-download"><p>Need a shareable overview of Hanz capabilities for procurement or vendor onboarding?</p><a className="button" href="/assets/hanz-logistics-capability-statement.pdf" download="Hanz-Logistics-Capability-Statement.pdf">Download Capability Statement <ArrowRight aria-hidden="true" /></a></div></div></div></section>
 
       <section className="cta section-pad" id="contact" style={{ backgroundImage: `linear-gradient(90deg, rgba(16,36,59,.8), rgba(16,36,59,.25)), url(${images.cta})` }}><div className="shell cta-grid"><div><Label>Ready when the clock starts</Label><h2>The shipment is urgent. The next move should be clear.</h2><p>Tell us what is moving, where it needs to go and when it must arrive. An operator will take it from there.</p></div><aside><small>Start here</small><a href="tel:+14123453837" aria-label="Call Hanz Logistics at (412) 345-3837">(412) 345-3837</a><a href="mailto:operations@hanzlogistics.com">operations@hanzlogistics.com</a><a href="mailto:info@hanzlogistics.com">info@hanzlogistics.com</a><a className="button" href="#capabilities" onClick={(event) => { event.preventDefault(); setActiveQuote(GENERAL_QUOTE) }}>Get a quote <ArrowRight /></a></aside></div></section>
     </main>
@@ -864,7 +890,7 @@ function App() {
           <h2 id="process-modal-title">{selectedStep.title}</h2>
           <p className="modal-intro">{selectedStep.intro}</p>
           <h3>What happens at this stage</h3>
-          <ul>{selectedStep.details.map((detail) => <li key={detail}><span className="emoji-icon" aria-hidden="true">{CHECK}</span> <span>{detail}</span></li>)}</ul>
+          <ul>{selectedStep.details.map((detail) => <li key={detail}><LineIcon icon={Check} className="check-icon" /> <span>{detail}</span></li>)}</ul>
           <div className="modal-outcome"><small>Operational outcome</small><p>{selectedStep.outcome}</p></div>
           <a className="button" href="#contact" onClick={(event) => { event.preventDefault(); setActiveStep(null); setActiveQuote(GENERAL_QUOTE) }}>Start a shipment <ArrowRight aria-hidden="true" /></a>
         </div>
