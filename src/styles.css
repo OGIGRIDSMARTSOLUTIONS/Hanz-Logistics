@@ -1352,3 +1352,202 @@
   height: 30px;
   color: #ff9b79;
 }
+
+/* ===== Mobile cleanup (boss: messy on phone) — MUST stay last ===== */
+@media (max-width: 900px) {
+  .menu-button {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    min-height: 48px;
+    padding: 0;
+    border: 1px solid #ffffff40;
+    border-radius: 8px;
+    background: #ffffff12;
+  }
+
+  .menu-button svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .nav-links {
+    inset: 108px 12px auto;
+    padding: 12px;
+    gap: 4px;
+    border: 1px solid #ffffff22;
+    border-radius: 12px;
+    max-height: min(70vh, 520px);
+    overflow-y: auto;
+  }
+
+  .nav-links > a:not(.button) {
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    padding: 12px 14px;
+    border-radius: 8px;
+    font-size: 1rem;
+  }
+
+  .nav-links > a.button {
+    margin-top: 8px;
+    min-height: 52px;
+    justify-content: center;
+  }
+
+  /* Override boss-polish desktop sizes that overcrowded phones */
+  .cap-list h3,
+  .cap-list button > h3 {
+    font-size: 1.02rem !important;
+  }
+
+  .cap-list p,
+  .cap-list button > p {
+    font-size: 0.88rem !important;
+    line-height: 1.45 !important;
+  }
+
+  .industry-list h3,
+  .industry-list button > h3 {
+    font-size: 1.02rem !important;
+  }
+
+  .industry-list p,
+  .industry-list button > p {
+    font-size: 0.88rem !important;
+    line-height: 1.45 !important;
+  }
+
+  .section-heading p,
+  .intro-copy > p,
+  .cta-grid > div > p {
+    font-size: 0.98rem !important;
+  }
+
+  .hero .lede {
+    font-size: 1.02rem !important;
+  }
+
+  .button {
+    font-size: 0.78rem !important;
+  }
+
+  .section-nav a {
+    font-size: 0.72rem !important;
+    padding: 8px 12px;
+  }
+
+  #capabilities,
+  #industries,
+  #process,
+  #credentials,
+  #contact {
+    scroll-margin-top: 64px;
+  }
+}
+
+@media (max-width: 767.98px) {
+  /* Sticky section chips compete with hamburger + bottom bar — hide on phones */
+  .section-nav {
+    display: none !important;
+  }
+
+  .quick-actions a {
+    font-size: 0.78rem !important;
+    letter-spacing: 0.06em;
+    gap: 8px;
+  }
+
+  .quick-actions a svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .hero {
+    min-height: max(680px, 100svh);
+  }
+}
+
+@media (max-width: 480px) {
+  .cap-list button > h3,
+  .industry-list button > h3 {
+    font-size: 0.95rem !important;
+  }
+
+  .cap-list button > p,
+  .industry-list button > p {
+    font-size: 0.8rem !important;
+  }
+
+  /* Drop trailing arrows — frees text width */
+  .cap-list button > svg:last-child,
+  .industry-list button > svg:last-child {
+    display: none !important;
+  }
+
+  .cap-list button,
+  .cap-list button:last-child,
+  .industry-list button {
+    grid-template-columns: 24px 40px minmax(0, 1fr) !important;
+  }
+
+  .cap-list button > b,
+  .industry-list button > b {
+    font-size: 0.62rem;
+  }
+
+  .cap-list button > .icon,
+  .industry-list button > .industry-icon {
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  .facts strong {
+    font-size: 0.68rem !important;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.35rem, 10.5vw, 3.1rem) !important;
+  }
+
+  .nav img,
+  .footer img {
+    width: 160px;
+  }
+}
+
+@media (max-width: 360px) {
+  .cap-list button,
+  .cap-list button:last-child,
+  .industry-list button {
+    grid-template-columns: 38px minmax(0, 1fr) !important;
+  }
+
+  .cap-list button > b,
+  .industry-list button > b {
+    display: none !important;
+  }
+
+  .cap-list button > .icon,
+  .industry-list button > .industry-icon {
+    grid-column: 1 !important;
+    grid-row: 1 / 3 !important;
+  }
+
+  .cap-list button > h3,
+  .industry-list button > h3 {
+    grid-column: 2 !important;
+  }
+
+  .cap-list button > p,
+  .industry-list button > p {
+    grid-column: 2 !important;
+  }
+}
+
+body.menu-open {
+  overflow: hidden;
+}

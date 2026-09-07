@@ -708,6 +708,19 @@ function App() {
   const serviceIndex = serviceIndexFromPath(path)
 
   useEffect(() => {
+    if (!menuOpen) return
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setMenuOpen(false)
+    }
+    document.body.classList.add('menu-open')
+    document.addEventListener('keydown', onKey)
+    return () => {
+      document.body.classList.remove('menu-open')
+      document.removeEventListener('keydown', onKey)
+    }
+  }, [menuOpen])
+
+  useEffect(() => {
     const syncPath = () => setPath(normalizePath(window.location.pathname))
     window.addEventListener('popstate', syncPath)
     return () => window.removeEventListener('popstate', syncPath)
