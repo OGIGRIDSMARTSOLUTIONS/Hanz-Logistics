@@ -192,7 +192,7 @@
 @media(max-width:900px){.legal-hero{padding:34px 0 44px}.legal-hero h1{font-size:clamp(2.35rem,8vw,3.4rem)}.legal-layout{grid-template-columns:minmax(0,1fr);gap:18px}.legal-rail{position:static}.legal-document{padding:26px 20px}.capability-download{padding:20px;flex-direction:column;align-items:stretch}.capability-download .button{width:100%}}
 @media(max-width:600px){.track-hero .lede,.legal-hero .lede{max-width:min(620px,100%);margin:0;color:#e7edf2}.legal-page{background:linear-gradient(180deg,#10243b 0 220px,var(--paper) 220px)}.legal-hero h1{font-size:clamp(2.1rem,11vw,2.8rem)}.legal-document{padding:20px 16px}.legal-body{padding-top:28px}}
 
-/* Desktop density — ~125% at 100% zoom (901px+ only; ~4% smaller than prior 130% pass)
+/* Desktop density â€” ~125% at 100% zoom (901px+ only; ~4% smaller than prior 130% pass)
    Strategy: html 125% scales rem/em typography once; px layout + vw in clamp scaled separately. */
 @media (min-width: 901px) {
   html {
@@ -1353,7 +1353,7 @@
   color: #ff9b79;
 }
 
-/* ===== Mobile cleanup (boss: messy on phone) � MUST stay last ===== */
+/* ===== Mobile cleanup (boss: messy on phone) — MUST stay last ===== */
 @media (max-width: 900px) {
   .menu-button {
     display: grid;
@@ -1450,7 +1450,7 @@
 }
 
 @media (max-width: 767.98px) {
-  /* Sticky section chips compete with hamburger + bottom bar � hide on phones */
+  /* Sticky section chips compete with hamburger + bottom bar — hide on phones */
   .section-nav {
     display: none !important;
   }
@@ -1482,7 +1482,7 @@
     font-size: 0.8rem !important;
   }
 
-  /* Drop trailing arrows � frees text width */
+  /* Drop trailing arrows — frees text width */
   .cap-list button > svg:last-child,
   .industry-list button > svg:last-child {
     display: none !important;
