@@ -294,8 +294,8 @@ function SiteFooter({ fromServicePage = false }: { fromServicePage?: boolean }) 
           <h3>Contact</h3>
           <span>24 / 7 / 365 Operations</span>
           <a href="tel:+14123453837" aria-label="Call Hanz Logistics at (412) 345-3837">(412) 345-3837</a>
-          <a href="mailto:operations@hanzlogistics.com">operations@hanzlogistics.com</a>
-          <a href="mailto:info@hanzlogistics.com">info@hanzlogistics.com</a>
+          <a href="mailto:operations@hanzlogistics.com">operations@<wbr />hanzlogistics.com</a>
+          <a href="mailto:info@hanzlogistics.com">info@<wbr />hanzlogistics.com</a>
         </div>
       </div>
       <div className="shell legal">
@@ -368,15 +368,21 @@ function TrackPage() {
     try {
       const response = await fetch(endpoint, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
         body: JSON.stringify({ trackingNumber: value }),
       })
 
+      const raw = await response.text()
       let payload: (TrackingResult & { error?: string; message?: string }) | null = null
-      try {
-        payload = await response.json()
-      } catch {
-        payload = null
+      if (raw) {
+        try {
+          payload = JSON.parse(raw) as TrackingResult & { error?: string; message?: string }
+        } catch {
+          payload = null
+        }
       }
 
       if (response.status === 400) {
@@ -390,10 +396,18 @@ function TrackPage() {
         return
       }
 
-      if (!response.ok || !payload) {
+      if (!response.ok) {
         setTrackState({
           kind: 'error',
-          message: payload?.message || 'Unable to retrieve tracking information right now.',
+          message: payload?.message || `Unable to retrieve tracking information right now (${response.status}).`,
+        })
+        return
+      }
+
+      if (!payload) {
+        setTrackState({
+          kind: 'error',
+          message: 'Tracking service returned an unreadable response. Please try again in a moment.',
         })
         return
       }

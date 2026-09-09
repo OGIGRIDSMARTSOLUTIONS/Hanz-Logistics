@@ -188,6 +188,8 @@
 .legal-hero .label{color:#ff9b79}
 .legal-links{display:inline-flex;flex-wrap:wrap;align-items:center;gap:0;min-width:0}
 .footer-grid a[href^="tel:"]{font-weight:600}
+.footer-grid{grid-template-columns:minmax(0,2fr) repeat(2,minmax(0,1fr)) minmax(12.5rem,1.35fr)}
+.footer-grid a[href^="mailto:"]{overflow-wrap:break-word;word-break:normal;line-height:1.45}
 @media(max-width:900px){.section-nav-inner{padding:10px 18px;gap:6px}.section-nav a{padding:8px 12px;font-size:.62rem}}
 @media(max-width:900px){.legal-hero{padding:34px 0 44px}.legal-hero h1{font-size:clamp(2.35rem,8vw,3.4rem)}.legal-layout{grid-template-columns:minmax(0,1fr);gap:18px}.legal-rail{position:static}.legal-document{padding:26px 20px}.capability-download{padding:20px;flex-direction:column;align-items:stretch}.capability-download .button{width:100%}}
 @media(max-width:600px){.track-hero .lede,.legal-hero .lede{max-width:min(620px,100%);margin:0;color:#e7edf2}.legal-page{background:linear-gradient(180deg,#10243b 0 220px,var(--paper) 220px)}.legal-hero h1{font-size:clamp(2.1rem,11vw,2.8rem)}.legal-document{padding:20px 16px}.legal-body{padding-top:28px}}
